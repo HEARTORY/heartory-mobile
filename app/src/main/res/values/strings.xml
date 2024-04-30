@@ -30,4 +30,5 @@
         <item quantity="other">Pulse: %2.1f (%d cycles in %2.1f seconds)</item>
     </plurals>
     <string name="default_notify_title">Message</string>
+    <string name="title_activity_compose">composeActivity</string>
 </resources>

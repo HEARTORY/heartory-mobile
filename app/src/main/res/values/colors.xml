@@ -6,4 +6,5 @@
     <color name="secondary_color">#613EEA</color>
     <color name="primary_text_color">#38419D</color>
     <color name="secondary_text_color">#707070</color>
+    <color name="light_blue">#A9C0FF</color>
 </resources>

@@ -154,7 +154,7 @@ public class HeartbeatActivity extends Activity implements ActivityCompat.OnRequ
         Log.i("MENU", "menu is being prepared");
 
         MenuInflater inflater = getMenuInflater();
-        inflater.inflate(R.menu.menu, menu);
+        inflater.inflate(R.menu.bottom_nav_menu, menu);
 
         return super.onPrepareOptionsMenu(menu);
     }
