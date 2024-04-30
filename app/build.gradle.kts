@@ -12,9 +12,15 @@ android {
     compileSdk = 34
 
     buildFeatures{
-        viewBinding = true
-        dataBinding = true
         compose = true
+    }
+
+    viewBinding {
+        this.enable = true
+    }
+
+    dataBinding{
+        this.enable = true
     }
 
     defaultConfig {
@@ -115,13 +121,17 @@ dependencies {
     implementation("com.google.firebase:firebase-database-ktx:20.3.1")
     implementation("com.google.firebase:firebase-storage-ktx:20.3.0")
 
-    //dagger hilt
-    implementation("com.google.dagger:hilt-android:2.48.1")
-    ksp("com.google.dagger:hilt-compiler:2.40.5")
+    //Dagger - Hilt
+    val daggerHiltVersion = "2.48.1"
+    implementation ("com.google.dagger:hilt-android:$daggerHiltVersion")
+    kapt("com.google.dagger:hilt-android-compiler:$daggerHiltVersion")
 
     //room
     implementation("androidx.room:room-runtime:2.6.1")
     ksp("androidx.room:room-compiler:2.6.1")
     implementation("androidx.room:room-ktx:2.6.1")
+
+    //avatar
+    implementation("io.getstream:avatarview-coil:1.0.7")
 
 }

@@ -4,6 +4,7 @@ import android.content.Intent
 import android.os.Bundle
 import android.view.MenuItem
 import android.widget.Button
+import androidx.activity.viewModels
 import androidx.navigation.findNavController
 import androidx.navigation.ui.setupWithNavController
 import com.example.healthcarecomp.base.BaseActivity
@@ -11,10 +12,13 @@ import com.google.android.material.bottomnavigation.BottomNavigationView
 import com.heartsteel.heartory.R
 import com.heartsteel.heartory.common.helper.heartbeat.HeartbeatActivity
 import com.heartsteel.heartory.databinding.ActivityMainBinding
+import dagger.hilt.android.AndroidEntryPoint
 
+@AndroidEntryPoint
 class MainActivity : BaseActivity() {
 
     private lateinit var _binding: ActivityMainBinding
+    private val mainViewModel: MainViewModel by viewModels()
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         _binding = ActivityMainBinding.inflate(layoutInflater)

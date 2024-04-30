@@ -20,20 +20,20 @@
         app:navGraph="@navigation/main_nav" />
 
     <androidx.cardview.widget.CardView
-        android:layout_width="63dp"
-        android:layout_height="63dp"
-        android:layout_marginBottom="32dp"
+        android:layout_width="66dp"
+        android:layout_height="66dp"
+        android:layout_marginBottom="15dp"
         android:backgroundTint="@color/light_blue"
         android:translationZ="1dp"
         app:cardCornerRadius="250dp"
         app:layout_constraintBottom_toBottomOf="@+id/cv_nav"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"/>
+        app:layout_constraintStart_toStartOf="parent" />
 
     <androidx.cardview.widget.CardView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="35dp"
+        android:layout_marginBottom="20dp"
         android:backgroundTint="@color/light_blue"
         android:translationZ="1dp"
         app:cardCornerRadius="250dp"
@@ -43,13 +43,13 @@
 
         <com.google.android.material.floatingactionbutton.FloatingActionButton
             android:id="@+id/fab_heart_rate"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
             android:backgroundTint="@color/secondary_color"
             android:contentDescription="Heart Rate"
             android:pointerIcon="wait"
             android:src="@drawable/heartbeat"
-            app:maxImageSize="32dp"
+            app:maxImageSize="30dp"
             app:tint="@color/white" />
     </androidx.cardview.widget.CardView>
 

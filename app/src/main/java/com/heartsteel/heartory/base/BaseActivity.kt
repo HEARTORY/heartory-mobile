@@ -9,7 +9,7 @@ import androidx.appcompat.app.AppCompatActivity
 import com.example.healthcarecomp.base.dialog.ConfirmDialog
 import com.example.healthcarecomp.base.dialog.ErrorDialog
 import com.example.healthcarecomp.base.dialog.NotifyDialog
-
+import dagger.hilt.android.AndroidEntryPoint
 
 open class BaseActivity : AppCompatActivity() {
 
