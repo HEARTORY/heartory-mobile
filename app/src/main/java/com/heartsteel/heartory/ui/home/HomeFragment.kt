@@ -34,6 +34,7 @@ class HomeFragment : Fragment() {
     }
 
     private fun setupView() {
+
         _binding.avUserAvatar.loadImage(R.drawable.heartory_app_logo)
     }
 
