@@ -7,9 +7,11 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import com.heartsteel.heartory.R
+import com.heartsteel.heartory.databinding.FragmentLoginBinding
 
 class LoginFragment : Fragment() {
 
+    private  lateinit var _binding: FragmentLoginBinding
     companion object {
         fun newInstance() = LoginFragment()
     }
@@ -18,8 +20,8 @@ class LoginFragment : Fragment() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-
         // TODO: Use the ViewModel
+
     }
 
     override fun onCreateView(

@@ -99,6 +99,9 @@ dependencies {
     //gson
     implementation("com.squareup.retrofit2:converter-gson:2.9.0")
 
+    //moshi
+    implementation("com.squareup.retrofit2:converter-moshi:2.9.0")
+
     //okhttp
     implementation("com.squareup.okhttp3:okhttp:4.9.3")
     implementation("com.squareup.okhttp3:logging-interceptor:4.9.3")
@@ -120,6 +123,8 @@ dependencies {
     implementation("com.google.firebase:firebase-firestore-ktx:24.11.1")
     implementation("com.google.firebase:firebase-database-ktx:20.3.1")
     implementation("com.google.firebase:firebase-storage-ktx:20.3.0")
+    implementation("com.google.firebase:firebase-auth-ktx:22.3.1")
+
 
     //Dagger - Hilt
     val daggerHiltVersion = "2.48.1"
