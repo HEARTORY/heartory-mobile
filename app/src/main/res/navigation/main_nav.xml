@@ -13,6 +13,8 @@
         <action
             android:id="@+id/action_homeFragment_to_hearRateFragment"
             app:destination="@id/heartRateFragment"
+            app:popUpTo="@id/homeFragment"
+            app:popUpToInclusive="true"
             app:enterAnim="@anim/nav_default_enter_anim"
             app:exitAnim="@anim/nav_default_exit_anim" />
         <action
@@ -23,11 +25,23 @@
         <action
             android:id="@+id/action_homeFragment_to_exerciseFragment"
             app:destination="@id/exerciseFragment"
+            app:popUpTo="@id/homeFragment"
+            app:popUpToInclusive="true"
             app:enterAnim="@anim/nav_default_enter_anim"
             app:exitAnim="@anim/nav_default_exit_anim" />
         <action
             android:id="@+id/action_homeFragment_to_profileFragment"
+            app:popUpTo="@id/homeFragment"
+            app:popUpToInclusive="true"
             app:destination="@id/profileFragment" />
+        <action
+            android:id="@+id/action_homeFragment_to_analysisFragment"
+            app:popUpTo="@id/homeFragment"
+            app:popUpToInclusive="true"
+            app:destination="@id/analysisFragment" />
+        <action
+            android:id="@+id/action_homeFragment_to_articleFragment"
+            app:destination="@id/articleFragment" />
     </fragment>
     <fragment
         android:id="@+id/heartRateFragment"
@@ -49,4 +63,14 @@
         android:name="com.heartsteel.heartory.ui.profile.ProfileFragment"
         android:label="fragment_profile"
         tools:layout="@layout/fragment_profile" />
+    <fragment
+        android:id="@+id/analysisFragment"
+        android:name="com.heartsteel.heartory.ui.analysis.AnalysisFragment"
+        android:label="fragment_analysis"
+        tools:layout="@layout/fragment_analysis" />
+    <fragment
+        android:id="@+id/articleFragment"
+        android:name="com.heartsteel.heartory.ui.article.ArticleFragment"
+        android:label="fragment_article"
+        tools:layout="@layout/fragment_article" />
 </navigation>

@@ -1,4 +1,4 @@
-package com.heartsteel.heartory.ui.auth.login
+package com.heartsteel.heartory.ui.article
 
 import androidx.fragment.app.viewModels
 import android.os.Bundle
@@ -8,18 +8,18 @@ import android.view.View
 import android.view.ViewGroup
 import com.example.healthcarecomp.base.BaseFragment
 import com.heartsteel.heartory.R
-import com.heartsteel.heartory.databinding.FragmentLoginBinding
+import com.heartsteel.heartory.databinding.FragmentArticleBinding
 
-class LoginFragment : BaseFragment(R.layout.fragment_login) {
+class ArticleFragment : BaseFragment(R.layout.fragment_article) {
 
-    private  lateinit var _binding: FragmentLoginBinding
-    private val _viewModel: LoginViewModel by viewModels()
+    private lateinit var _binding: FragmentArticleBinding
+    private val _viewModel: ArticleViewModel by viewModels()
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
-        _binding = FragmentLoginBinding.inflate(layoutInflater, container, false)
+        _binding = FragmentArticleBinding.inflate(layoutInflater, container, false)
         setupView()
         setupEvent()
         return _binding.root
