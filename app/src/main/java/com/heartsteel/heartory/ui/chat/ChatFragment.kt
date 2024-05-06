@@ -6,26 +6,32 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import com.example.healthcarecomp.base.BaseFragment
 import com.heartsteel.heartory.R
+import com.heartsteel.heartory.databinding.FragmentChatBinding
 
-class ChatFragment : Fragment() {
+class ChatFragment : BaseFragment(R.layout.fragment_chat) {
 
-    companion object {
-        fun newInstance() = ChatFragment()
-    }
-
+    private lateinit var _binding: FragmentChatBinding
     private val viewModel: ChatViewModel by viewModels()
-
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-
-        // TODO: Use the ViewModel
-    }
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
-        return inflater.inflate(R.layout.fragment_chat, container, false)
+        _binding = FragmentChatBinding.inflate(layoutInflater, container, false)
+        setupView()
+        setupEvent()
+        return _binding.root
     }
+
+    private fun setupView() {
+
+    }
+
+    private fun setupEvent() {
+
+    }
+
+
 }
