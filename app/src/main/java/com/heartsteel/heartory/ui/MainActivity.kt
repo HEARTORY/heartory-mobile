@@ -9,6 +9,7 @@ import androidx.navigation.findNavController
 import androidx.navigation.ui.setupWithNavController
 import com.example.healthcarecomp.base.BaseActivity
 import com.google.android.material.bottomnavigation.BottomNavigationView
+import com.google.android.material.floatingactionbutton.FloatingActionButton
 import com.heartsteel.heartory.R
 import com.heartsteel.heartory.common.helper.heartbeat.HeartbeatActivity
 import com.heartsteel.heartory.databinding.ActivityMainBinding
@@ -28,10 +29,12 @@ class MainActivity : BaseActivity() {
 
     private fun setupBottomNav() {
         val navView: BottomNavigationView = findViewById(_binding.navView.id)
+        val fabHeartRate: FloatingActionButton = findViewById(_binding.fabHeartRate.id)
         val navController = findNavController(R.id.nav_host_fragment_activity_main)
+
         navView.setupWithNavController(navController)
+        fabHeartRate.setOnClickListener{
+            navController.navigate(R.id.action_homeFragment_to_hearRateFragment)
+        }
     }
-
-
-
 }
