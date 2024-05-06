@@ -94,8 +94,7 @@
                             android:layout_width="20dp"
                             android:layout_height="20dp"
                             android:layout_marginStart="9dp"
-                            android:contentDescription="notification"
-                            android:src="@drawable/bell"
+                            android:src="@drawable/ic_noti_red_dot"
                             app:layout_constraintBottom_toBottomOf="parent"
                             app:layout_constraintStart_toStartOf="parent"
                             app:layout_constraintTop_toTopOf="parent" />
@@ -372,7 +371,7 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="35dp"
+                android:layout_marginTop="39dp"
                 android:fontFamily="@font/poppins_bold"
                 android:text="Your heart status"
                 android:textColor="@color/primary_text_color"

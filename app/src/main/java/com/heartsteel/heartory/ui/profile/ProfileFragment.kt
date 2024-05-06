@@ -9,6 +9,7 @@ import android.view.ViewGroup
 import com.example.healthcarecomp.base.BaseFragment
 import com.heartsteel.heartory.R
 import com.heartsteel.heartory.databinding.FragmentProfileBinding
+import io.getstream.avatarview.coil.loadImage
 
 class ProfileFragment : BaseFragment(R.layout.fragment_profile) {
 
@@ -26,6 +27,7 @@ class ProfileFragment : BaseFragment(R.layout.fragment_profile) {
     }
 
     private fun setupView() {
+        _binding.avUserAvatar.loadImage(R.drawable.heartory_app_logo)
 
     }
 
