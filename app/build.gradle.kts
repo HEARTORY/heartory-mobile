@@ -139,4 +139,6 @@ dependencies {
     //avatar
     implementation("io.getstream:avatarview-coil:1.0.7")
 
+    // viewPager2
+    implementation("androidx.viewpager2:viewpager2:1.0.0")
 }

@@ -17,8 +17,6 @@
             app:popUpToInclusive="true"
             app:enterAnim="@anim/nav_default_enter_anim"
             app:exitAnim="@anim/nav_default_exit_anim"
-            app:popUpTo="@id/homeFragment"
-            app:popUpToInclusive="true"
             />
         <action
             android:id="@+id/action_homeFragment_to_chatFragment"

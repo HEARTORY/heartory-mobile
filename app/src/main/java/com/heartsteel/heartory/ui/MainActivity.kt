@@ -34,7 +34,7 @@ class MainActivity : BaseActivity() {
 
         navView.setupWithNavController(navController)
         fabHeartRate.setOnClickListener{
-            navController.navigate(R.id.action_homeFragment_to_hearRateFragment)
+            navController.navigate(R.id.heartRateFragment)
         }
     }
 }

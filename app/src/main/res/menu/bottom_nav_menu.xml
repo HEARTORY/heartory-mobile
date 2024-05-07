@@ -8,11 +8,12 @@
     <item
         android:id="@+id/analysisFragment"
         android:icon="@drawable/ic_auto_graph_24"
-        android:title="Chat" />
+        android:title="Analysis" />
 
     <item
         android:id="@+id/heartRateFragment"
-        android:title="HeartRate"/>
+        android:title="heart rate"
+        android:enabled="false"/>
 
     <item
         android:id="@+id/exerciseFragment"
