@@ -200,6 +200,7 @@
         </LinearLayout>
 
         <LinearLayout
+            android:id="@+id/llLogout"
             android:layout_width="match_parent"
             android:layout_height="60dp"
             android:paddingHorizontal="20dp">
