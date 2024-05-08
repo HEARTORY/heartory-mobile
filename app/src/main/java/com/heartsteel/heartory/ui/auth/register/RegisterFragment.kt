@@ -12,6 +12,10 @@ import com.heartsteel.heartory.databinding.FragmentRegisterBinding
 
 class RegisterFragment : BaseFragment(R.layout.fragment_register) {
 
+    companion object{
+        fun newInstance() = RegisterFragment()
+    }
+
     private lateinit var _binding: FragmentRegisterBinding
     private val _viewModel: RegisterViewModel by viewModels()
 

@@ -12,6 +12,10 @@ import com.heartsteel.heartory.databinding.FragmentLoginBinding
 
 class LoginFragment : BaseFragment(R.layout.fragment_login) {
 
+    companion object{
+        fun newInstance() = LoginFragment()
+    }
+
     private  lateinit var _binding: FragmentLoginBinding
     private val _viewModel: LoginViewModel by viewModels()
 
