@@ -9,15 +9,32 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
 import com.heartsteel.heartory.R
+import com.heartsteel.heartory.ui.MainActivity
 
 class BrandActivity : AppCompatActivity() {
 
     //splash screen
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-       setContentView(R.layout.activity_brand)
+//       setContentView(R.layout.activity_brand)
+        isFirstTime()
+
+    }
+
+    override fun onStart() {
+        super.onStart()
+        isFirstTime()
+    }
+    private fun isFirstTime (){
         Handler(Looper.getMainLooper()).postDelayed({
-            startActivity(Intent(this, OnBoardingActivity::class.java))
+            val sharedPreferencesManager = SharedPreferencesManager(this)
+            if(sharedPreferencesManager.isFirstTime){
+                startActivity(Intent(this, OnBoardingActivity::class.java))
+                finish()
+            }else{
+                startActivity(Intent(this, MainActivity::class.java))
+                finish()
+            }
             finish()
         }, 2000)
     }
