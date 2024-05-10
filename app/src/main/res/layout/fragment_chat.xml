@@ -18,10 +18,9 @@
 
             <androidx.constraintlayout.widget.ConstraintLayout
                 android:id="@+id/vChatHeader"
-                android:layout_width="match_parent"
+                android:layout_width="wrap_content"
                 android:layout_height="100dp"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintHorizontal_bias="0.0"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent">
 
@@ -30,11 +29,22 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:fontFamily="@font/poppins_medium"
+                    android:text="Chat with"
                     android:textColor="@color/primary_text_color"
                     android:textSize="28sp"
                     app:layout_constraintBottom_toBottomOf="parent"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintStart_toStartOf="parent" />
+                    app:layout_constraintEnd_toStartOf="@+id/tvChatMiaTitle" />
+
+                <TextView
+                    android:id="@+id/tvChatMiaTitle"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="@font/poppins_medium"
+                    android:text=" Mia"
+                    android:textColor="@color/pink_custom"
+                    android:textSize="28sp"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintStart_toEndOf="@+id/tvChatTitle" />
             </androidx.constraintlayout.widget.ConstraintLayout>
 
             <ImageView

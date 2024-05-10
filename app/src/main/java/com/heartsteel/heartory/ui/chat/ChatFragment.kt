@@ -29,8 +29,7 @@ class ChatFragment : BaseFragment(R.layout.fragment_chat) {
     }
 
     private fun setupView() {
-        val spannable = SpannableString("Chat with Mia")
-        _binding.tvChatTitle.text = spannable
+
     }
 
     private fun setupEvent() {
