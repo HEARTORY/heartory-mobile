@@ -5,8 +5,12 @@
     <color name="primary_color">#FF6BBB</color>
     <color name="secondary_color">#613EEA</color>
     <color name="primary_text_color">#38419D</color>
+    <color name="light_purple">#505CD3</color>
     <color name="secondary_text_color">#707070</color>
     <color name="light_blue">#A9C0FF</color>
     <color name="green">#66D0A4</color>
     <color name="red">#F44336</color>
+    <color name="light_grey">#9F9F9F</color>
+    <color name="blue">#3B579D</color>
+    <color name="blue2">#7D8FED</color>
 </resources>
