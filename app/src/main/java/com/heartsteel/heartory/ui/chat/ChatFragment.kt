@@ -1,5 +1,6 @@
 package com.heartsteel.heartory.ui.chat
 
+import android.content.Intent
 import androidx.fragment.app.viewModels
 import android.os.Bundle
 import android.text.Spannable
@@ -33,7 +34,9 @@ class ChatFragment : BaseFragment(R.layout.fragment_chat) {
     }
 
     private fun setupEvent() {
-
+        _binding.btnChatNow.setOnClickListener {
+            startActivity(Intent(this.context, ChatInsideActivity::class.java))
+        }
     }
 
 
