@@ -21,7 +21,7 @@ class HeartRateActivity : AppCompatActivity() {
 //            })
 //        }
         binding.topAppBar.setNavigationOnClickListener {
-            onBackPressed()
+
         }
     }
 }

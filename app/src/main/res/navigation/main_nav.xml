@@ -10,14 +10,14 @@
         android:name="com.heartsteel.heartory.ui.home.HomeFragment"
         android:label="fragment_home"
         tools:layout="@layout/fragment_home" >
-<!--        <action-->
-<!--            android:id="@+id/action_homeFragment_to_hearRateFragment"-->
-<!--            app:destination="@id/heartRateFragment"-->
-<!--            app:popUpTo="@id/homeFragment"-->
-<!--            app:popUpToInclusive="true"-->
-<!--            app:enterAnim="@anim/nav_default_enter_anim"-->
-<!--            app:exitAnim="@anim/nav_default_exit_anim"-->
-<!--            />-->
+        <action
+            android:id="@+id/action_homeFragment_to_hearRateFragment"
+            app:destination="@id/heartRateFragment"
+            app:popUpTo="@id/homeFragment"
+            app:popUpToInclusive="true"
+            app:enterAnim="@anim/nav_default_enter_anim"
+            app:exitAnim="@anim/nav_default_exit_anim"
+            />
         <action
             android:id="@+id/action_homeFragment_to_chatFragment"
             app:destination="@id/chatFragment"
@@ -54,6 +54,11 @@
         android:name="com.heartsteel.heartory.ui.heart_rate.HeartRateActivity"
         android:label="fragment_hear_rate"
         />
+    <fragment
+        android:id="@+id/heartRateFragment"
+        android:name="com.heartsteel.heartory.ui.heart_rate.HearRateFragment"
+        android:label="fragment_hear_rate"
+        tools:layout="@layout/fragment_hear_rate" />
     <fragment
         android:id="@+id/chatFragment"
         android:name="com.heartsteel.heartory.ui.chat.ChatFragment"

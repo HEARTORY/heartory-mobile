@@ -2,6 +2,8 @@ package com.heartsteel.heartory.ui
 
 import android.content.Intent
 import android.os.Bundle
+import android.os.Handler
+import android.os.Looper
 import android.view.MenuItem
 import android.widget.Button
 import androidx.activity.viewModels
@@ -13,6 +15,10 @@ import com.google.android.material.floatingactionbutton.FloatingActionButton
 import com.heartsteel.heartory.R
 import com.heartsteel.heartory.common.helper.heartbeat.HeartbeatActivity
 import com.heartsteel.heartory.databinding.ActivityMainBinding
+import com.heartsteel.heartory.ui.heart_rate.HeartRateActivity
+import com.heartsteel.heartory.ui.heart_rate_onboarding.BrandActivity
+import com.heartsteel.heartory.ui.heart_rate_onboarding.OnBoardingActivity
+import com.heartsteel.heartory.ui.heart_rate_onboarding.SharedPreferencesManager
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
@@ -34,7 +40,18 @@ class MainActivity : BaseActivity() {
 
         navView.setupWithNavController(navController)
         fabHeartRate.setOnClickListener{
-            navController.navigate(R.id.brandActivity)
+            isFirstTime()
+            navController.navigate(R.id.heartRateFragment)
         }
+    }
+
+    private fun isFirstTime (){
+//        Handler(Looper.getMainLooper()).postDelayed({
+            val sharedPreferencesManager = SharedPreferencesManager(this)
+            if(sharedPreferencesManager.isFirstTime){
+                startActivity(Intent(this, OnBoardingActivity::class.java))
+                finish()
+            }
+//        }, 2000)
     }
 }

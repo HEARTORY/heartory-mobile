@@ -4,6 +4,7 @@ import android.content.Intent
 import android.os.Bundle
 import android.widget.Button
 import androidx.appcompat.app.AppCompatActivity
+import androidx.navigation.findNavController
 import androidx.recyclerview.widget.RecyclerView
 import androidx.viewpager2.widget.ViewPager2
 import com.heartsteel.heartory.R
@@ -118,8 +119,15 @@ class OnBoardingActivity : AppCompatActivity() {
     private fun heartRateScreenIntent(){
         val sharedPreferences= SharedPreferencesManager(this)
         sharedPreferences.isFirstTime = false
-        val heartRateIntent = Intent(this, HeartRateActivity::class.java)
-        startActivity(heartRateIntent)
+//        val heartRateIntent = Intent(this, HeartRateActivity::class.java)
+//        startActivity(heartRateIntent)
+//        finish()
+        val navController = findNavController(R.id.nav_host_fragment_activity_main)
+
+        // Navigate to the HeartRateFragment
+        navController.navigate(R.id.heartRateFragment)
+
+        // Finish the OnBoardingActivity
         finish()
     }
 }
