@@ -17,7 +17,9 @@ import com.heartsteel.heartory.data.model.RegisterReq
 import com.heartsteel.heartory.data.repository.AuthRepository
 import com.heartsteel.heartory.databinding.FragmentRegisterBinding
 import com.heartsteel.heartory.ui.auth.AuthActivity
+import dagger.hilt.android.AndroidEntryPoint
 
+@AndroidEntryPoint
 class RegisterFragment : BaseFragment(R.layout.fragment_register) {
 
     companion object{
@@ -25,16 +27,16 @@ class RegisterFragment : BaseFragment(R.layout.fragment_register) {
     }
 
     private lateinit var _binding: FragmentRegisterBinding
-    private lateinit var _viewModel: RegisterViewModel
+    private val _viewModel: RegisterViewModel by viewModels()
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
         _binding = FragmentRegisterBinding.inflate(layoutInflater, container, false)
-        val authRepository = AuthRepository()
-        val viewModelFactory = RegisterViewModelFactory(requireActivity().application, authRepository)
-        _viewModel = ViewModelProvider(this, viewModelFactory)[RegisterViewModel::class.java]
+//        val authRepository = AuthRepository()
+//        val viewModelFactory = RegisterViewModelFactory(requireActivity().application, authRepository)
+//        _viewModel = ViewModelProvider(this, viewModelFactory)[RegisterViewModel::class.java]
         setupView()
         setupEvent()
         return _binding.root

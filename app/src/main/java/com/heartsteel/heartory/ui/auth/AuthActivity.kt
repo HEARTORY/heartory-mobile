@@ -17,7 +17,9 @@ import com.heartsteel.heartory.databinding.ActivityAuthBinding
 import com.heartsteel.heartory.databinding.ActivityMainBinding
 import com.heartsteel.heartory.ui.auth.login.LoginFragment
 import com.heartsteel.heartory.ui.auth.register.RegisterFragment
+import dagger.hilt.android.AndroidEntryPoint
 
+@AndroidEntryPoint
 class AuthActivity : BaseActivity() {
 
     private lateinit var _binding: ActivityAuthBinding

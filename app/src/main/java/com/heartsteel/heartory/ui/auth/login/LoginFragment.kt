@@ -6,6 +6,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
+import androidx.fragment.app.viewModels
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.lifecycleScope
 import com.example.healthcarecomp.base.BaseFragment
@@ -16,7 +17,9 @@ import com.heartsteel.heartory.data.repository.AuthRepository
 import com.heartsteel.heartory.databinding.FragmentLoginBinding
 import com.heartsteel.heartory.ui.MainActivity
 import com.heartsteel.heartory.ui.auth.AuthActivity
+import dagger.hilt.android.AndroidEntryPoint
 
+@AndroidEntryPoint
 class LoginFragment : BaseFragment(R.layout.fragment_login) {
 
     companion object {
@@ -24,16 +27,16 @@ class LoginFragment : BaseFragment(R.layout.fragment_login) {
     }
 
     lateinit var binding: FragmentLoginBinding
-    private lateinit var _viewModel: LoginViewModel
+    private val _viewModel: LoginViewModel by viewModels()
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
         binding = FragmentLoginBinding.inflate(layoutInflater, container, false)
-        val authRepository = AuthRepository()
-        val viewModelFactory = LoginViewModelFactory(requireActivity().application, authRepository)
-        _viewModel = ViewModelProvider(this, viewModelFactory)[LoginViewModel::class.java]
+//        val authRepository = AuthRepository()
+//        val viewModelFactory = LoginViewModelFactory(requireActivity().application, authRepository)
+//        _viewModel = ViewModelProvider(this)[LoginViewModel::class.java]
         setupView()
         setupEvent()
         return binding.root

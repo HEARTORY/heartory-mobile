@@ -1,6 +1,8 @@
 package com.heartsteel.heartory.ui.auth.login
 
 import android.app.Application
+import android.content.Context
+import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.MutableLiveData
 import com.example.healthcarecomp.base.BaseViewModel
 import com.heartsteel.heartory.common.util.InternetUtil
@@ -10,17 +12,20 @@ import com.heartsteel.heartory.data.model.LoginRes
 import com.heartsteel.heartory.data.model.RegisterReq
 import com.heartsteel.heartory.data.model.ResponseObject
 import com.heartsteel.heartory.data.repository.AuthRepository
+import dagger.hilt.android.lifecycle.HiltViewModel
+import javax.inject.Inject
 
-class LoginViewModel(
-    val app: Application,
-    val authRepository: AuthRepository
-) : BaseViewModel(app) {
+@HiltViewModel
+class LoginViewModel @Inject constructor(
+    val authRepository: AuthRepository,
+    val hasInternetConnection: ()-> Boolean
+) : BaseViewModel() {
 
     val loginState = MutableLiveData<Resource<ResponseObject<LoginRes>?>>()
     suspend fun login(loginReq: LoginReq) {
         loginState.postValue(Resource.Loading())
         try {
-            if (InternetUtil(this).hasInternetConnection()) {
+            if (hasInternetConnection()) {
                 authRepository.login(loginReq).let {
                     if (it.isSuccessful) {
                         loginState.postValue(Resource.Success(it.body()))
@@ -35,4 +40,5 @@ class LoginViewModel(
             loginState.postValue(Resource.Error(t.message ?: "An error occurred"))
         }
     }
+
 }

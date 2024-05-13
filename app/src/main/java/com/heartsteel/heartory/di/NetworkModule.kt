@@ -1,10 +1,12 @@
 package com.example.healthcarecomp.di
 
+import android.content.Context
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.database.DatabaseReference
 import com.google.firebase.database.FirebaseDatabase
 import com.google.firebase.storage.FirebaseStorage
 import com.heartsteel.heartory.common.constant.ApiConstant
+import com.heartsteel.heartory.common.util.InternetUtil
 import com.squareup.moshi.Moshi
 import dagger.Module
 import dagger.Provides
@@ -76,5 +78,11 @@ object NetworkModule {
     @Singleton
     fun provideFirebaseStorage(): FirebaseStorage{
         return FirebaseStorage.getInstance()
+    }
+
+    @Provides
+    @Singleton
+    fun hasInternetConnection(context: Context): ()-> Boolean{
+        return InternetUtil(context)::hasInternetConnection
     }
 }

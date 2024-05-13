@@ -7,9 +7,9 @@ import android.os.Build
 import androidx.lifecycle.AndroidViewModel
 import com.heartsteel.heartory.HeartoryApp
 
-class InternetUtil(val androidViewModel: AndroidViewModel) {
+class InternetUtil(val context: Context) {
     fun hasInternetConnection(): Boolean {
-        val connectivityManager = androidViewModel.getApplication<HeartoryApp>().getSystemService(
+        val connectivityManager = context.getSystemService(
             Context.CONNECTIVITY_SERVICE
         ) as ConnectivityManager
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
