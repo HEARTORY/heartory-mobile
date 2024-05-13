@@ -5,7 +5,7 @@
     android:id="@+id/main"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".ui.heart_rate.HeartRateActivity">
+    tools:context=".ui.heart_rate.heartbeat.HeartRateActivity">
 
   <com.google.android.material.appbar.AppBarLayout
       android:layout_width="match_parent"
@@ -22,8 +22,89 @@
         app:layout_constraintTop_toTopOf="parent"
         app:layout_scrollFlags="scroll|enterAlwaysCollapsed|enterAlways"
         app:navigationIcon="@drawable/baseline_arrow_back"
+        app:navigationIconTint="@color/primary_text_color"
         app:menu="@menu/top_app_bar_menu"
         app:title="Measuring"
+        app:titleTextColor="@color/primary_text_color"
         app:titleCentered="true" />
   </com.google.android.material.appbar.AppBarLayout>
+
+  <LinearLayout
+      android:layout_width="match_parent"
+      android:layout_height="match_parent"
+      android:orientation="vertical"
+      app:layout_behavior="@string/appbar_scrolling_view_behavior">
+
+    <LinearLayout
+        android:id="@+id/linear_layout"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:orientation="vertical">
+
+      <TextureView
+          android:id="@+id/textureView2"
+          android:layout_width="@dimen/camera_view_width"
+          android:layout_height="@dimen/camera_view_height"
+          android:layout_gravity="center" />
+
+      <ImageView
+          android:id="@+id/heart_beat_image"
+          android:layout_width="match_parent"
+          android:layout_height="211dp"
+          android:layout_gravity="center"
+          android:layout_marginBottom="20dp"
+          android:clickable="true"
+          android:focusable="true"
+          android:onClick="onClickNewMeasurement"
+          android:src="@drawable/heart_beat" />
+
+      <EditText
+          android:id="@+id/editText"
+          android:layout_width="match_parent"
+          android:layout_height="wrap_content"
+          android:fontFamily="@font/poppins_medium"
+          android:gravity="center"
+          android:importantForAutofill="no"
+          android:inputType="none"
+          android:layout_marginHorizontal="@android:dimen/app_icon_size"
+          android:text="@string/heart_rate_instruction"
+          android:textColor="@color/primary_text_color" />
+
+      <LinearLayout
+          android:id="@+id/constraintLayout"
+          android:layout_width="match_parent"
+          android:layout_height="wrap_content"
+          android:layout_gravity="bottom"
+          android:orientation="vertical"
+          tools:context=".ui.heart_rate.heartbeat.HeartRateActivity">
+
+        <TextView
+            android:id="@+id/textView"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginHorizontal="@android:dimen/app_icon_size"
+            android:ellipsize="marquee"
+            android:fontFamily="@font/poppins_bold"
+            android:gravity="center_vertical"
+            android:textAlignment="gravity"
+            android:textSize="20sp"
+            android:textColor="@color/primary_text_color"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toBottomOf="parent" />
+
+        <TextureView
+            android:id="@+id/graphTextureView"
+            android:layout_width="match_parent"
+            android:layout_height="200dp"
+            android:layout_gravity="bottom"
+            android:backgroundTint="@android:color/transparent"
+            app:layout_constraintStart_toStartOf="@+id/textView"
+            app:layout_constraintTop_toTopOf="@+id/textView" />
+
+      </LinearLayout>
+    </LinearLayout>
+
+  </LinearLayout>
+
 </androidx.coordinatorlayout.widget.CoordinatorLayout>

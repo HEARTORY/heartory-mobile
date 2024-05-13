@@ -10,6 +10,7 @@
         android:id="@+id/notification_icon"
         android:title="notification"
         android:icon="@drawable/bell"
+        android:iconTint="@color/primary_text_color"
         app:showAsAction="ifRoom" />
 
 </menu>

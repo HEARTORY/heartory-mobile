@@ -22,7 +22,7 @@
         android:theme="@style/Theme.Heartory"
         tools:targetApi="31" >
         <activity
-            android:name=".ui.heart_rate.HeartRateActivity"
+            android:name=".ui.heart_rate.heartbeat.HeartRateActivity"
             android:exported="true"
             >
 

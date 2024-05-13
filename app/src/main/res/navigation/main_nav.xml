@@ -46,12 +46,12 @@
     </fragment>
     <activity
         android:id="@+id/heartRateActivity"
-        android:name="com.heartsteel.heartory.ui.heart_rate.HeartRateActivity"
+        android:name="com.heartsteel.heartory.ui.heart_rate.heartbeat.HeartRateActivity"
         android:label="fragment_hear_rate"
          />
     <activity
         android:id="@+id/brandActivity"
-        android:name="com.heartsteel.heartory.ui.heart_rate.HeartRateActivity"
+        android:name="com.heartsteel.heartory.ui.heart_rate.heartbeat.HeartRateActivity"
         android:label="fragment_hear_rate"
         />
     <fragment
