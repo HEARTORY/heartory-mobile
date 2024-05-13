@@ -2,18 +2,272 @@
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/main"
+    android:id="@+id/chatInsideActivity"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".ui.chat.ChatInsideActivity">
+    <!--Header-->
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/vInsideChatHeader"
+        android:layout_width="wrap_content"
+        android:layout_height="100dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
 
-    <TextView
-        android:id="@+id/aaaa"
+        <TextView
+            android:id="@+id/tvChatTitle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:fontFamily="@font/poppins_medium"
+            android:text="Chat with"
+            android:textColor="@color/primary_text_color"
+            android:textSize="24sp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toStartOf="@+id/tvChatMiaTitle"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:id="@+id/tvChatMiaTitle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:fontFamily="@font/poppins_medium"
+            android:text=" Mia"
+            android:textColor="@color/pink_custom"
+            android:textSize="24sp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toEndOf="@+id/tvChatTitle"
+            app:layout_constraintTop_toTopOf="parent" />
+    </androidx.constraintlayout.widget.ConstraintLayout>
+    <!--Chat box-->
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/vChatBox"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:fontFamily="@font/poppins_medium"
-        android:text="Test Chat"
-        android:textColor="@color/primary_text_color"
-        android:textSize="28sp"
-        />
+        android:layout_height="0dp"
+        android:layout_marginHorizontal="20dp"
+        app:layout_constraintBottom_toBottomOf="@id/chatInsideActivity"
+        app:layout_constraintTop_toBottomOf="@id/vInsideChatHeader">
+
+        <ScrollView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+                <!--Message line-->
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:id="@+id/vMessageLine"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="10dp"
+                    app:layout_constraintBottom_toTopOf="@id/vMessageLine2">
+
+                    <androidx.cardview.widget.CardView
+                        android:id="@+id/cvMiaMessageAva"
+                        android:layout_width="32dp"
+                        android:layout_height="32dp"
+                        app:cardCornerRadius="12dp"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintEnd_toStartOf="@id/cvMiaContent"
+                        app:layout_constraintStart_toStartOf="parent">
+
+                        <ImageView
+                            android:id="@+id/ivMiaMessageAva"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:src="@drawable/heartory_app_logo" />
+                    </androidx.cardview.widget.CardView>
+
+                    <androidx.cardview.widget.CardView
+                        android:id="@+id/cvMiaContent"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="10dp"
+                        app:cardCornerRadius="12dp"
+                        app:contentPadding="10dp"
+                        app:layout_constraintStart_toEndOf="@id/cvMiaMessageAva"
+                        app:layout_constraintTop_toTopOf="parent">
+
+                        <androidx.constraintlayout.widget.ConstraintLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content">
+
+                            <TextView
+                                android:id="@+id/tvMiaName"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:fontFamily="@font/readexpro_regular"
+                                android:text="Mia"
+                                android:textColor="@color/mia_ava_blue"
+                                android:textSize="12sp"
+                                app:layout_constraintBottom_toTopOf="@id/tvMiaText"
+                                app:layout_constraintStart_toStartOf="parent"
+                                app:layout_constraintTop_toTopOf="parent" />
+
+                            <TextView
+                                android:id="@+id/tvMiaText"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:fontFamily="@font/readexpro_regular"
+                                android:maxWidth="220dp"
+                                android:minWidth="70dp"
+                                android:text="Hi! I'm doctor Mia."
+                                android:textSize="14sp"
+                                app:layout_constraintBottom_toTopOf="@id/cvMiaTime"
+                                app:layout_constraintStart_toStartOf="parent"
+                                app:layout_constraintTop_toBottomOf="@id/tvMiaName" />
+
+                            <androidx.constraintlayout.widget.ConstraintLayout
+                                android:id="@+id/cvMiaTime"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                app:layout_constraintBottom_toBottomOf="parent"
+                                app:layout_constraintEnd_toEndOf="parent"
+                                app:layout_constraintTop_toBottomOf="@id/tvMiaText">
+
+                                <TextView
+                                    android:id="@+id/tvMiaTime"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:fontFamily="@font/readexpro_regular"
+                                    android:paddingEnd="2dp"
+                                    android:text="03:03"
+                                    android:textSize="11sp"
+                                    app:layout_constraintBottom_toBottomOf="parent"
+                                    app:layout_constraintEnd_toStartOf="@id/ivMiaTime" />
+
+                                <ImageView
+                                    android:id="@+id/ivMiaTime"
+                                    android:layout_width="10dp"
+                                    android:layout_height="10dp"
+                                    android:src="@drawable/check2_all"
+                                    app:layout_constraintBottom_toBottomOf="parent"
+                                    app:layout_constraintStart_toEndOf="@id/tvMiaTime"
+                                    app:layout_constraintTop_toTopOf="parent" />
+                            </androidx.constraintlayout.widget.ConstraintLayout>
+                        </androidx.constraintlayout.widget.ConstraintLayout>
+                    </androidx.cardview.widget.CardView>
+                </androidx.constraintlayout.widget.ConstraintLayout>
+                <!--Message line 2-->
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:id="@+id/vMessageLine2"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="10dp"
+                    app:layout_constraintTop_toTopOf="@id/vMessageLine">
+
+                    <!--                    <androidx.cardview.widget.CardView-->
+                    <!--                        android:id="@+id/cvMiaMessageAva2"-->
+                    <!--                        android:layout_width="32dp"-->
+                    <!--                        android:layout_height="32dp"-->
+                    <!--                        app:cardCornerRadius="12dp"-->
+                    <!--                        app:layout_constraintBottom_toBottomOf="parent"-->
+                    <!--                        app:layout_constraintEnd_toStartOf="@id/cvMiaContent2"-->
+                    <!--                        app:layout_constraintStart_toStartOf="parent">-->
+
+                    <!--                        <ImageView-->
+                    <!--                            android:id="@+id/ivMiaMessageAva2"-->
+                    <!--                            android:layout_width="match_parent"-->
+                    <!--                            android:layout_height="match_parent"-->
+                    <!--                            android:src="@drawable/heartory_app_logo" />-->
+                    <!--                    </androidx.cardview.widget.CardView>-->
+                    <!---->
+                    <!--                    <androidx.cardview.widget.CardView-->
+                    <!--                        android:id="@+id/cvMiaContent2"-->
+                    <!--                        android:layout_width="wrap_content"-->
+                    <!--                        android:layout_height="wrap_content"-->
+                    <!--                        android:layout_marginStart="10dp"-->
+                    <!--                        app:cardCornerRadius="12dp"-->
+                    <!--                        app:contentPadding="10dp"-->
+                    <!--                        app:layout_constraintStart_toEndOf="@id/cvMiaMessageAva2"-->
+                    <!--                        app:layout_constraintTop_toTopOf="parent">-->
+                    <androidx.cardview.widget.CardView
+                        android:id="@+id/cvMiaContent2"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="10dp"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintTop_toTopOf="parent"
+                        app:cardCornerRadius="12dp"
+                        >
+
+                        <androidx.constraintlayout.widget.ConstraintLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:background="@drawable/bg_card_chat"
+                            android:padding="10dp"
+                            >
+
+<!--                            <TextView-->
+<!--                                android:id="@+id/tvMiaName2"-->
+<!--                                android:layout_width="wrap_content"-->
+<!--                                android:layout_height="wrap_content"-->
+<!--                                android:fontFamily="@font/readexpro_regular"-->
+<!--                                android:text="Mia"-->
+<!--                                android:textColor="@color/mia_ava_blue"-->
+<!--                                android:textSize="12sp"-->
+<!--                                app:layout_constraintBottom_toTopOf="@id/tvMiaText2"-->
+<!--                                app:layout_constraintStart_toStartOf="parent"-->
+<!--                                app:layout_constraintTop_toTopOf="parent" />-->
+
+<!--                            <TextView-->
+<!--                                android:id="@+id/tvMiaText2"-->
+<!--                                android:layout_width="wrap_content"-->
+<!--                                android:layout_height="wrap_content"-->
+<!--                                android:fontFamily="@font/readexpro_regular"-->
+<!--                                android:maxWidth="220dp"-->
+<!--                                android:minWidth="70dp"-->
+<!--                                android:text="Hi! I'm doctor Mia."-->
+<!--                                android:textSize="14sp"-->
+<!--                                app:layout_constraintBottom_toTopOf="@id/cvMiaTime2"-->
+<!--                                app:layout_constraintStart_toStartOf="parent"-->
+<!--                                app:layout_constraintTop_toBottomOf="@id/tvMiaName2" />                            -->
+                            <TextView
+                                android:id="@+id/tvMiaText2"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:fontFamily="@font/readexpro_regular"
+                                android:maxWidth="220dp"
+                                android:minWidth="70dp"
+                                android:text="I'm feeling a bit nervous while presenting at the moment. My heart is pounding hard!"
+                                android:textSize="14sp"
+                                app:layout_constraintBottom_toTopOf="@id/cvMiaTime2"
+                                app:layout_constraintStart_toStartOf="parent"
+                                app:layout_constraintTop_toTopOf="parent" />
+
+                            <androidx.constraintlayout.widget.ConstraintLayout
+                                android:id="@+id/cvMiaTime2"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                app:layout_constraintBottom_toBottomOf="parent"
+                                app:layout_constraintEnd_toEndOf="parent"
+                                app:layout_constraintTop_toBottomOf="@id/tvMiaText2">
+
+                                <TextView
+                                    android:id="@+id/tvMiaTime2"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:fontFamily="@font/readexpro_regular"
+                                    android:paddingEnd="2dp"
+                                    android:text="03:03"
+                                    android:textSize="11sp"
+                                    app:layout_constraintBottom_toBottomOf="parent"
+                                    app:layout_constraintEnd_toStartOf="@id/ivMiaTime2" />
+
+                                <ImageView
+                                    android:id="@+id/ivMiaTime2"
+                                    android:layout_width="10dp"
+                                    android:layout_height="10dp"
+                                    android:src="@drawable/check2_all"
+                                    app:layout_constraintBottom_toBottomOf="parent"
+                                    app:layout_constraintStart_toEndOf="@id/tvMiaTime2"
+                                    app:layout_constraintTop_toTopOf="parent" />
+                            </androidx.constraintlayout.widget.ConstraintLayout>
+                        </androidx.constraintlayout.widget.ConstraintLayout>
+                    </androidx.cardview.widget.CardView>
+                </androidx.constraintlayout.widget.ConstraintLayout>
+            </androidx.constraintlayout.widget.ConstraintLayout>
+        </ScrollView>
+    </androidx.constraintlayout.widget.ConstraintLayout>
 </androidx.constraintlayout.widget.ConstraintLayout>
