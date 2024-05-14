@@ -1,4 +1,4 @@
-package com.heartsteel.heartory.ui.chat
+package com.heartsteel.heartory.ui.chat.welcome
 
 import androidx.lifecycle.ViewModel
 

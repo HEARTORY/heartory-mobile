@@ -23,8 +23,7 @@
         android:usesCleartextTraffic="true"
         tools:targetApi="31">
         <activity
-            android:name=".ui.chat.ChatInsideActivity"
-            android:windowSoftInputMode="adjustResize"
+            android:name=".ui.chat.inside.ChatInsideActivity"
             android:exported="true" >
         </activity>
         <activity
