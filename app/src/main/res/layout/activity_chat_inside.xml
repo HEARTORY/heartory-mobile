@@ -49,8 +49,11 @@
         app:layout_constraintTop_toBottomOf="@id/vInsideChatHeader">
 
         <ScrollView
+            android:id="@+id/svChatBox"
             android:layout_width="match_parent"
-            android:layout_height="match_parent">
+            android:layout_height="0dp"
+            android:layout_marginBottom="20dp"
+            app:layout_constraintBottom_toTopOf="@id/clInput">
 
             <androidx.constraintlayout.widget.ConstraintLayout
                 android:layout_width="match_parent"
@@ -187,42 +190,40 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginStart="10dp"
-                        app:layout_constraintEnd_toEndOf="parent"
-                        app:layout_constraintTop_toTopOf="parent"
                         app:cardCornerRadius="12dp"
-                        >
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintTop_toTopOf="parent">
 
                         <androidx.constraintlayout.widget.ConstraintLayout
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:background="@drawable/bg_card_chat"
-                            android:padding="10dp"
-                            >
+                            android:padding="10dp">
 
-<!--                            <TextView-->
-<!--                                android:id="@+id/tvMiaName2"-->
-<!--                                android:layout_width="wrap_content"-->
-<!--                                android:layout_height="wrap_content"-->
-<!--                                android:fontFamily="@font/readexpro_regular"-->
-<!--                                android:text="Mia"-->
-<!--                                android:textColor="@color/mia_ava_blue"-->
-<!--                                android:textSize="12sp"-->
-<!--                                app:layout_constraintBottom_toTopOf="@id/tvMiaText2"-->
-<!--                                app:layout_constraintStart_toStartOf="parent"-->
-<!--                                app:layout_constraintTop_toTopOf="parent" />-->
+                            <!--                            <TextView-->
+                            <!--                                android:id="@+id/tvMiaName2"-->
+                            <!--                                android:layout_width="wrap_content"-->
+                            <!--                                android:layout_height="wrap_content"-->
+                            <!--                                android:fontFamily="@font/readexpro_regular"-->
+                            <!--                                android:text="Mia"-->
+                            <!--                                android:textColor="@color/mia_ava_blue"-->
+                            <!--                                android:textSize="12sp"-->
+                            <!--                                app:layout_constraintBottom_toTopOf="@id/tvMiaText2"-->
+                            <!--                                app:layout_constraintStart_toStartOf="parent"-->
+                            <!--                                app:layout_constraintTop_toTopOf="parent" />-->
 
-<!--                            <TextView-->
-<!--                                android:id="@+id/tvMiaText2"-->
-<!--                                android:layout_width="wrap_content"-->
-<!--                                android:layout_height="wrap_content"-->
-<!--                                android:fontFamily="@font/readexpro_regular"-->
-<!--                                android:maxWidth="220dp"-->
-<!--                                android:minWidth="70dp"-->
-<!--                                android:text="Hi! I'm doctor Mia."-->
-<!--                                android:textSize="14sp"-->
-<!--                                app:layout_constraintBottom_toTopOf="@id/cvMiaTime2"-->
-<!--                                app:layout_constraintStart_toStartOf="parent"-->
-<!--                                app:layout_constraintTop_toBottomOf="@id/tvMiaName2" />                            -->
+                            <!--                            <TextView-->
+                            <!--                                android:id="@+id/tvMiaText2"-->
+                            <!--                                android:layout_width="wrap_content"-->
+                            <!--                                android:layout_height="wrap_content"-->
+                            <!--                                android:fontFamily="@font/readexpro_regular"-->
+                            <!--                                android:maxWidth="220dp"-->
+                            <!--                                android:minWidth="70dp"-->
+                            <!--                                android:text="Hi! I'm doctor Mia."-->
+                            <!--                                android:textSize="14sp"-->
+                            <!--                                app:layout_constraintBottom_toTopOf="@id/cvMiaTime2"-->
+                            <!--                                app:layout_constraintStart_toStartOf="parent"-->
+                            <!--                                app:layout_constraintTop_toBottomOf="@id/tvMiaName2" />                            -->
                             <TextView
                                 android:id="@+id/tvMiaText2"
                                 android:layout_width="wrap_content"
@@ -269,5 +270,59 @@
                 </androidx.constraintlayout.widget.ConstraintLayout>
             </androidx.constraintlayout.widget.ConstraintLayout>
         </ScrollView>
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/clInput"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="20dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toStartOf="parent">
+
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/tfInput"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:hint="Type your message here"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toStartOf="@id/btnVector"
+                app:layout_constraintTop_toTopOf="parent"
+                app:boxCornerRadiusBottomStart="30dp"
+                app:boxCornerRadiusBottomEnd="30dp"
+                app:boxCornerRadiusTopStart="30dp"
+                app:boxCornerRadiusTopEnd="30dp"
+                android:fontFamily="@font/poppins_regular"
+                android:layout_marginEnd="10dp"
+                android:textColorHint="@color/chat_placeholder"
+                >
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/etInput"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="@font/poppins_regular"
+                    android:inputType="text"
+                    android:textColor="@color/primary_text_color"
+                    android:textSize="16sp"
+                    />
+            </com.google.android.material.textfield.TextInputLayout>
+
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/btnVector"
+                android:layout_width="68dp"
+                android:layout_height="58dp"
+                android:insetLeft="0dp"
+                android:insetTop="0dp"
+                android:insetRight="0dp"
+                android:insetBottom="0dp"
+                app:icon="@drawable/vector"
+                app:iconGravity="textStart"
+                app:iconPadding="0dp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                android:backgroundTint="@color/pink_custom"
+                />
+        </androidx.constraintlayout.widget.ConstraintLayout>
     </androidx.constraintlayout.widget.ConstraintLayout>
 </androidx.constraintlayout.widget.ConstraintLayout>
