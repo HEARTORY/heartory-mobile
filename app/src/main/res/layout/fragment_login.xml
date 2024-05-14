@@ -65,6 +65,7 @@
                 app:boxCornerRadiusTopEnd="10dp"
                 app:boxCornerRadiusTopStart="10dp"
                 app:boxStrokeColor="@color/light_grey"
+                app:errorEnabled="true"
                 app:errorTextAppearance="@font/poppins_medium"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
@@ -98,6 +99,7 @@
                 app:boxCornerRadiusTopStart="10dp"
                 app:boxStrokeColor="@color/light_grey"
                 app:endIconMode="password_toggle"
+                app:errorEnabled="true"
                 app:errorTextAppearance="@font/poppins_medium"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
@@ -184,8 +186,8 @@
                     android:id="@+id/tvRegister"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:paddingLeft="8dp"
                     android:fontFamily="@font/poppins_medium"
+                    android:paddingLeft="8dp"
                     android:text="Sign Up"
                     android:textColor="@color/primary_text_color" />
             </LinearLayout>

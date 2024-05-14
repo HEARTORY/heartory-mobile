@@ -25,18 +25,6 @@ object NetworkModule {
 
     @Provides
     @Singleton
-    fun provideFireBaseAuth(): FirebaseAuth = FirebaseAuth.getInstance()
-
-    @Provides
-    @Singleton
-    fun provideFireBaseDataBaseRef(): DatabaseReference = FirebaseDatabase.getInstance().reference
-
-    @Provides
-    @Singleton
-    fun provideFireBaseDataBase(): FirebaseDatabase = FirebaseDatabase.getInstance()
-
-    @Provides
-    @Singleton
     @Named("MainSite")
     fun provideRetrofit(
         okHttpClient: OkHttpClient,
