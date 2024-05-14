@@ -11,7 +11,6 @@
     <ScrollView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:paddingBottom="100dp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent">
 
@@ -119,26 +118,41 @@
             </androidx.constraintlayout.widget.ConstraintLayout>
 
             <!--    body-->
+            <!--    image slider-->
+            <com.denzcoskun.imageslider.ImageSlider
+                android:id="@+id/imageSlider"
+                android:layout_width="match_parent"
+                android:layout_height="160dp"
+                android:layout_marginHorizontal="16dp"
+                app:iss_auto_cycle="true"
+                app:iss_corner_radius="50"
+                app:iss_delay="1000"
+                app:iss_period="2000"
+                app:iss_text_align="CENTER"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/vHomeHeader" />
             <!--    features-->
             <TextView
                 android:id="@+id/tvFeatures"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="16dp"
-                android:layout_marginTop="32dp"
+                android:layout_marginTop="28dp"
                 android:fontFamily="@font/poppins_bold"
                 android:text="Features"
                 android:textColor="@color/primary_text_color"
                 android:textSize="20sp"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/vHomeHeader" />
+                app:layout_constraintTop_toBottomOf="@+id/imageSlider" />
 
             <androidx.cardview.widget.CardView
                 android:id="@+id/cvChat"
                 android:layout_width="180dp"
-                android:layout_height="165dp"
+                android:layout_height="wrap_content"
                 android:layout_marginTop="20dp"
                 app:cardCornerRadius="20dp"
+                app:cardElevation="0dp"
                 app:layout_constraintEnd_toStartOf="@+id/cvAnalysis"
                 app:layout_constraintHorizontal_bias="0.5"
                 app:layout_constraintHorizontal_chainStyle="spread"
@@ -150,8 +164,9 @@
                     android:layout_height="match_parent">
 
                     <androidx.cardview.widget.CardView
+                        android:layout_margin="5dp"
                         android:id="@+id/cvImgChat"
-                        android:layout_width="wrap_content"
+                        android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         app:cardCornerRadius="20dp"
                         app:cardElevation="0dp"
@@ -161,7 +176,7 @@
                         <ImageView
                             android:id="@+id/ivChat"
                             android:layout_width="match_parent"
-                            android:layout_height="100dp"
+                            android:layout_height="120dp"
                             android:scaleType="centerCrop"
                             android:src="@drawable/heartory_app_logo" />
                     </androidx.cardview.widget.CardView>
@@ -170,7 +185,7 @@
                         android:id="@+id/tvChat"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_marginStart="5dp"
+                        android:layout_marginStart="12dp"
                         android:layout_marginTop="5dp"
                         android:fontFamily="@font/poppins_medium"
                         android:text="Chat with Mia"
@@ -196,9 +211,10 @@
             <androidx.cardview.widget.CardView
                 android:id="@+id/cvAnalysis"
                 android:layout_width="180dp"
-                android:layout_height="165dp"
+                android:layout_height="wrap_content"
                 android:layout_marginTop="20dp"
                 app:cardCornerRadius="20dp"
+                app:cardElevation="0dp"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintHorizontal_bias="0.5"
                 app:layout_constraintStart_toEndOf="@+id/cvChat"
@@ -209,8 +225,9 @@
                     android:layout_height="match_parent">
 
                     <androidx.cardview.widget.CardView
+                        android:layout_margin="5dp"
                         android:id="@+id/cvImgAnalysis"
-                        android:layout_width="wrap_content"
+                        android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         app:cardCornerRadius="20dp"
                         app:cardElevation="0dp"
@@ -220,7 +237,7 @@
                         <ImageView
                             android:id="@+id/ivAnalysis"
                             android:layout_width="match_parent"
-                            android:layout_height="100dp"
+                            android:layout_height="120dp"
                             android:scaleType="centerCrop"
                             android:src="@drawable/heartory_app_logo" />
                     </androidx.cardview.widget.CardView>
@@ -229,7 +246,7 @@
                         android:id="@+id/tvAnalysis"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_marginStart="5dp"
+                        android:layout_marginStart="12dp"
                         android:layout_marginTop="5dp"
                         android:fontFamily="@font/poppins_medium"
                         android:text="Health analysis"
@@ -255,9 +272,10 @@
             <androidx.cardview.widget.CardView
                 android:id="@+id/cvExercise"
                 android:layout_width="180dp"
-                android:layout_height="165dp"
+                android:layout_height="wrap_content"
                 android:layout_marginTop="16dp"
                 app:cardCornerRadius="20dp"
+                app:cardElevation="0dp"
                 app:layout_constraintEnd_toStartOf="@+id/cvArticle"
                 app:layout_constraintHorizontal_bias="0.5"
                 app:layout_constraintStart_toStartOf="parent"
@@ -268,8 +286,9 @@
                     android:layout_height="match_parent">
 
                     <androidx.cardview.widget.CardView
+                        android:layout_margin="5dp"
                         android:id="@+id/cvImgExercise"
-                        android:layout_width="wrap_content"
+                        android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         app:cardCornerRadius="20dp"
                         app:cardElevation="0dp"
@@ -279,7 +298,7 @@
                         <ImageView
                             android:id="@+id/ivExercise"
                             android:layout_width="match_parent"
-                            android:layout_height="100dp"
+                            android:layout_height="120dp"
                             android:scaleType="centerCrop"
                             android:src="@drawable/heartory_app_logo" />
                     </androidx.cardview.widget.CardView>
@@ -288,7 +307,7 @@
                         android:id="@+id/tvExercise"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_marginStart="5dp"
+                        android:layout_marginStart="12dp"
                         android:layout_marginTop="5dp"
                         android:fontFamily="@font/poppins_medium"
                         android:text="Tailored exercises"
@@ -313,9 +332,10 @@
             <androidx.cardview.widget.CardView
                 android:id="@+id/cvArticle"
                 android:layout_width="180dp"
-                android:layout_height="165dp"
+                android:layout_height="wrap_content"
                 android:layout_marginTop="16dp"
                 app:cardCornerRadius="20dp"
+                app:cardElevation="0dp"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintHorizontal_bias="0.5"
                 app:layout_constraintStart_toEndOf="@+id/cvExercise"
@@ -326,8 +346,9 @@
                     android:layout_height="match_parent">
 
                     <androidx.cardview.widget.CardView
+                        android:layout_margin="5dp"
                         android:id="@+id/cvImgArticle"
-                        android:layout_width="wrap_content"
+                        android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         app:cardCornerRadius="20dp"
                         app:cardElevation="0dp"
@@ -337,7 +358,7 @@
                         <ImageView
                             android:id="@+id/ivArticle"
                             android:layout_width="match_parent"
-                            android:layout_height="100dp"
+                            android:layout_height="120dp"
                             android:scaleType="centerCrop"
                             android:src="@drawable/heartory_app_logo" />
                     </androidx.cardview.widget.CardView>
@@ -346,10 +367,10 @@
                         android:id="@+id/tvArticle"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_marginStart="5dp"
+                        android:layout_marginStart="12dp"
                         android:layout_marginTop="5dp"
                         android:fontFamily="@font/poppins_medium"
-                        android:text="Recommended articles"
+                        android:text="Health Articles"
                         android:textColor="@color/primary_text_color"
                         app:layout_constraintStart_toStartOf="parent"
                         app:layout_constraintTop_toBottomOf="@+id/cvImgArticle" />
@@ -371,7 +392,7 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="39dp"
+                android:layout_marginTop="28dp"
                 android:fontFamily="@font/poppins_bold"
                 android:text="Your heart status"
                 android:textColor="@color/primary_text_color"
@@ -391,7 +412,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:orientation="vertical"
-                app:layout_constraintGuide_begin="20dp" />
+                app:layout_constraintGuide_begin="16dp" />
 
         </androidx.constraintlayout.widget.ConstraintLayout>
     </ScrollView>

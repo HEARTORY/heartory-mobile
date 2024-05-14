@@ -5,6 +5,7 @@
     <color name="primary_color">#FF6BBB</color>
     <color name="secondary_color">#613EEA</color>
     <color name="primary_text_color">#38419D</color>
+    <color name="light_purple">#505CD3</color>
     <color name="secondary_text_color">#707070</color>
     <color name="light_blue">#A9C0FF</color>
     <color name="green">#66D0A4</color>
@@ -14,4 +15,5 @@
     <color name="mia_ava_blue">#858AEB</color>
     <color name="chat_placeholder">#C4C4C4</color>
     <color name="chat_placeholder_border">#DADADA</color>
+    <color name="light_grey">#9F9F9F</color>
 </resources>
