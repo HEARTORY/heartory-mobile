@@ -22,6 +22,7 @@ class LoginViewModel @Inject constructor(
 ) : BaseViewModel() {
 
     val loginState = MutableLiveData<Resource<ResponseObject<LoginRes>?>>()
+
     suspend fun login(loginReq: LoginReq) {
         loginState.postValue(Resource.Loading())
         try {

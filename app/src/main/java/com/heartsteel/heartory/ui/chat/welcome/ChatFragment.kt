@@ -1,14 +1,15 @@
-package com.heartsteel.heartory.ui.chat
+package com.heartsteel.heartory.ui.chat.welcome
 
+import android.content.Intent
 import androidx.fragment.app.viewModels
 import android.os.Bundle
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import com.example.healthcarecomp.base.BaseFragment
 import com.heartsteel.heartory.R
 import com.heartsteel.heartory.databinding.FragmentChatBinding
+import com.heartsteel.heartory.ui.chat.inside.ChatInsideActivity
 
 class ChatFragment : BaseFragment(R.layout.fragment_chat) {
 
@@ -30,7 +31,9 @@ class ChatFragment : BaseFragment(R.layout.fragment_chat) {
     }
 
     private fun setupEvent() {
-
+        _binding.btnChatNow.setOnClickListener {
+            startActivity(Intent(this.context, ChatInsideActivity::class.java))
+        }
     }
 
 
