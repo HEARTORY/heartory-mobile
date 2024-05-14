@@ -292,6 +292,7 @@
                 app:boxCornerRadiusBottomEnd="30dp"
                 app:boxCornerRadiusTopStart="30dp"
                 app:boxCornerRadiusTopEnd="30dp"
+                app:boxStrokeColor="@drawable/text_input_layout_stroke_color_chat"
                 android:fontFamily="@font/poppins_regular"
                 android:layout_marginEnd="10dp"
                 android:textColorHint="@color/chat_placeholder"
@@ -300,17 +301,17 @@
                     android:id="@+id/etInput"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:fontFamily="@font/poppins_regular"
-                    android:inputType="text"
-                    android:textColor="@color/primary_text_color"
-                    android:textSize="16sp"
+                    android:fontFamily="@font/readexpro_regular"
+                    android:inputType="textMultiLine"
+                    android:textSize="14sp"
+                    android:paddingVertical="12dp"
                     />
             </com.google.android.material.textfield.TextInputLayout>
 
             <com.google.android.material.button.MaterialButton
                 android:id="@+id/btnVector"
-                android:layout_width="68dp"
-                android:layout_height="58dp"
+                android:layout_width="58dp"
+                android:layout_height="48dp"
                 android:insetLeft="0dp"
                 android:insetTop="0dp"
                 android:insetRight="0dp"
@@ -320,7 +321,6 @@
                 app:iconPadding="0dp"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintTop_toTopOf="parent"
                 android:backgroundTint="@color/pink_custom"
                 />
         </androidx.constraintlayout.widget.ConstraintLayout>

@@ -13,4 +13,5 @@
     <color name="light_button">#3879C5</color>
     <color name="mia_ava_blue">#858AEB</color>
     <color name="chat_placeholder">#C4C4C4</color>
+    <color name="chat_placeholder_border">#DADADA</color>
 </resources>
