@@ -20,12 +20,13 @@ class ChartDrawer
 
         paint.setStyle(Paint.Style.STROKE);
 
-        paint.setColor(Color.BLUE);
+//        paint.setColor(Color.BLUE);
+        paint.setColor(Color.parseColor("#FF6BBB"));
         paint.setAntiAlias(true);
-        paint.setStrokeWidth(2);
+        paint.setStrokeWidth(5);
 
         fillWhite.setStyle(Paint.Style.FILL);
-        fillWhite.setColor(Color.WHITE);
+        fillWhite.setColor(Color.parseColor("#FAFAFA"));
 
     }
 

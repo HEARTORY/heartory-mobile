@@ -46,7 +46,8 @@
           android:id="@+id/textureView2"
           android:layout_width="@dimen/camera_view_width"
           android:layout_height="@dimen/camera_view_height"
-          android:layout_gravity="center" />
+          android:layout_gravity="center"
+          />
 
       <ImageView
           android:id="@+id/heart_beat_image"
@@ -98,7 +99,6 @@
             android:layout_width="match_parent"
             android:layout_height="200dp"
             android:layout_gravity="bottom"
-            android:backgroundTint="@android:color/transparent"
             app:layout_constraintStart_toStartOf="@+id/textView"
             app:layout_constraintTop_toTopOf="@+id/textView" />
 
