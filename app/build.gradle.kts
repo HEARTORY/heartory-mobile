@@ -88,6 +88,12 @@ dependencies {
     implementation("androidx.lifecycle:lifecycle-runtime-ktx:2.7.0")
     implementation("androidx.lifecycle:lifecycle-common-java8:2.7.0")
 
+    //recyclerview
+    implementation ("androidx.recyclerview:recyclerview:1.2.1")
+    implementation ("androidx.cardview:cardview:1.0.0")
+
+    //chart
+    implementation ("com.github.PhilJay:MPAndroidChart:v3.1.0")
     //nav
     implementation("androidx.navigation:navigation-fragment-ktx:2.7.7")
     implementation("androidx.navigation:navigation-ui-ktx:2.7.7")
@@ -138,5 +144,7 @@ dependencies {
 
     //avatar
     implementation("io.getstream:avatarview-coil:1.0.7")
+
+
 
 }

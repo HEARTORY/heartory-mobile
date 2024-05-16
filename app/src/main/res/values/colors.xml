@@ -9,4 +9,5 @@
     <color name="light_blue">#A9C0FF</color>
     <color name="green">#66D0A4</color>
     <color name="red">#F44336</color>
+    <color name="check_box">#385FDC</color>
 </resources>
