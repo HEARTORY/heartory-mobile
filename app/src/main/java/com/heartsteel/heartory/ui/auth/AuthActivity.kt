@@ -1,31 +1,26 @@
 package com.heartsteel.heartory.ui.auth
 
-import android.annotation.SuppressLint
 import android.app.Fragment
-import android.content.Context
 import android.content.Intent
 import android.content.IntentSender
 import android.os.Bundle
-import android.util.AttributeSet
 import android.util.Log
-import android.view.View
-import androidx.activity.enableEdgeToEdge
 import androidx.activity.viewModels
-import androidx.appcompat.app.AppCompatActivity
-import androidx.core.view.ViewCompat
-import androidx.core.view.WindowInsetsCompat
 import com.example.healthcarecomp.base.BaseActivity
 import com.google.android.gms.auth.api.identity.BeginSignInRequest
 import com.google.android.gms.auth.api.identity.Identity
 import com.google.android.gms.auth.api.identity.SignInClient
 import com.google.android.gms.common.api.ApiException
 import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.auth.FirebaseUser
+import com.google.firebase.auth.GoogleAuthProvider
 import com.google.firebase.auth.ktx.auth
 import com.google.firebase.ktx.Firebase
-import com.heartsteel.heartory.R
+import com.heartsteel.heartory.common.constant.RoleEnum
+import com.heartsteel.heartory.data.model.FirebaseRegisterReq
 import com.heartsteel.heartory.data.model.User
 import com.heartsteel.heartory.databinding.ActivityAuthBinding
-import com.heartsteel.heartory.databinding.ActivityMainBinding
+import com.heartsteel.heartory.ui.MainActivity
 import com.heartsteel.heartory.ui.auth.login.LoginFragment
 import com.heartsteel.heartory.ui.auth.register.RegisterFragment
 import dagger.hilt.android.AndroidEntryPoint
@@ -63,15 +58,14 @@ class AuthActivity : BaseActivity() {
         setupLoginWithGoogle()
     }
 
-    @SuppressLint("PrivateResource")
-    fun navigateToRegister(){
+    fun navigateToRegister() {
         supportFragmentManager.beginTransaction().setCustomAnimations(
             com.google.android.material.R.anim.m3_side_sheet_enter_from_right,
             com.google.android.material.R.anim.m3_side_sheet_exit_to_right,
         ).replace(_binding.fcvAuth.id, resigterFragment).commit()
     }
 
-    fun navigateToLogin(){
+    fun navigateToLogin() {
         supportFragmentManager.beginTransaction().setCustomAnimations(
             com.google.android.material.R.anim.m3_side_sheet_enter_from_left,
             com.google.android.material.R.anim.m3_side_sheet_exit_to_left,
@@ -83,7 +77,7 @@ class AuthActivity : BaseActivity() {
         super.onAttachFragment(fragment)
     }
 
-    private fun setupLoginWithGoogle(){
+    private fun setupLoginWithGoogle() {
         oneTapClient = Identity.getSignInClient(this)
 
         signInRequest = BeginSignInRequest.builder()
@@ -93,15 +87,16 @@ class AuthActivity : BaseActivity() {
                     // Your server's client ID, not your Android client ID.
                     .setServerClientId("686710245051-sa9488g9v4as8mbodigsh4cvjjt2guc3.apps.googleusercontent.com")
                     // Only show accounts previously used to sign in.
-                    .setFilterByAuthorizedAccounts(true)
-                    .build())
+                    .setFilterByAuthorizedAccounts(false)
+                    .build()
+            )
             .build()
-        auth = Firebase.auth
 
+        auth = Firebase.auth
     }
 
-    fun loginWithGoogle(listener: (User?) -> Unit) {
-        googleLoginListener = listener
+    fun loginWithGoogle() {
+//        googleLoginListener = listener
         oneTapClient.beginSignIn(signInRequest)
             .addOnSuccessListener(this) { result ->
                 try {
@@ -113,6 +108,7 @@ class AuthActivity : BaseActivity() {
                     e.printStackTrace()
                 }
             }.addOnFailureListener(this) { e ->
+                e.printStackTrace()
                 Log.e(TAG, e.localizedMessage)
             }
     }
@@ -127,9 +123,16 @@ class AuthActivity : BaseActivity() {
                     val idToken = credential.googleIdToken
                     when {
                         idToken != null -> {
-                            // Got an ID token from Google. Use it to authenticate
-                            // with Firebase.
-                            Log.d(TAG, "Got ID token.")
+                            val firebaseCredential = GoogleAuthProvider.getCredential(idToken, null)
+                            auth.signInWithCredential(firebaseCredential)
+                                .addOnCompleteListener { task ->
+                                    if (task.isSuccessful)
+                                        handleGoogleAuthSuccess()
+                                    else {
+                                        Log.e(TAG, "Could not sign in with Google.")
+                                    }
+                                    Log.d(TAG, "Got ID token.")
+                                }
                         }
 
                         else -> {
@@ -142,5 +145,71 @@ class AuthActivity : BaseActivity() {
                 }
             }
         }
+    }
+
+    private fun handleGoogleAuthSuccess() {
+        val loginUser = auth.currentUser
+        var user: FirebaseRegisterReq? = null
+
+        loginUser?.let {
+            loginUser.email?.let {
+                if(true) {
+                    handleGoogleLogin(loginUser)
+                } else {
+                    handleGoogleRegister(loginUser)
+                }
+            }
+
+            Intent(this, MainActivity::class.java).apply {
+                startActivity(this)
+            }
+        }
+    }
+
+    private fun handleGoogleLogin(loginUser: FirebaseUser){
+
+    }
+
+    private fun handleGoogleRegister(loginUser: FirebaseUser){
+        var firstName = ""
+        var secondName = ""
+        var lastName = ""
+        var email = ""
+        var photoUrl = ""
+        var phoneNumber: String? = null
+        var uid = ""
+        loginUser.displayName?.let {
+            var nameList = it.split(" ")
+            firstName = nameList[0]
+            if (nameList.size > 1) {
+                lastName = nameList.last()
+                for (i in 1 until nameList.size - 1) {
+                    secondName += nameList[i] + " "
+                }
+                secondName = secondName.trim()
+            }
+        }
+        loginUser.email?.let {
+            email = it
+        }
+        loginUser.photoUrl?.let {
+            photoUrl = it.toString()
+        }
+        loginUser.phoneNumber?.let {
+            phoneNumber = it
+        }
+        loginUser.uid.let {
+            uid = it
+        }
+        var user = FirebaseRegisterReq(
+            firstName = firstName,
+            secondName = secondName,
+            lastName = lastName,
+            email = email,
+            avatar = photoUrl,
+            phone = phoneNumber,
+            role_id = RoleEnum.USER.value,
+        )
+        Log.d("AuthActivity", "user: $user")
     }
 }

@@ -15,4 +15,7 @@ interface AuthAPI {
 
     @POST("auth/signup")
     suspend fun register(@Body registerReq: RegisterReq): Response<ResponseObject<Int>>
+
+    @POST("auth/isEmailExist")
+    suspend fun isEmailIsExist(@Body email: String): Response<ResponseObject<Boolean>>
 }
