@@ -127,8 +127,7 @@ dependencies {
     implementation("com.google.firebase:firebase-database-ktx:20.3.1")
     implementation("com.google.firebase:firebase-storage-ktx:20.3.0")
     implementation("com.google.firebase:firebase-auth-ktx:22.3.1")
-    implementation("com.google.android.gms:play-services-auth:21.1.1")
-
+    implementation("com.google.android.gms:play-services-auth:20.7.0")
 
     //Dagger - Hilt
     val daggerHiltVersion = "2.48.1"
