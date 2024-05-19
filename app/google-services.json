@@ -1,0 +1,47 @@
+{
+  "project_info": {
+    "project_number": "686710245051",
+    "project_id": "heartory-firebase",
+    "storage_bucket": "heartory-firebase.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:686710245051:android:a63d0ddac79b67daba4b9e",
+        "android_client_info": {
+          "package_name": "com.heartsteel.heartory"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "686710245051-ujj06kovf1k4lenmjsh1j9c0gvdk1os6.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.heartsteel.heartory",
+            "certificate_hash": "9e27554b7afcb6baadbfae11cbdc7cc6dec49785"
+          }
+        },
+        {
+          "client_id": "686710245051-sa9488g9v4as8mbodigsh4cvjjt2guc3.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCDXpQRZWXmPgwlqSVdEKMd9VBfQfBfAsI"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "686710245051-sa9488g9v4as8mbodigsh4cvjjt2guc3.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

@@ -5,6 +5,7 @@ plugins {
     id("com.google.devtools.ksp")
     id("org.jetbrains.kotlin.kapt")
     id("androidx.navigation.safeargs.kotlin")
+    id("com.google.gms.google-services")
 }
 
 android {
@@ -25,7 +26,7 @@ android {
 
     defaultConfig {
         applicationId = "com.heartsteel.heartory"
-        minSdk = 24
+        minSdk = 26
         targetSdk = 33
         versionCode = 1
         versionName = "1.0"
@@ -78,6 +79,7 @@ dependencies {
     implementation("androidx.compose.ui:ui-graphics")
     implementation("androidx.compose.ui:ui-tooling-preview")
     implementation("androidx.compose.material3:material3")
+    implementation("com.google.firebase:firebase-auth:23.0.0")
     testImplementation("junit:junit:4.13.2")
     androidTestImplementation("androidx.test.ext:junit:1.1.5")
     androidTestImplementation("androidx.test.espresso:espresso-core:3.5.1")
@@ -119,12 +121,13 @@ dependencies {
     ksp("com.github.bumptech.glide:compiler:4.12.0")
 
     //firebase
+    implementation(platform("com.google.firebase:firebase-bom:33.0.0"))
     implementation("com.google.firebase:firebase-messaging:23.4.1")
     implementation("com.google.firebase:firebase-firestore-ktx:24.11.1")
     implementation("com.google.firebase:firebase-database-ktx:20.3.1")
     implementation("com.google.firebase:firebase-storage-ktx:20.3.0")
     implementation("com.google.firebase:firebase-auth-ktx:22.3.1")
-
+    implementation("com.google.android.gms:play-services-auth:20.7.0")
 
     //Dagger - Hilt
     val daggerHiltVersion = "2.48.1"
@@ -141,4 +144,7 @@ dependencies {
 
     // viewPager2
     implementation("androidx.viewpager2:viewpager2:1.0.0")
+
+    //image slider
+    implementation("com.github.denzcoskun:ImageSlideshow:0.1.2")
 }

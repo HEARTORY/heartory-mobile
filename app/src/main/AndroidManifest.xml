@@ -8,7 +8,7 @@
 
     <uses-permission android:name="android.permission.CAMERA" />
     <uses-permission android:name="android.permission.INTERNET" />
-    <uses-permission android:name="android.permission.ACCESS_WIFI_STATE" />
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
 
     <application
         android:name=".HeartoryApp"
@@ -20,7 +20,8 @@
         android:roundIcon="@drawable/heartory_app_logo"
         android:supportsRtl="true"
         android:theme="@style/Theme.Heartory"
-        tools:targetApi="31" >
+        android:usesCleartextTraffic="true"
+        tools:targetApi="31">
         <activity
             android:name=".ui.heart_rate.heartbeat.HeartRateActivity"
             android:exported="true"
@@ -36,8 +37,15 @@
             >
         </activity>
         <activity
+            android:name=".ui.auth.AuthActivity"
+            android:exported="true" />
+        <activity
+            android:name=".ui.chat.inside.ChatInsideActivity"
+            android:exported="true" />
+        <activity
             android:name=".ui.MainActivity"
-            android:exported="true" >
+            android:exported="true"
+            android:screenOrientation="portrait">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
