@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <item name="action_homeFragment_to_hearRateFragment" type="id" />
+    <item name="action_homeFragment_to_chatFragment" type="id" />
+    <item name="action_homeFragment_to_exerciseFragment" type="id" />
+    <item name="action_homeFragment_to_profileFragment" type="id" />
+</resources>

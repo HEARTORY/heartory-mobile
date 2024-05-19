@@ -16,7 +16,8 @@
             app:popUpTo="@id/homeFragment"
             app:popUpToInclusive="true"
             app:enterAnim="@anim/nav_default_enter_anim"
-            app:exitAnim="@anim/nav_default_exit_anim" />
+            app:exitAnim="@anim/nav_default_exit_anim"
+            />
         <action
             android:id="@+id/action_homeFragment_to_chatFragment"
             app:destination="@id/chatFragment"
@@ -43,6 +44,16 @@
             android:id="@+id/action_homeFragment_to_articleFragment"
             app:destination="@id/articleFragment" />
     </fragment>
+    <activity
+        android:id="@+id/heartRateActivity"
+        android:name="com.heartsteel.heartory.ui.heart_rate.heartbeat.HeartRateActivity"
+        android:label="fragment_hear_rate"
+         />
+    <activity
+        android:id="@+id/brandActivity"
+        android:name="com.heartsteel.heartory.ui.heart_rate.heartbeat.HeartRateActivity"
+        android:label="fragment_hear_rate"
+        />
     <fragment
         android:id="@+id/heartRateFragment"
         android:name="com.heartsteel.heartory.ui.heart_rate.HearRateFragment"
