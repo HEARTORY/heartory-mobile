@@ -102,6 +102,7 @@ class AuthActivity : BaseActivity() {
     }
 
     fun loginWithGoogle() {
+        showLoading2()
         oneTapClient.beginSignIn(signInRequest)
             .addOnSuccessListener(this) { result ->
                 try {
@@ -109,10 +110,12 @@ class AuthActivity : BaseActivity() {
                         result.pendingIntent.intentSender, REQ_ONE_TAP,
                         null, 0, 0, 0
                     )
+                    hideLoading2()
                 } catch (e: IntentSender.SendIntentException) {
                     e.printStackTrace()
                 }
             }.addOnFailureListener(this) { e ->
+                hideLoading2()
                 e.printStackTrace()
                 Log.e(TAG, e.localizedMessage)
             }

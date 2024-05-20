@@ -41,6 +41,9 @@ class RegisterFragment : BaseFragment(R.layout.fragment_register) {
 
     }
     private fun setupEvent() {
+        _binding.ivLoginWithGoogle.setOnClickListener{
+            (activity as AuthActivity).loginWithGoogle()
+        }
         _binding.tvLogin.setOnClickListener{
             (activity as AuthActivity).navigateToLogin()
         }
