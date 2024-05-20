@@ -1,23 +1,16 @@
 package com.heartsteel.heartory.ui.auth.login
 
-import android.content.Intent
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Toast
-import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
 import com.example.healthcarecomp.base.BaseFragment
-import com.google.firebase.auth.FirebaseAuth
-import com.google.firebase.auth.ktx.auth
-import com.google.firebase.ktx.Firebase
 import com.heartsteel.heartory.R
-import com.heartsteel.heartory.common.util.Resource
 import com.heartsteel.heartory.data.model.LoginReq
 import com.heartsteel.heartory.databinding.FragmentLoginBinding
-import com.heartsteel.heartory.ui.MainActivity
 import com.heartsteel.heartory.ui.auth.AuthActivity
+import com.heartsteel.heartory.ui.auth.AuthViewModel
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
@@ -28,19 +21,17 @@ class LoginFragment : BaseFragment(R.layout.fragment_login) {
     }
 
     lateinit var binding: FragmentLoginBinding
-    private val _viewModel: LoginViewModel by viewModels()
+    private lateinit var authViewModel: AuthViewModel
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
         binding = FragmentLoginBinding.inflate(layoutInflater, container, false)
-//        val authRepository = AuthRepository()
-//        val viewModelFactory = LoginViewModelFactory(requireActivity().application, authRepository)
-//        _viewModel = ViewModelProvider(this)[LoginViewModel::class.java]
+        authViewModel =  (requireActivity() as AuthActivity).viewModel
         setupView()
         setupEvent()
-        setupObserver()
+
         return binding.root
     }
 
@@ -50,6 +41,7 @@ class LoginFragment : BaseFragment(R.layout.fragment_login) {
     }
 
     private fun setupEvent() {
+        authViewModel.user
 
         binding.tvRegister.setOnClickListener {
             (activity as AuthActivity).navigateToRegister()
@@ -60,7 +52,7 @@ class LoginFragment : BaseFragment(R.layout.fragment_login) {
             val password = binding.etPassword.text.toString()
             lifecycleScope.launchWhenStarted {
                 var loginReq = LoginReq(email, password)
-                _viewModel.login(loginReq)
+                authViewModel.login(loginReq)
             }
         }
 
@@ -69,30 +61,6 @@ class LoginFragment : BaseFragment(R.layout.fragment_login) {
         }
     }
 
-    private fun setupObserver() {
-        _viewModel.loginState.observe(viewLifecycleOwner) {
-            when (it) {
-                is Resource.Loading -> {
-                    showLoading("Logging in...", "Please wait...")
-                }
 
-                is Resource.Success -> {
-                    hideLoading()
-                    Toast.makeText(requireContext(), "Log in success", Toast.LENGTH_SHORT).show()
-                    val intent = Intent(requireActivity(), MainActivity::class.java)
-                    startActivity(intent)
-                }
-
-                is Resource.Error -> {
-                    hideLoading()
-                    Toast.makeText(
-                        requireContext(),
-                        "Login failed" + it.message,
-                        Toast.LENGTH_SHORT
-                    ).show()
-                }
-            }
-        }
-    }
 
 }

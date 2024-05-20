@@ -64,15 +64,15 @@ class AppSharePreference @Inject constructor(private val context: Context) {
 
 
     //    model
-    fun <T> putModel(key: String, model: T?) {
-        if (model != null) {
-            prefs.edit().putString(key, encode(Gson().toJson(model))).apply()
+    fun <T> putObject(key: String, `object`: T?) {
+        if (`object` != null) {
+            prefs.edit().putString(key, encode(Gson().toJson(`object`))).apply()
         } else {
             prefs.edit().putString(key, "").apply()
         }
     }
 
-    fun <T> getModel(key: String, classOff: Class<T>): T? {
+    fun <T> getObject(key: String, classOff: Class<T>): T? {
         val jsonObjects = decode(prefs.getString(key, "") ?: "")
         return if (jsonObjects.isNotEmpty()) {
             Gson().fromJson(jsonObjects, classOff)

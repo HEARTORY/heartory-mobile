@@ -1,8 +1,8 @@
-package com.heartsteel.heartory.data.model
+package com.heartsteel.heartory.data.model.domain
 
 data class User(
     val id: Int?,
-    val role: String?,
+    val role: Role?,
     val email: String?,
     var firstName: String?,
     var lastName: String?,

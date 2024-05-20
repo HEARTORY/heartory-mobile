@@ -1,24 +1,37 @@
 package com.example.healthcarecomp.base
 
+import android.app.Dialog
 import android.app.ProgressDialog
 import android.content.DialogInterface
+import android.graphics.Color
+import android.graphics.drawable.ColorDrawable
 import android.view.Gravity
 import android.view.ViewGroup
-import android.widget.ImageView
 import androidx.appcompat.app.AppCompatActivity
 import com.example.healthcarecomp.base.dialog.ConfirmDialog
 import com.example.healthcarecomp.base.dialog.ErrorDialog
 import com.example.healthcarecomp.base.dialog.NotifyDialog
-import dagger.hilt.android.AndroidEntryPoint
+import com.heartsteel.heartory.R
 
 open class BaseActivity : AppCompatActivity() {
 
     var progressDialog: ProgressDialog? = null
 
-    open fun showLoading(
-        isShow: Boolean
-    ) {
+    val loading2: Dialog by lazy {
+        Dialog(this).apply {
+            setContentView(R.layout.dialog_loading)
+            setCancelable(false)
+            window?.setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT))
+        }
+    }
 
+    open fun showLoading2() {
+        loading2.show()
+    }
+
+    open fun hideLoading2() {
+        if (loading2.isShowing)
+            loading2.dismiss()
     }
 
     open fun showLoading(

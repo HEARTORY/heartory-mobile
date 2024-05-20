@@ -4,13 +4,14 @@ import androidx.lifecycle.MutableLiveData
 import com.example.healthcarecomp.base.BaseViewModel
 import com.heartsteel.heartory.common.util.Resource
 import com.heartsteel.heartory.data.model.Message
+import com.heartsteel.heartory.data.repository.AuthRepository
 import dagger.hilt.android.lifecycle.HiltViewModel
 import javax.inject.Inject
 
 @HiltViewModel
 class ChatInsideViewModel @Inject constructor(
-
-) : BaseViewModel() {
+    override val authRepository: AuthRepository
+) : BaseViewModel(authRepository) {
     val mockData = MutableList(10) { index ->
         Message(
             id = "id$index",

@@ -5,7 +5,9 @@ data class RegisterReq(
     var lastName: String,
     var email: String,
     var password: String,
-    var role_id: Int
+    var role_id: Int,
+    val avatar: String? = null,
+    val phone: String? = null,
 ) {
 
 }

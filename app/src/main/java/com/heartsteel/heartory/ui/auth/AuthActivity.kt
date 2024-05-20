@@ -5,7 +5,9 @@ import android.content.Intent
 import android.content.IntentSender
 import android.os.Bundle
 import android.util.Log
+import android.widget.Toast
 import androidx.activity.viewModels
+import androidx.lifecycle.lifecycleScope
 import com.example.healthcarecomp.base.BaseActivity
 import com.google.android.gms.auth.api.identity.BeginSignInRequest
 import com.google.android.gms.auth.api.identity.Identity
@@ -17,8 +19,11 @@ import com.google.firebase.auth.GoogleAuthProvider
 import com.google.firebase.auth.ktx.auth
 import com.google.firebase.ktx.Firebase
 import com.heartsteel.heartory.common.constant.RoleEnum
+import com.heartsteel.heartory.common.util.Resource
 import com.heartsteel.heartory.data.model.FirebaseRegisterReq
-import com.heartsteel.heartory.data.model.User
+import com.heartsteel.heartory.data.model.LoginReq
+import com.heartsteel.heartory.data.model.RegisterReq
+import com.heartsteel.heartory.data.model.domain.User
 import com.heartsteel.heartory.databinding.ActivityAuthBinding
 import com.heartsteel.heartory.ui.MainActivity
 import com.heartsteel.heartory.ui.auth.login.LoginFragment
@@ -29,7 +34,7 @@ import dagger.hilt.android.AndroidEntryPoint
 class AuthActivity : BaseActivity() {
 
     private lateinit var _binding: ActivityAuthBinding
-    private val _viewModel: AuthViewModel by viewModels()
+    val viewModel: AuthViewModel by viewModels()
 
     private lateinit var loginFragment: LoginFragment
     private lateinit var resigterFragment: RegisterFragment
@@ -48,6 +53,7 @@ class AuthActivity : BaseActivity() {
         super.onCreate(savedInstanceState)
         _binding = ActivityAuthBinding.inflate(layoutInflater)
         setContentView(_binding.root)
+        setupObserver()
         setupView()
     }
 
@@ -96,7 +102,6 @@ class AuthActivity : BaseActivity() {
     }
 
     fun loginWithGoogle() {
-//        googleLoginListener = listener
         oneTapClient.beginSignIn(signInRequest)
             .addOnSuccessListener(this) { result ->
                 try {
@@ -153,26 +158,46 @@ class AuthActivity : BaseActivity() {
 
         loginUser?.let {
             loginUser.email?.let {
-                if(true) {
-                    handleGoogleLogin(loginUser)
-                } else {
-                    handleGoogleRegister(loginUser)
+                lifecycleScope.launchWhenStarted {
+                    viewModel.authRepository.isEmailIsExist(it).let {
+                        if (it.isSuccessful) {
+                            it.body()?.data?.let {
+                                if (it) {
+                                    handleGoogleLogin(loginUser)
+                                } else {
+                                    handleGoogleRegister(loginUser)
+                                }
+                            }
+                        } else {
+                            Log.e(TAG, "Could not check if email exists.")
+                        }
+                    }
                 }
-            }
-
-            Intent(this, MainActivity::class.java).apply {
-                startActivity(this)
             }
         }
     }
 
-    private fun handleGoogleLogin(loginUser: FirebaseUser){
-
+    private fun handleGoogleLogin(loginUser: FirebaseUser) {
+        var email = ""
+        var uid = ""
+        loginUser.email?.let {
+            email = it
+        }
+        loginUser.uid.let {
+            uid = it
+        }
+        var user = LoginReq(
+            email = email,
+            password = uid,
+        )
+        lifecycleScope.launchWhenStarted {
+            viewModel.login(user)
+        }
+        Log.d("handleGoogleLogin", "user: $user")
     }
 
-    private fun handleGoogleRegister(loginUser: FirebaseUser){
+    private fun handleGoogleRegister(loginUser: FirebaseUser) {
         var firstName = ""
-        var secondName = ""
         var lastName = ""
         var email = ""
         var photoUrl = ""
@@ -183,10 +208,6 @@ class AuthActivity : BaseActivity() {
             firstName = nameList[0]
             if (nameList.size > 1) {
                 lastName = nameList.last()
-                for (i in 1 until nameList.size - 1) {
-                    secondName += nameList[i] + " "
-                }
-                secondName = secondName.trim()
             }
         }
         loginUser.email?.let {
@@ -201,15 +222,83 @@ class AuthActivity : BaseActivity() {
         loginUser.uid.let {
             uid = it
         }
-        var user = FirebaseRegisterReq(
+        var user = RegisterReq(
             firstName = firstName,
-            secondName = secondName,
             lastName = lastName,
             email = email,
+            password = uid,
             avatar = photoUrl,
             phone = phoneNumber,
             role_id = RoleEnum.USER.value,
         )
-        Log.d("AuthActivity", "user: $user")
+        lifecycleScope.launchWhenStarted {
+            viewModel.registerWithGoogle(user)
+        }
+        Log.d("handleGoogleRegister", "user: $user")
     }
+
+    private fun setupObserver() {
+        viewModel.loginState.observe(this) {
+            when (it) {
+                is Resource.Loading -> {
+                    showLoading2()
+                }
+
+                is Resource.Success -> {
+                    hideLoading2()
+                    Toast.makeText(this, "Log in success", Toast.LENGTH_SHORT).show()
+                    val intent = Intent(this, MainActivity::class.java)
+                    startActivity(intent)
+                }
+
+                is Resource.Error -> {
+                    hideLoading2()
+                    Toast.makeText(
+                        this,
+                        "Login failed" + it.message,
+                        Toast.LENGTH_SHORT
+                    ).show()
+                }
+            }
+        }
+
+
+        viewModel.registerState.observe(this) {
+            when (it) {
+                is Resource.Loading -> {
+                    showLoading2()
+                }
+
+                is Resource.Success -> {
+                    hideLoading2()
+                    Toast.makeText(this, "Register success", Toast.LENGTH_SHORT).show()
+                    this.navigateToLogin()
+                }
+
+                is Resource.Error -> {
+                    hideLoading2()
+                    Toast.makeText(this, it.message, Toast.LENGTH_SHORT).show()
+                }
+            }
+        }
+
+        viewModel.registerWithGoogleState.observe(this) {
+            when (it) {
+                is Resource.Loading -> {
+                    showLoading2()
+                }
+
+                is Resource.Success -> {
+                    hideLoading2()
+                    Toast.makeText(this, "Register with Google success", Toast.LENGTH_SHORT).show()
+                }
+
+                is Resource.Error -> {
+                    hideLoading2()
+                    Toast.makeText(this, it.message, Toast.LENGTH_SHORT).show()
+                }
+            }
+        }
+    }
+
 }

@@ -2,6 +2,7 @@ package com.heartsteel.heartory.di
 
 import com.google.firebase.auth.FirebaseAuth
 import com.heartsteel.heartory.data.repository.AuthRepository
+import com.heartsteel.heartory.data.sharePreference.AppSharePreference
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -15,8 +16,8 @@ import javax.inject.Singleton
 object RepositoryModule {
     @Provides
     @ViewModelScoped
-    fun provideAuthRepository(firebaseAuth: FirebaseAuth): AuthRepository {
-        return AuthRepository(firebaseAuth)
+    fun provideAuthRepository(firebaseAuth: FirebaseAuth, appSharePreference: AppSharePreference): AuthRepository {
+        return AuthRepository(firebaseAuth, appSharePreference)
     }
 
 }
