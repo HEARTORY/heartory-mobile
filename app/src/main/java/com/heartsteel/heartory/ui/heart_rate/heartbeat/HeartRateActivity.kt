@@ -1,34 +1,49 @@
     package com.heartsteel.heartory.ui.heart_rate.heartbeat
 
     import android.Manifest
+    import android.animation.ObjectAnimator
+    import android.animation.PropertyValuesHolder
+    import android.animation.ValueAnimator
     import android.annotation.SuppressLint
     import android.app.Activity
+    import android.app.Dialog
     import android.content.Intent
     import android.content.pm.PackageManager
+    import android.graphics.drawable.ColorDrawable
+    import android.os.Build
     import android.os.Bundle
     import android.os.Handler
     import android.os.Looper
     import android.os.Message
     import android.util.Log
+    import android.view.Gravity
     import android.view.Menu
     import android.view.MenuItem
     import android.view.Surface
     import android.view.TextureView
     import android.view.View
+    import android.view.ViewGroup
+    import android.view.Window
     import android.widget.EditText
+    import android.widget.ImageView
+    import android.widget.LinearLayout
     import android.widget.TextView
+    import android.widget.Toast
     import androidx.activity.result.ActivityResultLauncher
     import androidx.activity.result.contract.ActivityResultContracts
+    import androidx.annotation.RequiresApi
     import androidx.appcompat.app.AppCompatActivity
-    import androidx.appcompat.widget.Toolbar
+    import androidx.appcompat.widget.AppCompatButton
+    import androidx.compose.ui.graphics.Color
     import androidx.core.app.ActivityCompat
+    import androidx.navigation.NavController
+    import androidx.navigation.findNavController
+    import androidx.navigation.fragment.NavHostFragment
     import com.google.android.material.snackbar.Snackbar
     import com.heartsteel.heartory.R
     import com.heartsteel.heartory.databinding.ActivityHeartRateBinding
     import com.heartsteel.heartory.ui.MainActivity
-    import java.text.SimpleDateFormat
-    import java.util.Date
-    import java.util.Locale
+
 
     public class HeartRateActivity : AppCompatActivity() {
         private lateinit var mainActivityLauncher: ActivityResultLauncher<Intent>
@@ -42,14 +57,26 @@
         private val MENU_INDEX_EXPORT_RESULT = 1
         private val MENU_INDEX_EXPORT_DETAILS = 2
 
-
         enum class VIEW_STATE {
             MEASUREMENT,
             SHOW_RESULTS
         }
 
-        private lateinit var analyzer:OutputAnalyzer
+        enum class EMOTION {
+            NULL,
+            JOY,
+            HAPPY,
+            SAD,
+            CRY,
+            NORMAL
+        }
 
+        private var emotion: EMOTION = EMOTION.NULL
+
+        private lateinit var analyzer:OutputAnalyzer
+        private lateinit var objectAnimator: ObjectAnimator
+        private lateinit var floatingActionButton: View
+        private lateinit var navController: NavController
 //        fun setViewState(state: HeartRateActivity.VIEW_STATE?) {
 //            val appMenu = (findViewById<View>(R.id.toolbar) as Toolbar).getMenu()
 //            when (state) {
@@ -72,19 +99,20 @@
 //        }
 
         fun setViewState(state: HeartRateActivity.VIEW_STATE?) {
+            val floatingActionButton = findViewById<View>(R.id.heart_beat_image)
+
             when (state) {
                 VIEW_STATE.MEASUREMENT -> {
-                    val floatingActionButton = findViewById<View>(R.id.heart_beat_image)
-                    if (floatingActionButton != null) {
                         floatingActionButton.visibility = View.VISIBLE
-                    }
+                    (findViewById<View>(R.id.editText) as EditText).setText("Wait a second...")
+
+                    objectAnimator.start()
                 }
 
                 VIEW_STATE.SHOW_RESULTS -> {
-                    val floatingActionButton = findViewById<View>(R.id.heart_beat_image)
-                    if (floatingActionButton != null) {
                         floatingActionButton.visibility = View.VISIBLE
-                    }
+                        objectAnimator.end()
+                        showBottomDialog()
                 }
 
                 null -> TODO()
@@ -94,9 +122,8 @@
 
         @SuppressLint("HandlerLeak")
         private val mainHandler: Handler = object : Handler(Looper.getMainLooper()) {
-            @SuppressLint("SetTextI18n")
+            @SuppressLint("SetTextI18n", "Recycle")
             override fun handleMessage(msg: Message) {
-                super.handleMessage(msg)
                 if (msg.what == MESSAGE_UPDATE_REALTIME) {
                     (findViewById<View>(R.id.textView) as TextView).text = msg.obj.toString()
                     (findViewById<View>(R.id.editText) as EditText).setText("We are measuring your blood pressure...")
@@ -121,6 +148,7 @@
 //                        Log.e("Pulse", "Unable to extract pulse value from the text: $fullText")
 //                    }
                     (findViewById<View>(R.id.editText) as EditText).setText("Here your result")
+                    setViewState(VIEW_STATE.SHOW_RESULTS)
                 }
                 if (msg.what == MESSAGE_CAMERA_NOT_AVAILABLE) {
                     Log.println(Log.WARN, "camera", msg.obj.toString())
@@ -182,6 +210,16 @@
         override fun onCreate(savedInstanceState: Bundle?) {
             super.onCreate(savedInstanceState)
             setContentView(binding.root)
+            floatingActionButton = findViewById(R.id.heart_beat_image)
+            objectAnimator = ObjectAnimator.ofPropertyValuesHolder(
+                floatingActionButton,
+                PropertyValuesHolder.ofFloat("scaleX", 1.2f),
+                PropertyValuesHolder.ofFloat("scaleY", 1.2f)
+            ).apply {
+                duration = 500
+                repeatCount = ValueAnimator.INFINITE
+                repeatMode = ValueAnimator.REVERSE
+            }
             mainActivityLauncher = registerForActivityResult(
                 ActivityResultContracts.StartActivityForResult()
             ) { result ->
@@ -196,6 +234,8 @@
                 this, arrayOf(Manifest.permission.CAMERA),
                 REQUEST_CODE_CAMERA
             )
+//            val navHostFragment = supportFragmentManager.findFragmentById(R.id.nav_host_fragment) as NavHostFragment
+//            navController = navHostFragment.navController
         }
 
         override fun onRequestPermissionsResult(
@@ -239,7 +279,6 @@
         fun onClickNewMeasurement(view: View?) {
             onClickNewMeasurement()
         }
-
         fun onClickNewMeasurement() {
             analyzer = OutputAnalyzer(this, findViewById(R.id.graphTextureView), mainHandler)
 
@@ -263,34 +302,117 @@
             }
         }
 
-        fun onClickExportResult(item: MenuItem?) {
-            val intent =
-                getTextIntent((findViewById<View>(R.id.textView) as TextView).getText() as String)
-            justShared = true
-            startActivity(Intent.createChooser(intent, getString(R.string.send_output_to)))
-        }
 
-        fun onClickExportDetails(item: MenuItem?) {
-            val intent =
-                getTextIntent((findViewById<View>(R.id.editText) as EditText).getText().toString())
-            justShared = true
-            startActivity(Intent.createChooser(intent, getString(R.string.send_output_to)))
-        }
+        private fun showBottomDialog() {
+            val dialog = Dialog(this)
+            dialog.requestWindowFeature(Window.FEATURE_NO_TITLE)
+            dialog.setContentView(R.layout.heart_rate_bottom_sheet_layout)
+            val cancelButton = dialog.findViewById<AppCompatButton>(R.id.cancel_btn)
+            val analysisButton = dialog.findViewById<AppCompatButton>(R.id.analysis_btn)
 
-        private fun getTextIntent(intentText: String): Intent {
-            val intent = Intent(Intent.ACTION_SEND)
-            intent.setType("text/plain")
-            intent.putExtra(
-                Intent.EXTRA_SUBJECT, String.format(
-                    getString(R.string.output_header_template),
-                    SimpleDateFormat(
-                        getString(R.string.dateFormat),
-                        Locale.getDefault()
-                    ).format(Date())
-                )
+            val joyIcon = dialog.findViewById<ImageView>(R.id.joy_img)
+            val happyIcon = dialog.findViewById<ImageView>(R.id.happy_img)
+            val sadIcon = dialog.findViewById<ImageView>(R.id.sad_img)
+            val cryIcon = dialog.findViewById<ImageView>(R.id.cry_img)
+            val normalIcon = dialog.findViewById<ImageView>(R.id.normal_img)
+            analysisButton.visibility = View.INVISIBLE
+
+            joyIcon.setOnClickListener {
+                // Set a border color when clicked
+                joyIcon.setBackgroundResource(R.drawable.selected_icon_border)
+                // Reset other icons' backgrounds
+                happyIcon.setBackgroundResource(0) // Remove background
+                sadIcon.setBackgroundResource(0)   // Remove background
+                cryIcon.setBackgroundResource(0)   // Remove background
+                normalIcon.setBackgroundResource(0) // Remove background
+
+                // Update the selected emotion
+                emotion = EMOTION.JOY
+                analysisButton.visibility = View.VISIBLE
+
+            }
+
+            happyIcon.setOnClickListener {
+                // Set a border color when clicked
+                happyIcon.setBackgroundResource(R.drawable.selected_icon_border)
+
+                // Reset other icons' backgrounds
+                joyIcon.setBackgroundResource(0) // Remove background
+                sadIcon.setBackgroundResource(0)   // Remove background
+                cryIcon.setBackgroundResource(0)   // Remove background
+                normalIcon.setBackgroundResource(0) // Remove background
+
+                // Update the selected emotion
+                emotion = EMOTION.HAPPY
+                analysisButton.visibility = View.VISIBLE
+
+            }
+
+            sadIcon.setOnClickListener {
+                // Set a border color when clicked
+                sadIcon.setBackgroundResource(R.drawable.selected_icon_border)
+
+                // Reset other icons' backgrounds
+                joyIcon.setBackgroundResource(0) // Remove background
+                happyIcon.setBackgroundResource(0) // Remove background
+                cryIcon.setBackgroundResource(0) // Remove background
+                normalIcon.setBackgroundResource(0) // Remove background
+
+                // Update the selected emotion
+                emotion = EMOTION.SAD
+                analysisButton.visibility = View.VISIBLE
+
+            }
+
+            cryIcon.setOnClickListener {
+                // Set a border color when clicked
+                cryIcon.setBackgroundResource(R.drawable.selected_icon_border)
+
+                // Reset other icons' backgrounds
+                joyIcon.setBackgroundResource(0) // Remove background
+                happyIcon.setBackgroundResource(0) // Remove background
+                sadIcon.setBackgroundResource(0) // Remove background
+                normalIcon.setBackgroundResource(0) // Remove background
+
+                // Update the selected emotion
+                emotion = EMOTION.CRY
+                analysisButton.visibility = View.VISIBLE
+
+            }
+
+            normalIcon.setOnClickListener {
+                // Set a border color when clicked
+                normalIcon.setBackgroundResource(R.drawable.selected_icon_border)
+
+                // Reset other icons' backgrounds
+                joyIcon.setBackgroundResource(0) // Remove background
+                happyIcon.setBackgroundResource(0) // Remove background
+                sadIcon.setBackgroundResource(0) // Remove background
+                cryIcon.setBackgroundResource(0) // Remove background
+
+                // Update the selected emotion
+                emotion = EMOTION.NORMAL
+                analysisButton.visibility = View.VISIBLE
+
+            }
+
+
+            cancelButton.setOnClickListener { dialog.dismiss() }
+//            analysisButton.setOnClickListener{
+//                val action = HeartRateActivityDirections.actionHeartRateActivityToHeartRateFragment()
+//                navController.navigate(action)
+//                dialog.dismiss()
+//            }
+            dialog.show()
+            dialog.window!!.setLayout(
+                ViewGroup.LayoutParams.MATCH_PARENT,
+                ViewGroup.LayoutParams.WRAP_CONTENT
             )
-            intent.putExtra(Intent.EXTRA_TEXT, intentText)
-            return intent
+            dialog.window!!.setBackgroundDrawable(ColorDrawable(android.graphics.Color.TRANSPARENT))
+            dialog.window!!.attributes.windowAnimations = R.style.DialogAnimation
+            dialog.window!!.setGravity(Gravity.BOTTOM)
         }
+
+
 
     }

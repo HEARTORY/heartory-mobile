@@ -47,6 +47,7 @@
           android:layout_width="@dimen/camera_view_width"
           android:layout_height="@dimen/camera_view_height"
           android:layout_gravity="center"
+          android:layout_marginVertical="20dp"
           />
 
       <ImageView
@@ -99,12 +100,19 @@
             android:layout_width="match_parent"
             android:layout_height="200dp"
             android:layout_gravity="bottom"
+            android:layout_marginTop="20dp"
             app:layout_constraintStart_toStartOf="@+id/textView"
             app:layout_constraintTop_toTopOf="@+id/textView" />
 
       </LinearLayout>
     </LinearLayout>
-
+<!--    <androidx.fragment.app.FragmentContainerView-->
+<!--        android:id="@+id/nav_host_fragment"-->
+<!--        android:name="androidx.navigation.fragment.NavHostFragment"-->
+<!--        android:layout_width="match_parent"-->
+<!--        android:layout_height="0dp"-->
+<!--        android:layout_weight="1"-->
+<!--        app:defaultNavHost="true"-->
+<!--        app:navGraph="@navigation/heart_rate_nav" />-->
   </LinearLayout>
-
 </androidx.coordinatorlayout.widget.CoordinatorLayout>
