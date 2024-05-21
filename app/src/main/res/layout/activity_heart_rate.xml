@@ -106,13 +106,5 @@
 
       </LinearLayout>
     </LinearLayout>
-<!--    <androidx.fragment.app.FragmentContainerView-->
-<!--        android:id="@+id/nav_host_fragment"-->
-<!--        android:name="androidx.navigation.fragment.NavHostFragment"-->
-<!--        android:layout_width="match_parent"-->
-<!--        android:layout_height="0dp"-->
-<!--        android:layout_weight="1"-->
-<!--        app:defaultNavHost="true"-->
-<!--        app:navGraph="@navigation/heart_rate_nav" />-->
   </LinearLayout>
 </androidx.coordinatorlayout.widget.CoordinatorLayout>

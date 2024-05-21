@@ -43,6 +43,7 @@
     import com.heartsteel.heartory.R
     import com.heartsteel.heartory.databinding.ActivityHeartRateBinding
     import com.heartsteel.heartory.ui.MainActivity
+    import com.heartsteel.heartory.ui.heart_rate.result.ResultActivity
 
 
     public class HeartRateActivity : AppCompatActivity() {
@@ -53,9 +54,9 @@
         val MESSAGE_UPDATE_FINAL = 2
         val MESSAGE_CAMERA_NOT_AVAILABLE = 3
 
-        private val MENU_INDEX_NEW_MEASUREMENT = 0
-        private val MENU_INDEX_EXPORT_RESULT = 1
-        private val MENU_INDEX_EXPORT_DETAILS = 2
+//        private val MENU_INDEX_NEW_MEASUREMENT = 0
+//        private val MENU_INDEX_EXPORT_RESULT = 1
+//        private val MENU_INDEX_EXPORT_DETAILS = 2
 
         enum class VIEW_STATE {
             MEASUREMENT,
@@ -76,7 +77,7 @@
         private lateinit var analyzer:OutputAnalyzer
         private lateinit var objectAnimator: ObjectAnimator
         private lateinit var floatingActionButton: View
-        private lateinit var navController: NavController
+        private lateinit var pulseValue: String
 //        fun setViewState(state: HeartRateActivity.VIEW_STATE?) {
 //            val appMenu = (findViewById<View>(R.id.toolbar) as Toolbar).getMenu()
 //            when (state) {
@@ -119,6 +120,11 @@
             }
         }
 
+        fun extractPulseValue(input: String): String? {
+            val regex = Regex("""Pulse:\s(\d+\.\d+)""")
+            val matchResult = regex.find(input)
+            return matchResult?.groups?.get(1)?.value
+        }
 
         @SuppressLint("HandlerLeak")
         private val mainHandler: Handler = object : Handler(Looper.getMainLooper()) {
@@ -126,6 +132,7 @@
             override fun handleMessage(msg: Message) {
                 if (msg.what == MESSAGE_UPDATE_REALTIME) {
                     (findViewById<View>(R.id.textView) as TextView).text = msg.obj.toString()
+                    pulseValue = extractPulseValue(msg.obj.toString()).toString()
                     (findViewById<View>(R.id.editText) as EditText).setText("We are measuring your blood pressure...")
                 }
 //                if (msg.what == MESSAGE_UPDATE_FINAL) {
@@ -398,11 +405,13 @@
 
 
             cancelButton.setOnClickListener { dialog.dismiss() }
-//            analysisButton.setOnClickListener{
-//                val action = HeartRateActivityDirections.actionHeartRateActivityToHeartRateFragment()
-//                navController.navigate(action)
-//                dialog.dismiss()
-//            }
+            analysisButton.setOnClickListener{
+                val intent = Intent(this, ResultActivity::class.java)
+                intent.putExtra("SELECTED_EMOTION", emotion) // Passing the selected emotion
+                intent.putExtra("PULSE_VALUE", pulseValue) // Passing the pulse value
+                startActivity(intent)
+                dialog.dismiss()
+            }
             dialog.show()
             dialog.window!!.setLayout(
                 ViewGroup.LayoutParams.MATCH_PARENT,
