@@ -236,6 +236,7 @@
             }
             binding.topAppBar.setNavigationOnClickListener {
                 navigateToHomeActivity()
+
             }
             ActivityCompat.requestPermissions(
                 this, arrayOf(Manifest.permission.CAMERA),
@@ -274,9 +275,10 @@
 
         private fun navigateToHomeActivity() {
             val intent = Intent(this, MainActivity::class.java)
+            intent.flags = Intent.FLAG_ACTIVITY_CLEAR_TOP or Intent.FLAG_ACTIVITY_NEW_TASK
             mainActivityLauncher.launch(intent)
             setResult(Activity.RESULT_CANCELED)
-            finish()
+            finish() // This will remove the HeartRateActivity from the activity stack
         }
 
         fun onClickNewMeasurement(item: MenuItem?) {
@@ -407,7 +409,7 @@
             cancelButton.setOnClickListener { dialog.dismiss() }
             analysisButton.setOnClickListener{
                 val intent = Intent(this, ResultActivity::class.java)
-                intent.putExtra("SELECTED_EMOTION", emotion) // Passing the selected emotion
+                intent.putExtra("SELECTED_EMOTION", emotion.toString()) // Passing the selected emotion
                 intent.putExtra("PULSE_VALUE", pulseValue) // Passing the pulse value
                 startActivity(intent)
                 dialog.dismiss()

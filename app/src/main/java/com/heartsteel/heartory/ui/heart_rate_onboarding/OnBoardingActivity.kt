@@ -99,7 +99,7 @@ class OnBoardingActivity : AppCompatActivity() {
         }
 
         skipBtn.setOnClickListener {
-
+            heartRateScreenIntent()
         }
 
         previousBtn.setOnClickListener {
@@ -120,6 +120,5 @@ class OnBoardingActivity : AppCompatActivity() {
         val heartRateIntent = Intent(this, HeartRateActivity::class.java)
         startActivity(heartRateIntent)
         finish()
-
     }
 }

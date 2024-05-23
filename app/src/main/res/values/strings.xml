@@ -10,6 +10,22 @@
         field of view in the small viewfinder.
         \nOnce the measurement is complete, it can be exported or repeated through the menu.
     </string>
+    <string name="output_result">General Health Tips\n
+Heart Rate: An 83 bpm resting heart rate is normal.\n
+Exercise: Aim for 150 minutes of moderate activity per week (e.g., walking, cycling).\n
+Diet: Eat a balanced diet rich in fruits, vegetables, lean proteins, and whole grains.\n
+Hydration: Drink plenty of water daily.\n
+Sleep: Get 7-9 hours of quality sleep each night.\n
+Avoid Harmful Habits: Limit alcohol, avoid smoking, and reduce caffeine.\n
+Emotional Well-being\n
+Happiness: Engage in activities you enjoy and practice gratitude.\n
+Social Connections: Spend time with friends and family.\n
+Stress Management: Practice relaxation techniques like deep breathing or meditation.\n
+Regular Check-ups\n
+Health Monitoring: Visit your healthcare provider regularly for check-ups and screenings.\n
+Maintain Healthy Weight: Combine diet and exercise to manage your weight.\n
+By following these tips, you can maintain good health and well-being.</string>
+
     <string name="output_header_template">Heart rate on %s</string>
     <string name="output_detected_peaks_header">Detected Peaks:</string>
     <string name="send_output_to">Send output to:</string>
