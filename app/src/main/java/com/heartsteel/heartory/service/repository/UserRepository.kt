@@ -8,6 +8,7 @@ import com.heartsteel.heartory.service.model.request.ForgotPasswordReq
 import com.heartsteel.heartory.service.model.request.LoginReq
 import com.heartsteel.heartory.service.model.request.RegisterReq
 import com.heartsteel.heartory.service.model.domain.User
+import com.heartsteel.heartory.service.model.request.IsEmailExistReq
 import com.heartsteel.heartory.service.sharePreference.AppSharePreference
 import javax.inject.Inject
 
@@ -37,7 +38,7 @@ class UserRepository @Inject constructor(
 
     suspend fun register(registerReq: RegisterReq) = publicRetrofit.authApi.register(registerReq)
 
-    suspend fun isEmailIsExist(email: String) = publicRetrofit.authApi.isEmailIsExist(email)
+    suspend fun isEmailIsExist(isEmailExistReq: IsEmailExistReq) = publicRetrofit.authApi.isEmailIsExist(isEmailExistReq)
 
     fun saveUserToSharePref(user: User) = appSharePreference.saveUser(user)
     fun getUserFromSharePref(): User? = appSharePreference.getUser()

@@ -1,6 +1,7 @@
 package com.heartsteel.heartory.service.api
 
 import com.heartsteel.heartory.service.model.request.ForgotPasswordReq
+import com.heartsteel.heartory.service.model.request.IsEmailExistReq
 import com.heartsteel.heartory.service.model.request.LoginReq
 import com.heartsteel.heartory.service.model.response.LoginRes
 import com.heartsteel.heartory.service.model.request.RefreshTokenReq
@@ -20,8 +21,8 @@ interface AuthAPI {
     @POST("auth/signup")
     suspend fun register(@Body registerReq: RegisterReq): Response<ResponseObject<Int>>
 
-    @GET("auth/isEmailExist")
-    suspend fun isEmailIsExist(@Query(value = "email") email: String): Response<ResponseObject<Boolean>>
+    @POST("auth/isEmailExist")
+    suspend fun isEmailIsExist(@Body isEmailExistReq: IsEmailExistReq): Response<ResponseObject<Boolean>>
 
     @POST("auth/forget-password")
     suspend fun forgotPassword(@Body forgotPasswordReq: ForgotPasswordReq): Response<ResponseObject<Int>>

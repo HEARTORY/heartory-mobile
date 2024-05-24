@@ -1,6 +1,5 @@
 package com.heartsteel.heartory.ui.auth
 
-import android.app.Fragment
 import android.content.Intent
 import android.content.IntentSender
 import android.os.Bundle
@@ -20,11 +19,12 @@ import com.google.firebase.auth.ktx.auth
 import com.google.firebase.ktx.Firebase
 import com.heartsteel.heartory.common.constant.RoleEnum
 import com.heartsteel.heartory.common.util.Resource
+import com.heartsteel.heartory.databinding.ActivityAuthBinding
+import com.heartsteel.heartory.service.model.domain.User
 import com.heartsteel.heartory.service.model.request.FirebaseRegisterReq
+import com.heartsteel.heartory.service.model.request.IsEmailExistReq
 import com.heartsteel.heartory.service.model.request.LoginReq
 import com.heartsteel.heartory.service.model.request.RegisterReq
-import com.heartsteel.heartory.service.model.domain.User
-import com.heartsteel.heartory.databinding.ActivityAuthBinding
 import com.heartsteel.heartory.ui.MainActivity
 import com.heartsteel.heartory.ui.auth.login.LoginFragment
 import com.heartsteel.heartory.ui.auth.register.RegisterFragment
@@ -76,11 +76,6 @@ class AuthActivity : BaseActivity() {
             com.google.android.material.R.anim.m3_side_sheet_enter_from_left,
             com.google.android.material.R.anim.m3_side_sheet_exit_to_left,
         ).replace(_binding.fcvAuth.id, loginFragment).commit()
-    }
-
-
-    override fun onAttachFragment(fragment: Fragment?) {
-        super.onAttachFragment(fragment)
     }
 
     private fun setupLoginWithGoogle() {
@@ -163,7 +158,7 @@ class AuthActivity : BaseActivity() {
         loginUser?.let {
             loginUser.email?.let {
                 lifecycleScope.launchWhenStarted {
-                    viewModel.userRepository.isEmailIsExist(it).let {
+                    viewModel.userRepository.isEmailIsExist(IsEmailExistReq(it)).let {
                         if (it.isSuccessful) {
                             it.body()?.data?.let {
                                 if (it) {

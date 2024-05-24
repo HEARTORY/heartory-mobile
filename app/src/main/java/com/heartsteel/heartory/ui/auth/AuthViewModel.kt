@@ -13,6 +13,7 @@ import com.heartsteel.heartory.service.model.response.LoginRes
 import com.heartsteel.heartory.service.model.request.RegisterReq
 import com.heartsteel.heartory.service.model.response.ResponseObject
 import com.heartsteel.heartory.service.model.domain.User
+import com.heartsteel.heartory.service.model.request.IsEmailExistReq
 import com.heartsteel.heartory.service.repository.UserRepository
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.launch
@@ -116,7 +117,7 @@ class AuthViewModel @Inject constructor(
         try {
             if (hasInternetConnection()) {
                 viewModelScope.launch {
-                    userRepository.isEmailIsExist(email).let {
+                    userRepository.isEmailIsExist(IsEmailExistReq(email)).let {
                         if (it.isSuccessful) {
                             if (it.body()?.data == true) {
                                 userRepository.forgotPassword(ForgotPasswordReq(email)).let {
