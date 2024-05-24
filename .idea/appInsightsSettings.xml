@@ -8,10 +8,10 @@
             <InsightsFilterSettings>
               <option name="connection">
                 <ConnectionSetting>
-                  <option name="appId" value="PLACEHOLDER" />
-                  <option name="mobileSdkAppId" value="" />
-                  <option name="projectId" value="" />
-                  <option name="projectNumber" value="" />
+                  <option name="appId" value="com.heartsteel.heartory" />
+                  <option name="mobileSdkAppId" value="1:686710245051:android:a63d0ddac79b67daba4b9e" />
+                  <option name="projectId" value="heartory-firebase" />
+                  <option name="projectNumber" value="686710245051" />
                 </ConnectionSetting>
               </option>
               <option name="signal" value="SIGNAL_UNSPECIFIED" />
