@@ -1,33 +1,66 @@
 package com.heartsteel.heartory.ui.auth.login
 
-import androidx.fragment.app.viewModels
 import android.os.Bundle
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.lifecycle.lifecycleScope
+import com.example.healthcarecomp.base.BaseFragment
 import com.heartsteel.heartory.R
+import com.heartsteel.heartory.data.model.LoginReq
 import com.heartsteel.heartory.databinding.FragmentLoginBinding
+import com.heartsteel.heartory.ui.auth.AuthActivity
+import com.heartsteel.heartory.ui.auth.AuthViewModel
+import dagger.hilt.android.AndroidEntryPoint
 
-class LoginFragment : Fragment() {
+@AndroidEntryPoint
+class LoginFragment : BaseFragment(R.layout.fragment_login) {
 
-    private  lateinit var _binding: FragmentLoginBinding
     companion object {
         fun newInstance() = LoginFragment()
     }
 
-    private val viewModel: LoginViewModel by viewModels()
-
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        // TODO: Use the ViewModel
-
-    }
+    lateinit var binding: FragmentLoginBinding
+    private lateinit var authViewModel: AuthViewModel
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
-        return inflater.inflate(R.layout.fragment_login, container, false)
+        binding = FragmentLoginBinding.inflate(layoutInflater, container, false)
+        authViewModel =  (requireActivity() as AuthActivity).viewModel
+        setupView()
+        setupEvent()
+
+        return binding.root
     }
+
+    private fun setupView() {
+
+
+    }
+
+    private fun setupEvent() {
+        authViewModel.user
+
+        binding.tvRegister.setOnClickListener {
+            (activity as AuthActivity).navigateToRegister()
+        }
+
+        binding.btnLogin.setOnClickListener {
+            val email = binding.etEmail.text.toString()
+            val password = binding.etPassword.text.toString()
+            lifecycleScope.launchWhenStarted {
+                var loginReq = LoginReq(email, password)
+                authViewModel.login(loginReq)
+            }
+        }
+
+        binding.ivLoginWithGoogle.setOnClickListener{
+            (activity as AuthActivity).loginWithGoogle()
+        }
+    }
+
+
+
 }

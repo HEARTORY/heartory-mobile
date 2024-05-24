@@ -1,20 +1,19 @@
 <?xml version="1.0" encoding="utf-8"?>
 <menu xmlns:android="http://schemas.android.com/apk/res/android">
-
     <item
         android:id="@+id/homeFragment"
         android:icon="@drawable/ic_home_selector"
         android:title="Home" />
 
     <item
-        android:id="@+id/chatFragment"
-        android:icon="@drawable/ic_chat_selector"
-        android:title="Chat" />
+        android:id="@+id/analysisFragment"
+        android:icon="@drawable/ic_auto_graph_24"
+        android:title="Analysis" />
 
     <item
         android:id="@+id/heartRateFragment"
-        android:enabled="false"
-        android:title=""/>
+        android:title="heart rate"
+        android:enabled="false"/>
 
     <item
         android:id="@+id/exerciseFragment"

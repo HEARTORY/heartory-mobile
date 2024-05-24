@@ -1,0 +1,22 @@
+<!-- res/navigation/nav_graph.xml -->
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/nav_graph"
+    app:startDestination="@id/heartRateActivity">
+
+    <activity
+        android:id="@+id/heartRateActivity"
+        android:name="com.heartsteel.heartory.ui.heart_rate.heartbeat.HeartRateActivity"
+        android:label="Heart Rate Activity">
+        <action
+            android:id="@+id/action_heartRateActivity_to_heartRateFragment"
+            app:destination="@id/heartRateFragment" />
+    </activity>
+
+    <fragment
+        android:id="@+id/heartRateFragment"
+        android:name="com.heartsteel.heartory.ui.heart_rate.HearRateFragment"
+        android:label="Heart Rate Fragment">
+        <!-- Add any arguments or other configurations if needed -->
+    </fragment>
+</navigation>

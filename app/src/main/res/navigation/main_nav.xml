@@ -13,8 +13,11 @@
         <action
             android:id="@+id/action_homeFragment_to_heartRateFragment"
             app:destination="@id/heartRateFragment"
+            app:popUpTo="@id/homeFragment"
+            app:popUpToInclusive="true"
             app:enterAnim="@anim/nav_default_enter_anim"
-            app:exitAnim="@anim/nav_default_exit_anim" />
+            app:exitAnim="@anim/nav_default_exit_anim"
+            />
         <action
             android:id="@+id/action_homeFragment_to_chatFragment"
             app:destination="@id/chatFragment"
@@ -23,15 +26,41 @@
         <action
             android:id="@+id/action_homeFragment_to_exerciseFragment"
             app:destination="@id/exerciseFragment"
+            app:popUpTo="@id/homeFragment"
+            app:popUpToInclusive="true"
             app:enterAnim="@anim/nav_default_enter_anim"
             app:exitAnim="@anim/nav_default_exit_anim" />
         <action
             android:id="@+id/action_homeFragment_to_profileFragment"
+
             app:destination="@id/profileFragment"
             app:enterAnim="@anim/nav_default_enter_anim"
             app:exitAnim="@anim/nav_default_exit_anim" />
 
+<!--        <action-->
+<!--            android:id="@+id/action_homeFragment_to_profileFragment"-->
+<!--            app:popUpTo="@id/homeFragment"-->
+<!--            app:popUpToInclusive="true"-->
+<!--            app:destination="@id/profileFragment" />-->
+        <action
+            android:id="@+id/action_homeFragment_to_analysisFragment"
+            app:popUpTo="@id/homeFragment"
+            app:popUpToInclusive="true"
+            app:destination="@id/analysisFragment" />
+        <action
+            android:id="@+id/action_homeFragment_to_articleFragment"
+            app:destination="@id/articleFragment" />
     </fragment>
+    <activity
+        android:id="@+id/heartRateActivity"
+        android:name="com.heartsteel.heartory.ui.heart_rate.heartbeat.HeartRateActivity"
+        android:label="fragment_hear_rate"
+        />
+    <activity
+        android:id="@+id/brandActivity"
+        android:name="com.heartsteel.heartory.ui.heart_rate.heartbeat.HeartRateActivity"
+        android:label="fragment_hear_rate"
+        />
 
     <fragment
         android:id="@+id/heartRateFragment"
@@ -40,7 +69,7 @@
         tools:layout="@layout/fragment_hear_rate" />
     <fragment
         android:id="@+id/chatFragment"
-        android:name="com.heartsteel.heartory.ui.chat.ChatFragment"
+        android:name="com.heartsteel.heartory.ui.chat.welcome.ChatFragment"
         android:label="fragment_chat"
         tools:layout="@layout/fragment_chat" />
     <fragment
@@ -64,6 +93,7 @@
         android:name="com.heartsteel.heartory.ui.profile.ProfileFragment"
         android:label="fragment_profile"
         tools:layout="@layout/fragment_profile" />
+
 
     <fragment
         android:id="@+id/exerciseActivityListFragment"
@@ -110,4 +140,16 @@
             app:enterAnim="@anim/nav_default_enter_anim"
             app:exitAnim="@anim/nav_default_exit_anim"/>
     </fragment>
+
+    <fragment
+        android:id="@+id/analysisFragment"
+        android:name="com.heartsteel.heartory.ui.analysis.AnalysisFragment"
+        android:label="fragment_analysis"
+        tools:layout="@layout/fragment_analysis" />
+    <fragment
+        android:id="@+id/articleFragment"
+        android:name="com.heartsteel.heartory.ui.article.ArticleFragment"
+        android:label="fragment_article"
+        tools:layout="@layout/fragment_article" />
+
 </navigation>

@@ -38,4 +38,14 @@
         <item name="android:stateListAnimator">@null</item>
         <item name="android:background">@drawable/background_text_button</item>
     </style>
+
+    <style name="Widget.Theme.Heartory.MyView" parent="">
+        <item name="android:background">@color/gray_400</item>
+        <item name="exampleColor">@color/light_blue_400</item>
+    </style>
+
+    <style name="DialogAnimation">
+        <item name="android:windowEnterAnimation">@anim/slide_in_bottom</item>
+        <item name="android:windowExitAnimation">@anim/slide_out_bottom</item>
+    </style>
 </resources>

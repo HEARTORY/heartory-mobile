@@ -6,26 +6,33 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import com.example.healthcarecomp.base.BaseFragment
 import com.heartsteel.heartory.R
+import com.heartsteel.heartory.databinding.FragmentHearRateBinding
 
-class HearRateFragment : Fragment() {
-
+class HearRateFragment : BaseFragment(R.layout.fragment_hear_rate) {
     companion object {
         fun newInstance() = HearRateFragment()
     }
 
-    private val viewModel: HearRateViewModel by viewModels()
-
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-
-        // TODO: Use the ViewModel
-    }
+    private lateinit var _binding: FragmentHearRateBinding
+    private val _viewModel: HearRateViewModel by viewModels()
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
-        return inflater.inflate(R.layout.fragment_hear_rate, container, false)
+        _binding = FragmentHearRateBinding.inflate(layoutInflater, container, false)
+        setupView()
+        setupEvent()
+        return _binding.root
+    }
+
+    private fun setupEvent() {
+
+    }
+
+    private fun setupView() {
+
     }
 }

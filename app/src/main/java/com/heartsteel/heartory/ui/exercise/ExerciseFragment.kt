@@ -63,5 +63,16 @@ class ExerciseFragment : Fragment() {
     override fun onDestroyView() {
         super.onDestroyView()
         _binding = null
+
     }
+
+    private fun setupView() {
+
+    }
+
+    private fun setupEvent() {
+
+    }
+
+
 }
