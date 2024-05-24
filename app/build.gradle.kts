@@ -91,6 +91,16 @@ dependencies {
     implementation("androidx.lifecycle:lifecycle-runtime-ktx:2.7.0")
     implementation("androidx.lifecycle:lifecycle-common-java8:2.7.0")
 
+    //recyclerview
+    implementation ("androidx.recyclerview:recyclerview:1.2.1")
+    implementation ("androidx.cardview:cardview:1.0.0")
+
+    //imgOnline
+    implementation ("com.github.bumptech.glide:glide:4.12.0")
+    annotationProcessor ("com.github.bumptech.glide:compiler:4.12.0")
+
+    //chart
+    implementation ("com.github.PhilJay:MPAndroidChart:v3.1.0")
     //nav
     implementation("androidx.navigation:navigation-fragment-ktx:2.7.7")
     implementation("androidx.navigation:navigation-ui-ktx:2.7.7")
@@ -143,9 +153,12 @@ dependencies {
     //avatar
     implementation("io.getstream:avatarview-coil:1.0.7")
 
+
     // viewPager2
     implementation("androidx.viewpager2:viewpager2:1.0.0")
 
     //image slider
     implementation("com.github.denzcoskun:ImageSlideshow:0.1.2")
+
+    implementation ("com.github.denzcoskun:ImageSlideshow:0.1.0")
 }
