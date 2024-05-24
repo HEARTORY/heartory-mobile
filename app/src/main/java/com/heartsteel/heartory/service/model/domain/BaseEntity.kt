@@ -1,4 +1,4 @@
-package com.heartsteel.heartory.data.model.domain
+package com.heartsteel.heartory.service.model.domain
 
 import java.util.Date
 

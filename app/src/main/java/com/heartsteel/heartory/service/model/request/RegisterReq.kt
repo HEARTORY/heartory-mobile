@@ -1,4 +1,4 @@
-package com.heartsteel.heartory.data.model
+package com.heartsteel.heartory.service.model.request
 
 data class RegisterReq(
     var firstName: String,

@@ -1,10 +1,12 @@
-package com.heartsteel.heartory.data.sharePreference
+package com.heartsteel.heartory.service.sharePreference
 
 import android.content.Context
 import android.content.SharedPreferences
 import javax.inject.Inject
 import android.util.Base64
+import android.util.Log
 import com.google.gson.Gson
+import com.heartsteel.heartory.service.model.domain.User
 
 class AppSharePreference @Inject constructor(private val context: Context) {
     companion object{
@@ -16,7 +18,7 @@ class AppSharePreference @Inject constructor(private val context: Context) {
         return context.getSharedPreferences(APP_SHARE_KEY,Context.MODE_PRIVATE)
     }
 
-    private fun encode(normalText: String): String? {
+    private fun encode(normalText: String): String {
         return Base64.encodeToString(normalText.toByteArray(), Base64.DEFAULT)
     }
 
@@ -79,6 +81,23 @@ class AppSharePreference @Inject constructor(private val context: Context) {
         } else {
             null
         }
+    }
+
+    fun remove(key: String) {
+        prefs.edit().remove(key).apply()
+    }
+
+    fun saveUser(user: User) {
+        putObject("user", user)
+    }
+    fun getUser(): User?{
+        val user = getObject("user", User::class.java)
+        Log.d("UserRepository", "User get: ${user}")
+        return user
+    }
+
+    fun isLoggedIn(): Boolean {
+        return getObject("user", User::class.java) != null
     }
 
 }

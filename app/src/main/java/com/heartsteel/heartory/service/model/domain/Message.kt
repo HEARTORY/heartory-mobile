@@ -1,4 +1,4 @@
-package com.heartsteel.heartory.data.model
+package com.heartsteel.heartory.service.model.domain
 
 data class Message(
     val id: String,

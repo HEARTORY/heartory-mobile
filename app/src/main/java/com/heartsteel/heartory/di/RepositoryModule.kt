@@ -1,23 +1,36 @@
 package com.heartsteel.heartory.di
 
 import com.google.firebase.auth.FirebaseAuth
-import com.heartsteel.heartory.data.repository.AuthRepository
-import com.heartsteel.heartory.data.sharePreference.AppSharePreference
+import com.heartsteel.heartory.service.api.retrofit.PrivateRetrofit
+import com.heartsteel.heartory.service.api.retrofit.PublicRetrofit
+import com.heartsteel.heartory.service.repository.JwtRepository
+import com.heartsteel.heartory.service.repository.UserRepository
+import com.heartsteel.heartory.service.sharePreference.AppSharePreference
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
 import dagger.hilt.android.components.ViewModelComponent
 import dagger.hilt.android.scopes.ViewModelScoped
-import dagger.hilt.components.SingletonComponent
-import javax.inject.Singleton
 
 @Module
 @InstallIn(ViewModelComponent::class)
 object RepositoryModule {
     @Provides
     @ViewModelScoped
-    fun provideAuthRepository(firebaseAuth: FirebaseAuth, appSharePreference: AppSharePreference): AuthRepository {
-        return AuthRepository(firebaseAuth, appSharePreference)
+    fun provideUserRepository(
+        firebaseAuth: FirebaseAuth,
+        appSharePreference: AppSharePreference,
+        privateRetrofit: PrivateRetrofit,
+        publicRetrofit: PublicRetrofit
+    ): UserRepository {
+        return UserRepository(firebaseAuth, appSharePreference, privateRetrofit, publicRetrofit)
     }
 
+    @Provides
+    @ViewModelScoped
+    fun provideJwtRepository(
+        appSharePreference: AppSharePreference
+    ): JwtRepository {
+        return JwtRepository(appSharePreference)
+    }
 }

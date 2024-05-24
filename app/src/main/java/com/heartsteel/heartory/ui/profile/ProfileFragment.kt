@@ -5,13 +5,16 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.fragment.app.viewModels
 import com.example.healthcarecomp.base.BaseFragment
 import com.heartsteel.heartory.R
+import com.heartsteel.heartory.common.util.Resource
 import com.heartsteel.heartory.databinding.FragmentProfileBinding
 import com.heartsteel.heartory.ui.auth.AuthActivity
 import dagger.hilt.android.AndroidEntryPoint
 import io.getstream.avatarview.coil.loadImage
+
 @AndroidEntryPoint
 class ProfileFragment : BaseFragment(R.layout.fragment_profile) {
 
@@ -25,6 +28,7 @@ class ProfileFragment : BaseFragment(R.layout.fragment_profile) {
         _binding = FragmentProfileBinding.inflate(layoutInflater, container, false)
         setupView()
         setupEvent()
+        setupObserver()
         return _binding.root
     }
 
@@ -47,6 +51,32 @@ class ProfileFragment : BaseFragment(R.layout.fragment_profile) {
                 startActivity(it)
             }
         }
+        _binding.llEditProfile.setOnClickListener {
+            _viewModel.fetchUser()
+        }
     }
 
+    private fun setupObserver() {
+        _viewModel.userState.observe(viewLifecycleOwner) {
+            when (it) {
+                is Resource.Loading -> {
+                    showLoading2()
+                }
+
+                is Resource.Success -> {
+                    hideLoading2()
+                    it.data?.let {
+                        Toast.makeText(requireContext(), "${it}", Toast.LENGTH_SHORT).show()
+                    }
+                    Toast.makeText(requireContext(), "User fetched null", Toast.LENGTH_SHORT).show()
+                }
+
+                is Resource.Error -> {
+                    hideLoading2()
+                    Toast.makeText(requireContext(), it.message, Toast.LENGTH_SHORT).show()
+                }
+            }
+        }
+
+    }
 }

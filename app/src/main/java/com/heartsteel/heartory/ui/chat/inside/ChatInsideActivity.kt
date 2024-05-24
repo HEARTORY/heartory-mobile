@@ -8,7 +8,7 @@ import androidx.activity.viewModels
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.healthcarecomp.base.BaseActivity
 import com.heartsteel.heartory.common.util.Resource
-import com.heartsteel.heartory.data.model.Message
+import com.heartsteel.heartory.service.model.domain.Message
 import com.heartsteel.heartory.databinding.ActivityChatInsideBinding
 import dagger.hilt.android.AndroidEntryPoint
 

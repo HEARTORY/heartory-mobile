@@ -1,4 +1,4 @@
-package com.heartsteel.heartory.data.model
+package com.heartsteel.heartory.service.model.response
 
 data class ResponseObject<T>(
     val statusCode: String,

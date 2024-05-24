@@ -6,7 +6,7 @@ import androidx.recyclerview.widget.DiffUtil
 import androidx.viewbinding.ViewBinding
 import com.example.healthcarecomp.base.BaseAdapter
 import com.example.healthcarecomp.base.BaseItemViewHolder
-import com.heartsteel.heartory.data.model.Message
+import com.heartsteel.heartory.service.model.domain.Message
 import com.heartsteel.heartory.databinding.ComponentMiaResponseBinding
 import com.heartsteel.heartory.databinding.ComponentUserPromptBinding
 

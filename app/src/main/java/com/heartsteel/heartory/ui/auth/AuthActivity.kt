@@ -20,10 +20,10 @@ import com.google.firebase.auth.ktx.auth
 import com.google.firebase.ktx.Firebase
 import com.heartsteel.heartory.common.constant.RoleEnum
 import com.heartsteel.heartory.common.util.Resource
-import com.heartsteel.heartory.data.model.FirebaseRegisterReq
-import com.heartsteel.heartory.data.model.LoginReq
-import com.heartsteel.heartory.data.model.RegisterReq
-import com.heartsteel.heartory.data.model.domain.User
+import com.heartsteel.heartory.service.model.request.FirebaseRegisterReq
+import com.heartsteel.heartory.service.model.request.LoginReq
+import com.heartsteel.heartory.service.model.request.RegisterReq
+import com.heartsteel.heartory.service.model.domain.User
 import com.heartsteel.heartory.databinding.ActivityAuthBinding
 import com.heartsteel.heartory.ui.MainActivity
 import com.heartsteel.heartory.ui.auth.login.LoginFragment
@@ -121,6 +121,7 @@ class AuthActivity : BaseActivity() {
             }
     }
 
+
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         super.onActivityResult(requestCode, resultCode, data)
 
@@ -162,7 +163,7 @@ class AuthActivity : BaseActivity() {
         loginUser?.let {
             loginUser.email?.let {
                 lifecycleScope.launchWhenStarted {
-                    viewModel.authRepository.isEmailIsExist(it).let {
+                    viewModel.userRepository.isEmailIsExist(it).let {
                         if (it.isSuccessful) {
                             it.body()?.data?.let {
                                 if (it) {
@@ -249,7 +250,7 @@ class AuthActivity : BaseActivity() {
 
                 is Resource.Success -> {
                     hideLoading2()
-                    Toast.makeText(this, "Log in success", Toast.LENGTH_SHORT).show()
+                    Toast.makeText(this, it.data?.message, Toast.LENGTH_SHORT).show()
                     val intent = Intent(this, MainActivity::class.java)
                     startActivity(intent)
                 }
@@ -258,7 +259,7 @@ class AuthActivity : BaseActivity() {
                     hideLoading2()
                     Toast.makeText(
                         this,
-                        "Login failed" + it.message,
+                        "Fail: " + it.message,
                         Toast.LENGTH_SHORT
                     ).show()
                 }
@@ -294,6 +295,24 @@ class AuthActivity : BaseActivity() {
                 is Resource.Success -> {
                     hideLoading2()
                     Toast.makeText(this, "Register with Google success", Toast.LENGTH_SHORT).show()
+                }
+
+                is Resource.Error -> {
+                    hideLoading2()
+                    Toast.makeText(this, it.message, Toast.LENGTH_SHORT).show()
+                }
+            }
+        }
+
+        viewModel.forgotPasswordState.observe(this) {
+            when (it) {
+                is Resource.Loading -> {
+                    showLoading2()
+                }
+
+                is Resource.Success -> {
+                    hideLoading2()
+                    Toast.makeText(this, it.data?.message, Toast.LENGTH_SHORT).show()
                 }
 
                 is Resource.Error -> {

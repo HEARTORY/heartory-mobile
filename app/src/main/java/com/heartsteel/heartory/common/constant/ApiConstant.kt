@@ -11,7 +11,7 @@ class ApiConstant {
             get() = if (isEmulator()) BASE_URL_EMULATOR else BASE_URL_DEVICE
 
         private fun isEmulator(): Boolean {
-            return Build.FINGERPRINT.startsWith("generic")
+            return (Build.FINGERPRINT.startsWith("generic")
                     || Build.FINGERPRINT.startsWith("unknown")
                     || Build.MODEL.contains("google_sdk")
                     || Build.MODEL.contains("Emulator")
@@ -19,6 +19,8 @@ class ApiConstant {
                     || Build.MANUFACTURER.contains("Genymotion")
                     || Build.BRAND.startsWith("generic") && Build.DEVICE.startsWith("generic")
                     || "google_sdk" == Build.PRODUCT
+                    || Build.HARDWARE.contains("goldfish")
+                    || Build.HARDWARE.contains("ranchu"))
         }
     }
 }
