@@ -16,7 +16,7 @@
             android:layout_width="96dp"
             android:layout_height="96dp"
             android:scaleType="centerCrop"
-            android:src="@drawable/heartory_app_logo"
+
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintBottom_toBottomOf="parent"

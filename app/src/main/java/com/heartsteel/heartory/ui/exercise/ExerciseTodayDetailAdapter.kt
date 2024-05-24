@@ -3,15 +3,19 @@ package com.heartsteel.heartory.ui.exercise
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
+import com.bumptech.glide.Glide
 import com.heartsteel.heartory.data.model.Exercise
 import com.heartsteel.heartory.databinding.FragmentExerciseTodayActivityDetailItemBinding
 
 class ExerciseTodayDetailAdapter(private val items: List<Exercise>) : RecyclerView.Adapter<ExerciseTodayDetailAdapter.ViewHolder>() {
 
-    class ViewHolder(val binding:FragmentExerciseTodayActivityDetailItemBinding) : RecyclerView.ViewHolder(binding.root) {
+    class ViewHolder(val binding: FragmentExerciseTodayActivityDetailItemBinding) : RecyclerView.ViewHolder(binding.root) {
         fun bind(exercise: Exercise) {
             binding.tvClassName.text = exercise.name
             binding.tvTime.text = exercise.time
+            Glide.with(binding.root.context)
+                .load(exercise.imageUrl)
+                .into(binding.ivClassLogo) // Assuming ivClassLogo is the id of your ImageView
         }
     }
 
@@ -22,7 +26,7 @@ class ExerciseTodayDetailAdapter(private val items: List<Exercise>) : RecyclerVi
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         val item = items[position]
-        holder.bind(item)  // Use the bind method to set the data
+        holder.bind(item)
     }
 
     override fun getItemCount(): Int = items.size

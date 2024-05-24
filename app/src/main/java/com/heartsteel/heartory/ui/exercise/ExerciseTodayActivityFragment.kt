@@ -43,9 +43,9 @@ class ExerciseTodayActivityFragment : Fragment() {
 
     private fun setupRecyclerView() {
         val exerciseList = listOf(
-            Exercise(name = "Knee push up", time = "Today, 03:00pm"),
-            Exercise(name = "Push up", time = "Today, 03:00pm"),
-            Exercise(name = "Sit up", time = "Today, 03:00pm")
+            Exercise(name = "Knee push up", time = "Today, 03:00pm", imageUrl = "https://media1.popsugar-assets.com/files/thumbor/vuQmhXf-dfGzBK2liB8_4f6kuF8/fit-in/1024x1024/filters:format_auto-!!-:strip_icc-!!-/2014/04/04/724/n/1922729/b95be44e0421cbd2_Plank-Knee-In/i/Knee-Up-Plank.jpg"),
+            Exercise(name = "Push up", time = "Today, 03:00pm", imageUrl = "https://www.realsimple.com/thmb/rEmEAm4vfx67IRbFgoVA0RzhTgI=/750x0/filters:no_upscale():max_bytes(150000):strip_icc():format(webp)/health-benefits-of-pushups-GettyImages-498315681-7008d40842444270868c88b516496884.jpg"),
+            Exercise(name = "Sit up", time = "Today, 03:00pm", imageUrl = "https://hips.hearstapps.com/hmg-prod/images/2021-runnersworld-weekendworkouts-ep41-situps-jc-v03-index-1633617537.jpg?crop=0.9893230083304001xw:1xh;center,top&resize=1200:*")
         )
         val adapter = ExerciseTodayActivityAdapter(exerciseList)
 

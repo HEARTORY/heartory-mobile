@@ -8,19 +8,19 @@
     tools:context=".ui.exercise.ExerciseTodayDetailFragment">
 
     <!-- Fullscreen layout -->
-    <LinearLayout
-        android:id="@+id/fullscreenLayout"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:orientation="vertical"
-        android:visibility="gone">
+<!--    <LinearLayout-->
+<!--        android:id="@+id/fullscreenLayout"-->
+<!--        android:layout_width="match_parent"-->
+<!--        android:layout_height="match_parent"-->
+<!--        android:orientation="vertical"-->
+<!--        android:visibility="gone">-->
 
-        <VideoView
-            android:id="@+id/videoViewFullScreen"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_gravity="center" />
-    </LinearLayout>
+<!--        <VideoView-->
+<!--            android:id="@+id/videoViewFullScreen"-->
+<!--            android:layout_width="match_parent"-->
+<!--            android:layout_height="match_parent"-->
+<!--            android:layout_gravity="center" />-->
+<!--    </LinearLayout>-->
 
     <!-- Regular layout -->
     <LinearLayout
@@ -58,7 +58,7 @@
                 app:layout_constraintVertical_bias="0.5" />
         </androidx.constraintlayout.widget.ConstraintLayout>
         <!-- Video Layout -->
-        <VideoView
+        <WebView
             android:id="@+id/videoView"
             android:layout_width="match_parent"
             android:layout_height="300dp" />
