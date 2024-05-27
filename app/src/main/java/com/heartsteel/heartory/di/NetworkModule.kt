@@ -1,21 +1,18 @@
 package com.example.healthcarecomp.di
 
 import android.content.Context
-import com.google.firebase.auth.FirebaseAuth
-import com.google.firebase.database.DatabaseReference
-import com.google.firebase.database.FirebaseDatabase
 import com.google.firebase.storage.FirebaseStorage
-import com.heartsteel.heartory.common.constant.ApiConstant
 import com.heartsteel.heartory.common.util.InternetUtil
-import com.squareup.moshi.Moshi
+import com.heartsteel.heartory.service.api.retrofit.PrivateRetrofit
+import com.heartsteel.heartory.service.api.retrofit.PublicRetrofit
+import com.heartsteel.heartory.service.jwt.JwtTokenInterceptor
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
 import dagger.hilt.components.SingletonComponent
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
-import retrofit2.Retrofit
-import retrofit2.converter.moshi.MoshiConverterFactory
+import retrofit2.converter.gson.GsonConverterFactory
 import javax.inject.Named
 import javax.inject.Singleton
 
@@ -26,15 +23,17 @@ object NetworkModule {
     @Provides
     @Singleton
     @Named("MainSite")
-    fun provideRetrofit(
-        okHttpClient: OkHttpClient,
-        moshiConverterFactory: MoshiConverterFactory
-    ): Retrofit {
+    fun providePublicRetrofit(): PublicRetrofit {
+        return PublicRetrofit()
+    }
 
-        return Retrofit.Builder().addConverterFactory(moshiConverterFactory)
-            .baseUrl(ApiConstant.BASE_URL)
-            .client(okHttpClient)
-            .build()
+    @Provides
+    @Singleton
+    @Named("MainSite")
+    fun providePrivateRetrofit(
+        jwtTokenInterceptor: JwtTokenInterceptor
+    ): PrivateRetrofit {
+        return PrivateRetrofit(jwtTokenInterceptor)
     }
 
     @Provides
@@ -45,6 +44,7 @@ object NetworkModule {
         val builder = OkHttpClient.Builder()
 
         builder.interceptors().add(httpLoggingInterceptor)
+
         return builder.build()
     }
 
@@ -58,19 +58,20 @@ object NetworkModule {
 
     @Provides
     @Singleton
-    fun provideMoshiConverterFactory(): MoshiConverterFactory {
-        return MoshiConverterFactory.create()
+    fun provideGsonConverterFactory(): GsonConverterFactory {
+        return GsonConverterFactory.create()
     }
 
     @Provides
     @Singleton
-    fun provideFirebaseStorage(): FirebaseStorage{
+    fun provideFirebaseStorage(): FirebaseStorage {
         return FirebaseStorage.getInstance()
     }
 
     @Provides
     @Singleton
-    fun hasInternetConnection(context: Context): ()-> Boolean{
+    fun hasInternetConnection(context: Context): () -> Boolean {
         return InternetUtil(context)::hasInternetConnection
     }
+
 }

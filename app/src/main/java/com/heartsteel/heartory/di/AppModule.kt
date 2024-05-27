@@ -1,9 +1,8 @@
 package com.heartsteel.heartory.di
 
-import android.app.Application
 import android.content.Context
 import android.content.SharedPreferences
-import com.heartsteel.heartory.data.sharePreference.AppSharePreference
+import com.heartsteel.heartory.service.sharePreference.AppSharePreference
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn

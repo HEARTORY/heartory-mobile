@@ -1,6 +1,5 @@
 package com.heartsteel.heartory.ui.auth.register
 
-import androidx.fragment.app.viewModels
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -10,7 +9,7 @@ import androidx.lifecycle.lifecycleScope
 import com.example.healthcarecomp.base.BaseFragment
 import com.heartsteel.heartory.R
 import com.heartsteel.heartory.common.constant.RoleEnum
-import com.heartsteel.heartory.data.model.RegisterReq
+import com.heartsteel.heartory.service.model.request.RegisterReq
 import com.heartsteel.heartory.databinding.FragmentRegisterBinding
 import com.heartsteel.heartory.ui.auth.AuthActivity
 import com.heartsteel.heartory.ui.auth.AuthViewModel

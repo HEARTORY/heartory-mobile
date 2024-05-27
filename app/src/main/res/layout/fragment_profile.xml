@@ -142,8 +142,10 @@
         app:layout_constraintTop_toBottomOf="@+id/tvUsername">
 
         <LinearLayout
+            android:id="@+id/llPremium"
             android:layout_width="match_parent"
             android:layout_height="60dp"
+            android:orientation="horizontal"
             android:paddingHorizontal="20dp">
 
             <ImageView
@@ -171,8 +173,10 @@
         </LinearLayout>
 
         <LinearLayout
+            android:id="@+id/llEditProfile"
             android:layout_width="match_parent"
             android:layout_height="60dp"
+            android:orientation="horizontal"
             android:paddingHorizontal="20dp">
 
             <ImageView
@@ -203,6 +207,7 @@
             android:id="@+id/llLogout"
             android:layout_width="match_parent"
             android:layout_height="60dp"
+            android:orientation="horizontal"
             android:paddingHorizontal="20dp">
 
             <ImageView

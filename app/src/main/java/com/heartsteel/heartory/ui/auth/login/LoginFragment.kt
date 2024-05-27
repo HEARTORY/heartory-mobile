@@ -7,7 +7,7 @@ import android.view.ViewGroup
 import androidx.lifecycle.lifecycleScope
 import com.example.healthcarecomp.base.BaseFragment
 import com.heartsteel.heartory.R
-import com.heartsteel.heartory.data.model.LoginReq
+import com.heartsteel.heartory.service.model.request.LoginReq
 import com.heartsteel.heartory.databinding.FragmentLoginBinding
 import com.heartsteel.heartory.ui.auth.AuthActivity
 import com.heartsteel.heartory.ui.auth.AuthViewModel
@@ -58,6 +58,11 @@ class LoginFragment : BaseFragment(R.layout.fragment_login) {
 
         binding.ivLoginWithGoogle.setOnClickListener{
             (activity as AuthActivity).loginWithGoogle()
+        }
+
+        binding.tvForgotPassword.setOnClickListener {
+            val email = binding.etEmail.text.toString()
+            authViewModel.forgotPassword(email)
         }
     }
 
