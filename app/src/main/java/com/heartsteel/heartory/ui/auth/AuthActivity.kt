@@ -29,6 +29,7 @@ import com.heartsteel.heartory.ui.MainActivity
 import com.heartsteel.heartory.ui.auth.login.LoginFragment
 import com.heartsteel.heartory.ui.auth.register.RegisterFragment
 import dagger.hilt.android.AndroidEntryPoint
+import es.dmoral.toasty.Toasty
 
 @AndroidEntryPoint
 class AuthActivity : BaseActivity() {
@@ -245,16 +246,15 @@ class AuthActivity : BaseActivity() {
 
                 is Resource.Success -> {
                     hideLoading2()
-                    Toast.makeText(this, it.data?.message, Toast.LENGTH_SHORT).show()
                     val intent = Intent(this, MainActivity::class.java)
                     startActivity(intent)
                 }
 
                 is Resource.Error -> {
                     hideLoading2()
-                    Toast.makeText(
+                    Toasty.error(
                         this,
-                        "Fail: " + it.message,
+                         it.message.toString(),
                         Toast.LENGTH_SHORT
                     ).show()
                 }
@@ -270,13 +270,12 @@ class AuthActivity : BaseActivity() {
 
                 is Resource.Success -> {
                     hideLoading2()
-                    Toast.makeText(this, "Register success", Toast.LENGTH_SHORT).show()
                     this.navigateToLogin()
                 }
 
                 is Resource.Error -> {
                     hideLoading2()
-                    Toast.makeText(this, it.message, Toast.LENGTH_SHORT).show()
+                    Toasty.error(this, it.message.toString(), Toast.LENGTH_SHORT).show()
                 }
             }
         }
@@ -289,12 +288,11 @@ class AuthActivity : BaseActivity() {
 
                 is Resource.Success -> {
                     hideLoading2()
-                    Toast.makeText(this, "Register with Google success", Toast.LENGTH_SHORT).show()
                 }
 
                 is Resource.Error -> {
                     hideLoading2()
-                    Toast.makeText(this, it.message, Toast.LENGTH_SHORT).show()
+                    Toasty.error(this, it.message.toString(), Toast.LENGTH_SHORT).show()
                 }
             }
         }
@@ -307,12 +305,12 @@ class AuthActivity : BaseActivity() {
 
                 is Resource.Success -> {
                     hideLoading2()
-                    Toast.makeText(this, it.data?.message, Toast.LENGTH_SHORT).show()
+                    Toasty.success(this, it.data?.message.toString() ?: "Success", Toast.LENGTH_SHORT).show()
                 }
 
                 is Resource.Error -> {
                     hideLoading2()
-                    Toast.makeText(this, it.message, Toast.LENGTH_SHORT).show()
+                    Toasty.error(this, it.message.toString(), Toast.LENGTH_SHORT).show()
                 }
             }
         }

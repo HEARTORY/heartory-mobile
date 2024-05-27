@@ -16,7 +16,8 @@ class UserRepository @Inject constructor(
     val firebaseAuth: FirebaseAuth,
     val appSharePreference: AppSharePreference,
     val privateRetrofit: PrivateRetrofit,
-    val publicRetrofit: PublicRetrofit
+    val publicRetrofit: PublicRetrofit,
+    val jwtRepository: JwtRepository
 ) {
 
     suspend fun fetchUser(): User? {
@@ -45,8 +46,8 @@ class UserRepository @Inject constructor(
     fun isLoggedIn(): Boolean = appSharePreference.isLoggedIn()
 
     fun logout() {
-        Log.d("UserRepository", "User removed")
-        appSharePreference.putObject("user", null)
+        jwtRepository.clearAllTokens()
+        appSharePreference.clearUser()
     }
 
     suspend fun forgotPassword(forgotPasswordReq: ForgotPasswordReq) =

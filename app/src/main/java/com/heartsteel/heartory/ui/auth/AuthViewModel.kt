@@ -33,6 +33,8 @@ class AuthViewModel @Inject constructor(
     val registerWithGoogleState = MutableLiveData<Resource<ResponseObject<Int>?>>()
 
     val forgotPasswordState = MutableLiveData<Resource<ResponseObject<Int>?>>()
+
+    val isEmailExistState = MutableLiveData<Resource<ResponseObject<Boolean>?>>()
     suspend fun login(loginReq: LoginReq) {
         loginState.postValue(Resource.Loading())
         try {
@@ -162,4 +164,19 @@ class AuthViewModel @Inject constructor(
         }
     }
 
+    fun isEmailExist(email: String) {
+        viewModelScope.launch {
+            userRepository.isEmailIsExist(IsEmailExistReq(email)).let {
+                if (it.isSuccessful) {
+                    isEmailExistState.postValue(Resource.Success(it.body()))
+                } else {
+                    val errorResponseObject = Gson().fromJson(
+                        it.errorBody()?.string(),
+                        ResponseObject::class.java
+                    )
+                    isEmailExistState.postValue(Resource.Error(errorResponseObject.message))
+                }
+            }
+        }
+    }
 }

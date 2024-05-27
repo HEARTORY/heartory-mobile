@@ -100,4 +100,8 @@ class AppSharePreference @Inject constructor(private val context: Context) {
         return getObject("user", User::class.java) != null
     }
 
+    fun clearUser() {
+        remove("user")
+    }
+
 }

@@ -160,5 +160,9 @@ dependencies {
     //image slider
     implementation("com.github.denzcoskun:ImageSlideshow:0.1.2")
 
-    implementation ("com.github.denzcoskun:ImageSlideshow:0.1.0")
+    implementation("com.github.denzcoskun:ImageSlideshow:0.1.0")
+
+    //toasty
+    implementation("com.github.GrenderG:Toasty:1.5.2")
+
 }
