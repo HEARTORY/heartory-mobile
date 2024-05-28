@@ -21,9 +21,10 @@ object RepositoryModule {
         firebaseAuth: FirebaseAuth,
         appSharePreference: AppSharePreference,
         privateRetrofit: PrivateRetrofit,
-        publicRetrofit: PublicRetrofit
+        publicRetrofit: PublicRetrofit,
+        jwtRepository: JwtRepository
     ): UserRepository {
-        return UserRepository(firebaseAuth, appSharePreference, privateRetrofit, publicRetrofit)
+        return UserRepository(firebaseAuth, appSharePreference, privateRetrofit, publicRetrofit, jwtRepository)
     }
 
     @Provides

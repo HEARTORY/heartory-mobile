@@ -67,8 +67,11 @@ class ProfileFragment : BaseFragment(R.layout.fragment_profile) {
                     hideLoading2()
                     it.data?.let {
                         Toast.makeText(requireContext(), "${it}", Toast.LENGTH_SHORT).show()
+                        Intent(requireContext(), AuthActivity::class.java).also {
+
+                            startActivity(it)
+                        }
                     }
-                    Toast.makeText(requireContext(), "User fetched null", Toast.LENGTH_SHORT).show()
                 }
 
                 is Resource.Error -> {

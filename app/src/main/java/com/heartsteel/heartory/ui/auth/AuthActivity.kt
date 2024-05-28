@@ -246,8 +246,8 @@ class AuthActivity : BaseActivity() {
 
                 is Resource.Success -> {
                     hideLoading2()
-                    val intent = Intent(this, MainActivity::class.java)
-                    startActivity(intent)
+                    goNext()
+
                 }
 
                 is Resource.Error -> {
@@ -314,6 +314,12 @@ class AuthActivity : BaseActivity() {
                 }
             }
         }
+    }
+
+    private fun goNext() {
+
+        val intent = Intent(this, MainActivity::class.java)
+        startActivity(intent)
     }
 
 }
