@@ -10,6 +10,7 @@
     <color name="light_blue">#A9C0FF</color>
     <color name="green">#66D0A4</color>
     <color name="red">#F44336</color>
+    <color name="check_box">#385FDC</color>
     <color name="pink_custom">#EF5DA8</color>
     <color name="light_button">#3879C5</color>
     <color name="mia_ava_blue">#858AEB</color>
@@ -20,4 +21,5 @@
     <color name="gray_400">#FFBDBDBD</color>
     <color name="gray_600">#FF757575</color>
     <color name="light_grey">#9F9F9F</color>
+
 </resources>

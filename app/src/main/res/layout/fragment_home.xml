@@ -178,7 +178,7 @@
                             android:layout_width="match_parent"
                             android:layout_height="120dp"
                             android:scaleType="centerCrop"
-                            android:src="@drawable/heartory_app_logo" />
+                            android:src="@drawable/img_chat_w_mia" />
                     </androidx.cardview.widget.CardView>
 
                     <TextView
@@ -239,7 +239,7 @@
                             android:layout_width="match_parent"
                             android:layout_height="120dp"
                             android:scaleType="centerCrop"
-                            android:src="@drawable/heartory_app_logo" />
+                            android:src="@drawable/img_analysis" />
                     </androidx.cardview.widget.CardView>
 
                     <TextView

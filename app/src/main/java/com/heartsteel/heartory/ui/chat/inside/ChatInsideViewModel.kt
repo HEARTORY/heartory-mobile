@@ -3,14 +3,15 @@ package com.heartsteel.heartory.ui.chat.inside
 import androidx.lifecycle.MutableLiveData
 import com.example.healthcarecomp.base.BaseViewModel
 import com.heartsteel.heartory.common.util.Resource
-import com.heartsteel.heartory.data.model.Message
+import com.heartsteel.heartory.service.model.domain.Message
+import com.heartsteel.heartory.service.repository.UserRepository
 import dagger.hilt.android.lifecycle.HiltViewModel
 import javax.inject.Inject
 
 @HiltViewModel
 class ChatInsideViewModel @Inject constructor(
-
-) : BaseViewModel() {
+    override val userRepository: UserRepository
+) : BaseViewModel(userRepository) {
     val mockData = MutableList(10) { index ->
         Message(
             id = "id$index",

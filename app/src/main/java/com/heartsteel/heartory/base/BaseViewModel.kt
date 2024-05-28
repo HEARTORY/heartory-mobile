@@ -1,13 +1,14 @@
 package com.example.healthcarecomp.base
 
-import android.app.Application
-import android.view.View
-import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.ViewModel
-import androidx.lifecycle.ViewModelProvider
-import dagger.hilt.android.lifecycle.HiltViewModel
+import com.heartsteel.heartory.service.model.domain.User
+import com.heartsteel.heartory.service.repository.UserRepository
 import javax.inject.Inject
+open class BaseViewModel @Inject constructor(
+    open val userRepository: UserRepository
+) : ViewModel() {
+    val user: User?
+        get() = userRepository.getUserFromSharePref()
 
-abstract class BaseViewModel() : ViewModel() {
-
+    fun logout() = userRepository.logout()
 }

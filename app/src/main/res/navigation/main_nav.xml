@@ -11,12 +11,13 @@
         android:label="fragment_home"
         tools:layout="@layout/fragment_home" >
         <action
-            android:id="@+id/action_homeFragment_to_hearRateFragment"
+            android:id="@+id/action_homeFragment_to_heartRateFragment"
             app:destination="@id/heartRateFragment"
             app:popUpTo="@id/homeFragment"
             app:popUpToInclusive="true"
             app:enterAnim="@anim/nav_default_enter_anim"
-            app:exitAnim="@anim/nav_default_exit_anim" />
+            app:exitAnim="@anim/nav_default_exit_anim"
+            />
         <action
             android:id="@+id/action_homeFragment_to_chatFragment"
             app:destination="@id/chatFragment"
@@ -31,9 +32,16 @@
             app:exitAnim="@anim/nav_default_exit_anim" />
         <action
             android:id="@+id/action_homeFragment_to_profileFragment"
-            app:popUpTo="@id/homeFragment"
-            app:popUpToInclusive="true"
-            app:destination="@id/profileFragment" />
+
+            app:destination="@id/profileFragment"
+            app:enterAnim="@anim/nav_default_enter_anim"
+            app:exitAnim="@anim/nav_default_exit_anim" />
+
+<!--        <action-->
+<!--            android:id="@+id/action_homeFragment_to_profileFragment"-->
+<!--            app:popUpTo="@id/homeFragment"-->
+<!--            app:popUpToInclusive="true"-->
+<!--            app:destination="@id/profileFragment" />-->
         <action
             android:id="@+id/action_homeFragment_to_analysisFragment"
             app:popUpTo="@id/homeFragment"
@@ -43,10 +51,21 @@
             android:id="@+id/action_homeFragment_to_articleFragment"
             app:destination="@id/articleFragment" />
     </fragment>
+    <activity
+        android:id="@+id/heartRateActivity"
+        android:name="com.heartsteel.heartory.ui.heart_rate.heartbeat.HeartRateActivity"
+        android:label="fragment_hear_rate"
+        />
+    <activity
+        android:id="@+id/brandActivity"
+        android:name="com.heartsteel.heartory.ui.heart_rate.heartbeat.HeartRateActivity"
+        android:label="fragment_hear_rate"
+        />
+
     <fragment
         android:id="@+id/heartRateFragment"
         android:name="com.heartsteel.heartory.ui.heart_rate.HearRateFragment"
-        android:label="fragment_hear_rate"
+        android:label="fragment_heart_rate"
         tools:layout="@layout/fragment_hear_rate" />
     <fragment
         android:id="@+id/chatFragment"
@@ -57,12 +76,71 @@
         android:id="@+id/exerciseFragment"
         android:name="com.heartsteel.heartory.ui.exercise.ExerciseFragment"
         android:label="fragment_exercise"
-        tools:layout="@layout/fragment_exercise" />
+        tools:layout="@layout/fragment_exercise">
+        <action
+            android:id="@+id/action_exerciseFragment_to_exerciseActivityListFragment"
+            app:destination="@id/exerciseActivityListFragment"
+            app:enterAnim="@anim/nav_default_enter_anim"
+            app:exitAnim="@anim/nav_default_exit_anim" />
+        <action
+            android:id="@+id/action_exerciseFragment_to_exerciseTodayActivityListFragment"
+            app:destination="@id/exerciseTodayActivityListFragment"
+            app:enterAnim="@anim/nav_default_enter_anim"
+            app:exitAnim="@anim/nav_default_exit_anim" />
+    </fragment>
     <fragment
         android:id="@+id/profileFragment"
         android:name="com.heartsteel.heartory.ui.profile.ProfileFragment"
         android:label="fragment_profile"
         tools:layout="@layout/fragment_profile" />
+
+
+    <fragment
+        android:id="@+id/exerciseActivityListFragment"
+        android:name="com.heartsteel.heartory.ui.exercise.ExerciseActivityFragment"
+        android:label="Exercise Activity List"
+        tools:layout="@layout/fragment_exercise_activity_list"
+        >
+        <action
+            android:id="@+id/action_exerciseActivityListFragment_to_exerciseTodayActivityListFragment"
+            app:destination="@id/exerciseTodayActivityListFragment"
+            app:enterAnim="@anim/nav_default_enter_anim"
+            app:exitAnim="@anim/nav_default_exit_anim" />
+        <action
+            android:id="@+id/action_exerciseActivityListFragment_to_exerciseFragment"
+            app:destination="@id/exerciseFragment"
+            app:enterAnim="@anim/nav_default_enter_anim"
+            app:exitAnim="@anim/nav_default_exit_anim"/>
+    </fragment>
+    <fragment
+        android:id="@+id/exerciseTodayActivityListFragment"
+        android:name="com.heartsteel.heartory.ui.exercise.ExerciseTodayActivityFragment"
+        android:label="Exercise Activity List"
+        tools:layout="@layout/fragment_exercise_activity_list" >
+        <action
+            android:id="@+id/action_exerciseTodayActivityListFragment_to_exerciseTodayDetailExerciseListFragment"
+            app:destination="@id/exerciseTodayDetailExerciseListFragment"
+            app:enterAnim="@anim/nav_default_enter_anim"
+            app:exitAnim="@anim/nav_default_exit_anim" />
+        <action
+            android:id="@+id/action_exerciseTodayActivityListFragment_to_exerciseFragment"
+            app:destination="@id/exerciseFragment"
+            app:enterAnim="@anim/nav_default_enter_anim"
+            app:exitAnim="@anim/nav_default_exit_anim" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/exerciseTodayDetailExerciseListFragment"
+        android:name="com.heartsteel.heartory.ui.exercise.ExerciseTodayDetailFragment"
+        android:label="Exercise Activity List"
+        tools:layout="@layout/fragment_exercise_activity_list" >
+        <action
+            android:id="@+id/action_exerciseTodayDetailExerciseListFragment_to_exerciseTodayActivityListFragment"
+            app:destination="@id/exerciseTodayActivityListFragment"
+            app:enterAnim="@anim/nav_default_enter_anim"
+            app:exitAnim="@anim/nav_default_exit_anim"/>
+    </fragment>
+
     <fragment
         android:id="@+id/analysisFragment"
         android:name="com.heartsteel.heartory.ui.analysis.AnalysisFragment"
@@ -73,4 +151,5 @@
         android:name="com.heartsteel.heartory.ui.article.ArticleFragment"
         android:label="fragment_article"
         tools:layout="@layout/fragment_article" />
+
 </navigation>
