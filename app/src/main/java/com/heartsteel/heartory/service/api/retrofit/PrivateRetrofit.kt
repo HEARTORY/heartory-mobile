@@ -1,8 +1,10 @@
 package com.heartsteel.heartory.service.api.retrofit
 
 import com.heartsteel.heartory.common.constant.ApiConstant
+import com.heartsteel.heartory.service.api.HBRecordAPI
 import com.heartsteel.heartory.service.api.UserAPI
 import com.heartsteel.heartory.service.jwt.JwtTokenInterceptor
+import com.heartsteel.heartory.service.model.domain.HBRecord
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
 import retrofit2.Retrofit
@@ -29,6 +31,10 @@ class PrivateRetrofit @Inject constructor(
 
     val userApi by lazy {
         privateRetrofit.create(UserAPI::class.java)
+    }
+
+    val hBRecordAPI by lazy {
+        privateRetrofit.create(HBRecordAPI::class.java)
     }
 
 }

@@ -14,6 +14,7 @@ import com.heartsteel.heartory.databinding.FragmentProfileBinding
 import com.heartsteel.heartory.ui.auth.AuthActivity
 import com.heartsteel.heartory.ui.profile.edit.ProfileEditActivity
 import dagger.hilt.android.AndroidEntryPoint
+import es.dmoral.toasty.Toasty
 import io.getstream.avatarview.coil.loadImage
 
 @AndroidEntryPoint
@@ -67,7 +68,7 @@ class ProfileFragment : BaseFragment(R.layout.fragment_profile) {
                 is Resource.Success -> {
                     hideLoading2()
                     it.data?.let {
-                        Toast.makeText(requireContext(), "${it}", Toast.LENGTH_SHORT).show()
+                        Toasty.success(requireContext(), "${it}", Toast.LENGTH_SHORT).show()
                         Intent(requireContext(), ProfileEditActivity::class.java).also {
 
                             startActivity(it)
@@ -77,7 +78,7 @@ class ProfileFragment : BaseFragment(R.layout.fragment_profile) {
 
                 is Resource.Error -> {
                     hideLoading2()
-                    Toast.makeText(requireContext(), it.message, Toast.LENGTH_SHORT).show()
+                    Toasty.success(requireContext(), it.message.toString(), Toast.LENGTH_SHORT).show()
                 }
             }
         }

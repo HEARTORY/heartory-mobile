@@ -6,6 +6,7 @@ import androidx.lifecycle.viewModelScope
 import com.example.healthcarecomp.base.BaseViewModel
 import com.google.gson.Gson
 import com.heartsteel.heartory.common.util.Resource
+import com.heartsteel.heartory.service.exception.JwtException
 import com.heartsteel.heartory.service.repository.JwtRepository
 import com.heartsteel.heartory.service.model.request.ForgotPasswordReq
 import com.heartsteel.heartory.service.model.request.LoginReq
@@ -161,6 +162,9 @@ class AuthViewModel @Inject constructor(
         } catch (t: Throwable) {
             t.printStackTrace()
             forgotPasswordState.postValue(Resource.Error(t.message ?: "An error occurred"))
+            if(t is JwtException){
+
+            }
         }
     }
 

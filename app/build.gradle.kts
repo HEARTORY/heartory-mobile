@@ -165,4 +165,8 @@ dependencies {
     //toasty
     implementation("com.github.GrenderG:Toasty:1.5.2")
 
+    //webflux
+    implementation("io.projectreactor.kotlin:reactor-kotlin-extensions:1.1.1")
+
+
 }
