@@ -14,7 +14,7 @@ class ChatInsideViewModel @Inject constructor(
 ) : BaseViewModel(userRepository) {
     val mockData = MutableList(10) { index ->
         Message(
-            id = "id$index",
+            id = index,
             content = "content$index",
             userId = "userId$index",
             isByUser = index % 2 == 0,

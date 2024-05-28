@@ -4,6 +4,7 @@ import android.os.Parcel
 import android.os.Parcelable
 
 data class User(
+    val id: Int? = null,
     val role: Role?,
     val email: String?,
     var firstName: String?,
@@ -16,9 +17,10 @@ data class User(
     var gender: String?,
     var weight: Double?,
     var height: Double?,
-) : BaseEntity(), Parcelable {
+) : Parcelable {
 
     constructor(parcel: Parcel) : this(
+        parcel.readValue(Int::class.java.classLoader) as? Int,
         parcel.readParcelable(Role::class.java.classLoader),
         parcel.readString(),
         parcel.readString(),
@@ -27,11 +29,12 @@ data class User(
         parcel.readString(),
         parcel.readString(),
         parcel.readString(),
-        parcel.readInt(),
+        parcel.readValue(Int::class.java.classLoader) as? Int,
         parcel.readString(),
-        parcel.readDouble(),
-        parcel.readDouble()
-    )
+        parcel.readValue(Double::class.java.classLoader) as? Double,
+        parcel.readValue(Double::class.java.classLoader) as? Double
+    ) {
+    }
 
     override fun toString(): String {
         return "User(id=$id, role=$role, email=$email, firstName=$firstName, lastName=$lastName, phone=$phone, secondName=$secondName, avatar=$avatar, dateOfBirth=$dateOfBirth, stanceId=$stanceId)"

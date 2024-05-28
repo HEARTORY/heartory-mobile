@@ -10,6 +10,7 @@ import com.example.healthcarecomp.base.BaseActivity
 import com.heartsteel.heartory.common.util.Resource
 import com.heartsteel.heartory.service.model.domain.Message
 import com.heartsteel.heartory.databinding.ActivityChatInsideBinding
+import com.heartsteel.heartory.service.model.domain.User
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
@@ -52,7 +53,7 @@ class ChatInsideActivity : BaseActivity() {
         _binding.btnVector.setOnClickListener {
             viewModel.messages.value?.data?.add(
                 Message(
-                    id = "id",
+                    id = 1,
                     content = _binding.etInput.text.toString(),
                     userId = "userId",
                     isByUser = true,

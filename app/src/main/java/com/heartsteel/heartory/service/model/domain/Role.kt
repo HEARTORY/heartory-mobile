@@ -4,24 +4,21 @@ import android.os.Parcel
 import android.os.Parcelable
 
 data class Role(
+    val id: Int? = null,
     val roleTitle: String?,
-) : BaseEntity(), Parcelable {
+) : Parcelable {
 
-    constructor(parcel: Parcel) : this(parcel.readString()) {
+
+    constructor(parcel: Parcel) : this(
+        parcel.readValue(Int::class.java.classLoader) as? Int,
+        parcel.readString()
+    ) {
     }
 
     override fun toString(): String {
         return "Role(id=$id, roleTitle=$roleTitle)"
     }
 
-    override fun describeContents(): Int {
-        return 0
-    }
-
-    override fun writeToParcel(dest: Parcel, flags: Int) {
-        dest.writeInt(id ?: 0)
-        dest.writeString(roleTitle)
-    }
 
     override fun equals(other: Any?): Boolean {
         if (this === other) return true
@@ -33,6 +30,15 @@ data class Role(
         return true
     }
 
+    override fun writeToParcel(parcel: Parcel, flags: Int) {
+        parcel.writeValue(id)
+        parcel.writeString(roleTitle)
+    }
+
+    override fun describeContents(): Int {
+        return 0
+    }
+
     companion object CREATOR : Parcelable.Creator<Role> {
         override fun createFromParcel(parcel: Parcel): Role {
             return Role(parcel)
@@ -42,4 +48,6 @@ data class Role(
             return arrayOfNulls(size)
         }
     }
+
+
 }
