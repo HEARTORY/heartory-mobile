@@ -93,6 +93,8 @@ dependencies {
 
     //recyclerview
     implementation ("androidx.recyclerview:recyclerview:1.2.1")
+
+    //cardview
     implementation ("androidx.cardview:cardview:1.0.0")
 
     //imgOnline
@@ -159,8 +161,6 @@ dependencies {
 
     //image slider
     implementation("com.github.denzcoskun:ImageSlideshow:0.1.2")
-
-    implementation("com.github.denzcoskun:ImageSlideshow:0.1.0")
 
     //toasty
     implementation("com.github.GrenderG:Toasty:1.5.2")

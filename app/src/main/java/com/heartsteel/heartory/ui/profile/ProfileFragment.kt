@@ -12,6 +12,7 @@ import com.heartsteel.heartory.R
 import com.heartsteel.heartory.common.util.Resource
 import com.heartsteel.heartory.databinding.FragmentProfileBinding
 import com.heartsteel.heartory.ui.auth.AuthActivity
+import com.heartsteel.heartory.ui.profile.edit.ProfileEditActivity
 import dagger.hilt.android.AndroidEntryPoint
 import io.getstream.avatarview.coil.loadImage
 
@@ -67,8 +68,11 @@ class ProfileFragment : BaseFragment(R.layout.fragment_profile) {
                     hideLoading2()
                     it.data?.let {
                         Toast.makeText(requireContext(), "${it}", Toast.LENGTH_SHORT).show()
+                        Intent(requireContext(), ProfileEditActivity::class.java).also {
+
+                            startActivity(it)
+                        }
                     }
-                    Toast.makeText(requireContext(), "User fetched null", Toast.LENGTH_SHORT).show()
                 }
 
                 is Resource.Error -> {
