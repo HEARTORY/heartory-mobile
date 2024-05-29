@@ -9,6 +9,7 @@ import com.heartsteel.heartory.service.repository.JwtRepository
 import kotlinx.coroutines.runBlocking
 import okhttp3.Interceptor
 import okhttp3.Response
+import okio.EOFException
 import javax.inject.Inject
 
 
@@ -48,7 +49,7 @@ class JwtTokenInterceptor @Inject constructor(
                 chain.proceed(request)
             }
         } catch (e: Exception) {
-            Log.e("AuthInterceptor", e.message.toString())
+            Log.e("JwtInterceptor", "refreshToken error: ${e.message.toString()}")
             throw JwtException(e.message.toString())
         }
     }
@@ -73,12 +74,16 @@ class JwtTokenInterceptor @Inject constructor(
             }
             return chain.proceed(request)
         } catch (e: Exception) {
-            Log.e("AuthInterceptor", e.message.toString())
+            Log.e("JwtInterceptor", "access token error: ${e.message.toString()}")
             if (e is JwtException) {
                 throw JwtException(e.message)
-            }
-            throw e
+            } else if (e is EOFException) {
+
+            } else
+                throw e
         }
+        return chain.proceed(chain.request())
     }
+
 
 }

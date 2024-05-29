@@ -87,21 +87,6 @@ class AppSharePreference @Inject constructor(private val context: Context) {
         prefs.edit().remove(key).apply()
     }
 
-    fun saveUser(user: User) {
-        putObject("user", user)
-    }
-    fun getUser(): User?{
-        val user = getObject("user", User::class.java)
-        Log.d("UserRepository", "User get: ${user}")
-        return user
-    }
 
-    fun isLoggedIn(): Boolean {
-        return getObject("user", User::class.java) != null
-    }
-
-    fun clearUser() {
-        remove("user")
-    }
 
 }
