@@ -155,7 +155,6 @@ dependencies {
     //avatar
     implementation("io.getstream:avatarview-coil:1.0.7")
 
-
     // viewPager2
     implementation("androidx.viewpager2:viewpager2:1.0.0")
 
@@ -168,5 +167,6 @@ dependencies {
     //webflux
     implementation("io.projectreactor.kotlin:reactor-kotlin-extensions:1.1.1")
 
-
+    //themed toggle button group
+    implementation ("nl.bryanderidder:themed-toggle-button-group:1.4.1")
 }

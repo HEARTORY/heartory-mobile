@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    tools:context=".ui.profile_onboarding.SetDataFragment"
+    android:layout_marginHorizontal="20dp">
+    <TextView
+        android:id="@+id/txt_gender"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Gender"
+        android:fontFamily="@font/poppins_bold"
+        android:textSize="24sp"
+        android:textColor="@color/primary_text_color"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintLeft_toRightOf="parent"
+        android:layout_marginTop="20dp"
+        />
+    <nl.bryanderidder.themedtogglebuttongroup.ThemedToggleButtonGroup
+        android:id="@+id/toggle_btn_group"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:singleSelection="true"
+        android:layout_centerHorizontal="true"
+        app:layout_constraintTop_toBottomOf="@+id/txt_gender"
+        app:layout_constraintStart_toStartOf="parent"
+        >
+        <nl.bryanderidder.themedtogglebuttongroup.ThemedButton
+            android:gravity="center"
+            android:id="@+id/btn_male"
+            android:layout_width="0dp"
+            android:layout_height="125dp"
+            app:toggle_btnCornerRadius="20dp"
+            app:layout_flexGrow="1"
+            app:toggle_borderColor="@color/black"
+            app:toggle_borderWidth="2dp"
+            app:toggle_backgroundColor="@color/white"
+            app:toggle_selectedBackgroundColor="@color/secondary_color"
+            app:toggle_selectedBorderColor="@color/secondary_color"
+
+            app:toggle_iconGravity="top|center"
+            app:toggle_iconPaddingTop="5dp"
+            app:toggle_icon="@drawable/male_stickman"
+            app:toggle_iconColor="@android:color/black"
+
+            app:toggle_textPaddingBottom="20dp"
+            app:toggle_textPaddingHorizontal="48dp"
+            app:toggle_text="Male"
+            app:toggle_textGravity="bottom|center"
+            app:toggle_selectedTextColor="@android:color/white"
+
+            />
+        <nl.bryanderidder.themedtogglebuttongroup.ThemedButton
+            android:gravity="center"
+            android:id="@+id/btn_female"
+            android:layout_width="0dp"
+            android:layout_height="125dp"
+            app:toggle_btnCornerRadius="20dp"
+            app:layout_flexGrow="1"
+            app:toggle_borderColor="@color/black"
+            app:toggle_borderWidth="2dp"
+            app:toggle_backgroundColor="@color/white"
+            app:toggle_selectedBackgroundColor="@color/primary_color"
+            app:toggle_selectedBorderColor="@color/primary_color"
+
+            app:toggle_iconGravity="top|center"
+            app:toggle_iconPaddingTop="5dp"
+            app:toggle_icon="@drawable/female_stickman"
+            app:toggle_iconColor="@android:color/black"
+
+            app:toggle_textPaddingBottom="20dp"
+            app:toggle_textPaddingHorizontal="40dp"
+            app:toggle_text="Female"
+            app:toggle_textGravity="bottom|center"
+            app:toggle_selectedTextColor="@android:color/white"
+
+            />
+
+    </nl.bryanderidder.themedtogglebuttongroup.ThemedToggleButtonGroup>
+
+</androidx.constraintlayout.widget.ConstraintLayout>
