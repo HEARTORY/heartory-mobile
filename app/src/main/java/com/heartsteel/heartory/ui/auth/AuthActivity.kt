@@ -55,8 +55,17 @@ class AuthActivity : BaseActivity() {
         super.onCreate(savedInstanceState)
         _binding = ActivityAuthBinding.inflate(layoutInflater)
         setContentView(_binding.root)
+        autoLoginIfRefreshTokenValid()
         setupObserver()
         setupView()
+    }
+
+    private fun autoLoginIfRefreshTokenValid() {
+        viewModel.userRepository.isLoggedIn().let {
+            if (it) {
+                goNext()
+            }
+        }
     }
 
     private fun setupView() {

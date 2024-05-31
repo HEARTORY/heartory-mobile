@@ -1,5 +1,6 @@
 package com.heartsteel.heartory.service.api.retrofit
 
+import com.google.gson.GsonBuilder
 import com.heartsteel.heartory.common.constant.ApiConstant
 import com.heartsteel.heartory.service.api.HBRecordAPI
 import com.heartsteel.heartory.service.api.UserAPI
@@ -18,13 +19,19 @@ class PrivateRetrofit @Inject constructor(
     private val privateRetrofit by lazy {
         val logging = HttpLoggingInterceptor()
         logging.setLevel(HttpLoggingInterceptor.Level.BODY)
+
         val client = OkHttpClient.Builder()
-            .addInterceptor(logging)
+            .addNetworkInterceptor(logging)
             .addInterceptor(jwtTokenInterceptor)
             .build()
+
+        val gson = GsonBuilder()
+            .setLenient()
+            .create()
+
         Retrofit.Builder()
             .baseUrl(ApiConstant.BASE_URL)
-            .addConverterFactory(GsonConverterFactory.create())
+            .addConverterFactory(GsonConverterFactory.create(gson))
             .client(client)
             .build()
     }

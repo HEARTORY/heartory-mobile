@@ -17,9 +17,9 @@ interface HBRecordAPI {
     @GET("record")
     suspend fun getRecords(): List<HBRecord>
 
-    @GET("record/diagnoses/streaming")
     @Streaming
-    suspend fun getDiagnoses(diagnosesReq: DiagnosesReq): Call<ResponseBody>
+    @POST("record/diagnoses/streaming")
+    fun getDiagnoses(@Body diagnosesReq: DiagnosesReq): Call<ResponseBody>
 
     @GET("record/{id}")
     suspend fun getRecordById(@Path("id") id: Int): HBRecord
