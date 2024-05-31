@@ -1,5 +1,6 @@
 package com.heartsteel.heartory.ui.profile_onboarding
 
+import android.content.Intent
 import android.os.Bundle
 import android.widget.Button
 import androidx.activity.enableEdgeToEdge
@@ -10,11 +11,13 @@ import androidx.viewpager2.widget.ViewPager2
 import com.example.healthcarecomp.base.BaseActivity
 import com.heartsteel.heartory.R
 import com.heartsteel.heartory.databinding.ActivityProfileOnBoardingBinding
+import com.heartsteel.heartory.ui.MainActivity
 import com.heartsteel.heartory.ui.heart_rate_onboarding.gone
 import com.heartsteel.heartory.ui.heart_rate_onboarding.visible
 
 class ProfileOnBoardingActivity : BaseActivity() {
 
+    private var pageSize = 2;
     private lateinit var binding: ActivityProfileOnBoardingBinding
     lateinit var onBoardingViewPager2 : ViewPager2
     lateinit var nextBtn : Button
@@ -39,7 +42,20 @@ class ProfileOnBoardingActivity : BaseActivity() {
         nextBtn = findViewById(R.id.next_btn)
 
         nextBtn.setOnClickListener {
-
+            if(onBoardingViewPager2.currentItem < pageSize - 1){
+                onBoardingViewPager2.currentItem = onBoardingViewPager2.currentItem + 1
+            }else{
+                mainScreenIntent()
+            }
         }
+    }
+    override fun onDestroy() {
+        onBoardingViewPager2.unregisterOnPageChangeCallback(onBoardingPageChangeCallBack)
+        super.onDestroy()
+    }
+
+    private fun mainScreenIntent(){
+        val mainIntent = Intent(this, MainActivity::class.java)
+        startActivity(mainIntent)
     }
 }

@@ -28,6 +28,7 @@ import com.heartsteel.heartory.service.model.request.RegisterReq
 import com.heartsteel.heartory.ui.MainActivity
 import com.heartsteel.heartory.ui.auth.login.LoginFragment
 import com.heartsteel.heartory.ui.auth.register.RegisterFragment
+import com.heartsteel.heartory.ui.profile_onboarding.CheckProfileActivity
 import dagger.hilt.android.AndroidEntryPoint
 import es.dmoral.toasty.Toasty
 
@@ -318,7 +319,7 @@ class AuthActivity : BaseActivity() {
 
     private fun goNext() {
 
-        val intent = Intent(this, MainActivity::class.java)
+        val intent = Intent(this, CheckProfileActivity::class.java)
         startActivity(intent)
     }
 
