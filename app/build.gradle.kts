@@ -169,4 +169,6 @@ dependencies {
 
     //themed toggle button group
     implementation ("nl.bryanderidder:themed-toggle-button-group:1.4.1")
+
+    implementation ("com.google.android.material:material:1.12.0")
 }

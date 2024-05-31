@@ -7,6 +7,10 @@
     android:layout_height="match_parent"
     tools:context=".ui.profile_onboarding.ProfileOnBoardingActivity">
 
+    <androidx.viewpager2.widget.ViewPager2
+        android:id="@+id/profile_viewPager2"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent" />
     <androidx.appcompat.widget.AppCompatImageButton
         android:id="@+id/next_btn"
         android:layout_width="wrap_content"
