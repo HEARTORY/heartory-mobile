@@ -13,6 +13,7 @@ import com.heartsteel.heartory.common.util.Resource
 import com.heartsteel.heartory.databinding.FragmentProfileBinding
 import com.heartsteel.heartory.ui.auth.AuthActivity
 import com.heartsteel.heartory.ui.profile.edit.ProfileEditActivity
+import com.heartsteel.heartory.ui.subscription.SubscriptionActivity
 import dagger.hilt.android.AndroidEntryPoint
 import es.dmoral.toasty.Toasty
 import io.getstream.avatarview.coil.loadImage
@@ -55,6 +56,12 @@ class ProfileFragment : BaseFragment(R.layout.fragment_profile) {
         }
         _binding.llEditProfile.setOnClickListener {
             _viewModel.fetchUser()
+        }
+
+        _binding.llPremium.setOnClickListener {
+            Intent(requireContext(), SubscriptionActivity::class.java).also {
+                startActivity(it)
+            }
         }
     }
 

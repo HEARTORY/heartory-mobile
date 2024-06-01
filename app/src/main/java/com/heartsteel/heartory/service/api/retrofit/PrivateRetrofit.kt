@@ -3,6 +3,7 @@ package com.heartsteel.heartory.service.api.retrofit
 import com.google.gson.GsonBuilder
 import com.heartsteel.heartory.common.constant.ApiConstant
 import com.heartsteel.heartory.service.api.HBRecordAPI
+import com.heartsteel.heartory.service.api.PaymentAPI
 import com.heartsteel.heartory.service.api.UserAPI
 import com.heartsteel.heartory.service.jwt.JwtTokenInterceptor
 import com.heartsteel.heartory.service.model.domain.HBRecord
@@ -42,6 +43,10 @@ class PrivateRetrofit @Inject constructor(
 
     val hBRecordAPI by lazy {
         privateRetrofit.create(HBRecordAPI::class.java)
+    }
+
+    val paymentAPI by lazy {
+        privateRetrofit.create(PaymentAPI::class.java)
     }
 
 }
