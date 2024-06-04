@@ -114,7 +114,7 @@ class LoginFragment : BaseFragment(R.layout.fragment_login) {
         binding.btnLogin.setOnClickListener {
             val email = binding.etEmail.text.toString()
             val password = binding.etPassword.text.toString()
-            lifecycleScope.launchWhenStarted {
+             lifecycleScope.launchWhenStarted{
                 var loginReq = LoginReq(email, password)
                 authViewModel.login(loginReq)
             }

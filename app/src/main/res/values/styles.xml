@@ -48,4 +48,24 @@
         <item name="android:windowEnterAnimation">@anim/slide_in_bottom</item>
         <item name="android:windowExitAnimation">@anim/slide_out_bottom</item>
     </style>
+
+    <!-- Custom DatePickerDialog style -->
+    <style name="CustomDatePickerDialog" parent="ThemeOverlay.MaterialComponents.MaterialCalendar">
+        <item name="materialCalendarTheme">@style/CustomCalendarTheme</item>
+    </style>
+
+    <!-- Custom Calendar style -->
+    <style name="CustomCalendarTheme" parent="Widget.MaterialComponents.MaterialCalendar">
+        <item name="colorPrimary">@color/primary_color</item>
+        <item name="colorOnPrimary">@color/primary_color</item>
+        <item name="colorPrimaryVariant">@color/primary_color</item>
+        <item name="materialCalendarFullscreenTheme">@style/CustomCalendarFullscreenTheme</item>
+    </style>
+
+    <!-- Custom Fullscreen Calendar style -->
+    <style name="CustomCalendarFullscreenTheme" parent="ThemeOverlay.MaterialComponents.MaterialCalendar.Fullscreen">
+        <item name="colorPrimary">@color/primary_color</item>
+        <item name="colorOnPrimary">@color/primary_color</item>
+        <item name="colorAccent">@color/primary_color</item>
+    </style>
 </resources>

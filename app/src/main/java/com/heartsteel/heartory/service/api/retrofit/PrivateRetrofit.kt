@@ -44,4 +44,5 @@ class PrivateRetrofit @Inject constructor(
         privateRetrofit.create(HBRecordAPI::class.java)
     }
 
+
 }

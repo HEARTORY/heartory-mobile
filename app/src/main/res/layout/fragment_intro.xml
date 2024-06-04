@@ -4,22 +4,23 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".ui.profile_onboarding.IntroFragment">
+
     <TextView
-        android:layout_width="match_parent"
+        android:layout_width="383dp"
         android:layout_height="wrap_content"
-        android:text="Can you give us some information"
-        android:fontFamily="@font/poppins_bold"
-        android:textSize="24sp"
-        android:textColor="@color/primary_color"
-        android:layout_marginHorizontal="30dp"
+        android:layout_marginHorizontal="20dp"
         android:layout_marginTop="50dp"
-        />
+        android:fontFamily="@font/poppins_bold"
+        android:text="Can you give us some information"
+        android:textColor="@color/primary_color"
+        android:textSize="40sp" />
 
     <ImageView
         android:layout_width="wrap_content"
         android:layout_height="483dp"
         android:src="@drawable/mia_happy"
         android:layout_gravity="center"
+        android:layout_marginTop="80dp"
         />
 
 </FrameLayout>

@@ -11,6 +11,7 @@ import com.heartsteel.heartory.service.model.request.IsEmailExistReq
 import com.heartsteel.heartory.service.model.request.LoginReq
 import com.heartsteel.heartory.service.model.request.RefreshTokenReq
 import com.heartsteel.heartory.service.model.request.RegisterReq
+import com.heartsteel.heartory.service.model.request.SetProfileForOnBoardReq
 import com.heartsteel.heartory.service.sharePreference.AppSharePreference
 import kotlinx.coroutines.runBlocking
 import javax.inject.Inject
@@ -41,6 +42,23 @@ class UserRepository @Inject constructor(
         return null
     }
 
+    suspend fun setProfileOnBoarding(user: User): User? {
+        getUserFromSharePref()?.id?.let {
+            privateRetrofit.userApi.updateUserForOnboarding(it,
+                user
+                ).let { response ->
+                if (response.isSuccessful) {
+                    val user: User? = response.body()?.data
+                    user?.let {
+                        Log.d("UserRepository", "User fetched and saved to sharePref")
+                        saveUserToSharePref(it)
+                        return it
+                    }
+                }
+            }
+        }
+        return null
+    }
     suspend fun login(loginReq: LoginReq) = publicRetrofit.authApi.login(loginReq)
 
     suspend fun register(registerReq: RegisterReq) = publicRetrofit.authApi.register(registerReq)
