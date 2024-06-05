@@ -171,7 +171,6 @@
                         android:layout_height="wrap_content"
                         android:layout_centerInParent="true"
                         android:fontFamily="@font/poppins_bold"
-                        android:text="32"
                         android:textColor="@color/white"
                         android:textSize="30dp"
 
@@ -235,7 +234,7 @@
                         android:layout_height="50dp"
                         android:layout_centerInParent="true"
                         android:paddingBottom="15dp"
-                        android:src="@drawable/male" />
+                         />
 
                     <TextView
 
@@ -245,9 +244,8 @@
                         android:layout_below="@id/img_gender"
                         android:layout_centerHorizontal="true"
                         android:fontFamily="@font/poppins_medium"
-                        android:text="Male"
                         android:textColor="@color/white"
-                        android:textSize="20dp"
+                        android:textSize="16dp"
 
                         />
                 </RelativeLayout>

@@ -24,6 +24,9 @@ import retrofit2.Callback
 import retrofit2.HttpException
 import retrofit2.Response
 import java.io.IOException
+import java.time.LocalDate
+import java.time.Period
+import java.time.format.DateTimeFormatter
 import javax.inject.Inject
 
 @HiltViewModel
@@ -37,6 +40,14 @@ class ResultViewModel @Inject constructor(
     val createState = MutableLiveData<Resource<HBRecord>>()
     val diagnosisResult = MutableLiveData<Resource<StreamingRes>>()
 
+     fun getAge(dateOfBirth: String): Int {
+        val formatter = DateTimeFormatter.ofPattern("MM/dd/yyyy")
+        val birthDate = LocalDate.parse(dateOfBirth, formatter)
+        val currentDate = LocalDate.now()
+         Log.d("ResultViewModel", "getAge: $birthDate, $currentDate")
+        return Period.between(birthDate, currentDate).years
+    }
+    fun getUserFromSharePref() = userRepository.getUserFromSharePref()
     fun createHBRecord(hbRecord: HBRecord) {
         if (hasInternetConnection()) {
             viewModelScope.launch {

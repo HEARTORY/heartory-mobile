@@ -137,14 +137,17 @@ class SetDataFragment : BaseFragment(R.layout.fragment_set_data) {
             updateLabel()
         }
 
-        DatePickerDialog(
+        val datePickerDialog = DatePickerDialog(
             requireContext(),
             R.style.CustomDatePickerDialog,
             dateSetListener,
             myCalendar.get(Calendar.YEAR),
             myCalendar.get(Calendar.MONTH),
             myCalendar.get(Calendar.DAY_OF_MONTH)
-        ).show()
+        )
+        datePickerDialog.datePicker.maxDate = System.currentTimeMillis()
+
+        datePickerDialog.show()
     }
 
     private fun updateLabel() {
