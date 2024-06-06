@@ -1,42 +1,47 @@
 package com.heartsteel.heartory.ui.exercise
 
+import android.net.Uri
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.webkit.WebSettings
+import android.webkit.WebView
+import android.webkit.WebViewClient
 import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.heartsteel.heartory.R
 import com.heartsteel.heartory.data.model.Exercise
-import com.heartsteel.heartory.databinding.FragmentExerciseActivityListBinding
-class ExerciseActivityFragment : Fragment() {
+import com.heartsteel.heartory.databinding.FragmentExerciseVideoListBinding
 
-    private var _binding: FragmentExerciseActivityListBinding? = null
+class ExerciseActivityVideoFragment : Fragment() {
+
+    private var _binding: FragmentExerciseVideoListBinding? = null
     private val binding get() = _binding!!
+    private var isFullScreen = false
+    private lateinit var videoUri: Uri
 
     override fun onCreateView(
-        inflater: LayoutInflater,
-        container: ViewGroup?,
-        savedInstanceState: Bundle?
+        inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?
     ): View {
-        _binding = FragmentExerciseActivityListBinding.inflate(inflater, container, false)
+        _binding = FragmentExerciseVideoListBinding.inflate(inflater, container, false)
         return binding.root
     }
-
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
+        // Using WebView to display the video
+        val webView: WebView = binding.videoView
 
+        // Get the video URL passed from the previous fragment
+        val videoUrl = arguments?.getString("videoUrl") ?: "https://www.youtube.com/embed/-p0PA9Zt8zk"
         val category = arguments?.getString("category")
-
-        Log.d("ExerciseActivityFragment", "Category: $category")
+        setupWebView(webView, videoUrl)
 
         setupRecyclerView(category)
-        todayActivityClickListener()
-        backClickListener()
+        setupBackClickListener(category)
     }
 
     private fun setupRecyclerView(category: String?) {
@@ -65,39 +70,41 @@ class ExerciseActivityFragment : Fragment() {
             Exercise(name = "Lateral Raise", category = "Shoulder", instructorName = "Jane Smith", imageUrl = "https://goodfit.vn/wp-content/uploads/2021/05/the-only-dumbbell-lateral-raise-article-you-need-header-v2-960x540-1.jpg",videoUrl = "https://www.youtube.com/embed/pOmbQuGeHf8"),
             Exercise(name = "Arnold Press", category = "Shoulder", instructorName = "John Doe", imageUrl = "https://www.triumph-physio.co.nz/wp-content/uploads/2023/01/IMG_1925.jpeg",videoUrl = "https://www.youtube.com/embed/pQDrcNoDNVM")
         )
-        // Log the entire list to see if it contains the expected data
-        Log.d("ExerciseActivityFragment", "Exercise List: $exerciseList")
 
         val filteredList = category?.let {
             exerciseList.filter { exercise -> exercise.category == it }
         } ?: exerciseList
 
-        // Log the filtered list to ensure filtering logic is correct
-        Log.d("ExerciseActivityFragment", "Filtered List: $filteredList")
-
-        val adapter = ExerciseActivityAdapter(filteredList) { exercise ->
-            val videoUrl = exercise.videoUrl ?: "https://www.youtube.com/embed/-p0PA9Zt8zk"
-            val action = ExerciseActivityFragmentDirections.actionExerciseActivityFragmentToExerciseActivityVideoFragment(videoUrl, category)
+        val adapter = ExerciseActivityVideoAdapter(filteredList) { exercise ->
+            val action = ExerciseActivityVideoFragmentDirections.actionExerciseActivityVideoFragmentSelf(
+                category = exercise.category,
+                videoUrl = exercise.videoUrl
+            )
             findNavController().navigate(action)
         }
 
-        binding.recyclerViewActivity.apply {
+        binding.recyclerViewExercises.apply {
             layoutManager = LinearLayoutManager(context)
             this.adapter = adapter
         }
     }
 
-
-    private fun todayActivityClickListener() {
-        binding.todayActivity.setOnClickListener {
-            findNavController().navigate(R.id.action_exerciseActivityListFragment_to_exerciseTodayActivityListFragment)
+    private fun setupBackClickListener(category: String?) {
+        binding.imageViewBackArrow.setOnClickListener {
+            val action = ExerciseActivityVideoFragmentDirections.actionExerciseActivityVideoFragmentToExerciseActivityFragment(category, null)
+            findNavController().navigate(action)
         }
     }
 
-    private fun backClickListener() {
-        binding.imageViewBackArrow.setOnClickListener {
-            findNavController().navigate(R.id.action_exerciseActivityListFragment_to_exerciseFragment)
-        }
+    private fun setupWebView(webView: WebView, url: String) {
+        webView.webViewClient = WebViewClient()
+        val webSettings: WebSettings = webView.settings
+        webSettings.javaScriptEnabled = true
+        webSettings.loadWithOverviewMode = true
+        webSettings.useWideViewPort = true
+        webSettings.mediaPlaybackRequiresUserGesture = false
+
+        webView.loadUrl(url)
     }
 
     override fun onDestroyView() {

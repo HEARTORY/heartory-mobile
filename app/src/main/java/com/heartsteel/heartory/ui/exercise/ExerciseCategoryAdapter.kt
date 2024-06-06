@@ -13,12 +13,14 @@ import com.heartsteel.heartory.R
 import com.heartsteel.heartory.data.model.Exercise
 import com.heartsteel.heartory.databinding.FragmentExerciseItemCategoryCardBinding
 
-class ExerciseCategoryAdapter(private val items: List<Exercise>) : RecyclerView.Adapter<ExerciseCategoryAdapter.ViewHolder>() {
-
+class ExerciseCategoryAdapter(
+    private val items: List<Exercise>,
+    private val onItemClick: (Exercise) -> Unit
+) : RecyclerView.Adapter<ExerciseCategoryAdapter.ViewHolder>() {
 
     class ViewHolder(val binding: FragmentExerciseItemCategoryCardBinding) : RecyclerView.ViewHolder(binding.root) {
-        fun bind(exercise: Exercise) {
-            binding.tvCategoryName.text = exercise.name
+        fun bind(exercise: Exercise, onItemClick: (Exercise) -> Unit) {
+            binding.tvCategoryName.text = exercise.category
             Log.d("ExerciseCategoryAdapter", "Loading image URL: ${exercise.imageUrl}")
 
             Glide.with(binding.root.context)
@@ -48,6 +50,10 @@ class ExerciseCategoryAdapter(private val items: List<Exercise>) : RecyclerView.
                     }
                 })
                 .into(binding.ivCategoryImage)
+
+            binding.root.setOnClickListener {
+                onItemClick(exercise)
+            }
         }
     }
 
@@ -57,7 +63,7 @@ class ExerciseCategoryAdapter(private val items: List<Exercise>) : RecyclerView.
     }
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
-        holder.bind(items[position])
+        holder.bind(items[position], onItemClick)
     }
 
     override fun getItemCount() = items.size

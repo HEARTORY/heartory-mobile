@@ -160,4 +160,9 @@ dependencies {
     implementation("com.github.denzcoskun:ImageSlideshow:0.1.2")
 
     implementation ("com.github.denzcoskun:ImageSlideshow:0.1.0")
+
+    //pass data
+    implementation ("androidx.navigation:navigation-fragment-ktx:2.3.5")
+    implementation ("androidx.navigation:navigation-ui-ktx:2.3.5")
+
 }

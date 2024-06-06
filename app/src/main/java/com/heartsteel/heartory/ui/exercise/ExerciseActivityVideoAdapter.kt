@@ -5,15 +5,15 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.heartsteel.heartory.data.model.Exercise
-import com.heartsteel.heartory.databinding.FragmentExerciseTodayActivityItemBinding
+import com.heartsteel.heartory.databinding.FragmentExerciseVideoIteamBinding
 
-class ExerciseTodayActivityAdapter(
+class ExerciseActivityVideoAdapter(
     private val items: List<Exercise>,
     private val listener: (Exercise) -> Unit
-) : RecyclerView.Adapter<ExerciseTodayActivityAdapter.ViewHolder>() {
+) : RecyclerView.Adapter<ExerciseActivityVideoAdapter.ViewHolder>() {
 
-    class ViewHolder(val binding: FragmentExerciseTodayActivityItemBinding) : RecyclerView.ViewHolder(binding.root) {
-        fun bind(exercise: Exercise, listener: (Exercise) -> Unit) {
+    class ViewHolder(val binding: FragmentExerciseVideoIteamBinding, val listener: (Exercise) -> Unit) : RecyclerView.ViewHolder(binding.root) {
+        fun bind(exercise: Exercise) {
             binding.tvClassName.text = exercise.name
             binding.tvTime.text = exercise.time
             Glide.with(binding.root.context)
@@ -27,13 +27,15 @@ class ExerciseTodayActivityAdapter(
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
-        val binding = FragmentExerciseTodayActivityItemBinding.inflate(LayoutInflater.from(parent.context), parent, false)
-        return ViewHolder(binding)
+        val binding = FragmentExerciseVideoIteamBinding.inflate(LayoutInflater.from(parent.context), parent, false)
+        return ViewHolder(binding) { exercise ->
+            listener(exercise)
+        }
     }
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         val item = items[position]
-        holder.bind(item, listener)
+        holder.bind(item)
     }
 
     override fun getItemCount(): Int = items.size
