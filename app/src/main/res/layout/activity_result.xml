@@ -37,7 +37,9 @@
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content">
+            android:layout_height="wrap_content"
+
+            >
 
             <androidx.constraintlayout.widget.ConstraintLayout
                 android:id="@+id/cl_pulse"
@@ -171,7 +173,6 @@
                         android:layout_height="wrap_content"
                         android:layout_centerInParent="true"
                         android:fontFamily="@font/poppins_bold"
-                        android:text="32"
                         android:textColor="@color/white"
                         android:textSize="30dp"
 
@@ -235,7 +236,7 @@
                         android:layout_height="50dp"
                         android:layout_centerInParent="true"
                         android:paddingBottom="15dp"
-                        android:src="@drawable/male" />
+                         />
 
                     <TextView
 
@@ -245,9 +246,8 @@
                         android:layout_below="@id/img_gender"
                         android:layout_centerHorizontal="true"
                         android:fontFamily="@font/poppins_medium"
-                        android:text="Male"
                         android:textColor="@color/white"
-                        android:textSize="20dp"
+                        android:textSize="16dp"
 
                         />
                 </RelativeLayout>
@@ -255,17 +255,28 @@
 
         </androidx.constraintlayout.widget.ConstraintLayout>
 
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:padding="10dp"
+        android:orientation="horizontal"
+        android:gravity="center_vertical"
+        android:background="@drawable/bg_rounded_border"
+        android:layout_marginTop="20dp"
+        android:layout_marginLeft="20dp"
+        >
         <LinearLayout
-            android:layout_width="match_parent"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-
-            android:orientation="horizontal">
+            android:orientation="horizontal"
+            android:background="@color/bg_primary"
+            >
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginHorizontal="15dp"
-                android:layout_marginTop="20dp"
+
                 android:fontFamily="@font/poppins_bold"
                 android:text="Your mood is"
                 android:textColor="@color/primary_text_color"
@@ -284,8 +295,11 @@
                 android:background="@drawable/bg_gradient_blue_lightblue"
                 android:fontFamily="@font/poppins_medium"
                 android:text="Get diagnosis >"
+                android:visibility="gone"
                 android:textColor="@color/white" />
         </LinearLayout>
+    </LinearLayout>
+
 
         <TextView
             android:id="@+id/tvDiagnoses"
@@ -294,7 +308,16 @@
             android:layout_marginHorizontal="10dp"
             android:fontFamily="@font/poppins_medium"
             android:text="@string/output_result"
+            android:visibility="gone"
             android:textColor="@color/secondary_text_color" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@color/bg_primary"
+            >
+
+        </LinearLayout>
 
     </LinearLayout>
 </androidx.coordinatorlayout.widget.CoordinatorLayout>

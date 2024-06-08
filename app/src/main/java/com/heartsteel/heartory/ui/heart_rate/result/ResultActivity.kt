@@ -2,10 +2,12 @@ package com.heartsteel.heartory.ui.heart_rate.result
 
 import android.os.Bundle
 import androidx.activity.viewModels
+import androidx.compose.ui.text.toLowerCase
 import com.example.healthcarecomp.base.BaseActivity
 import com.heartsteel.heartory.R
 import com.heartsteel.heartory.common.util.Resource
 import com.heartsteel.heartory.databinding.ActivityResultBinding
+import com.heartsteel.heartory.service.model.domain.User
 import com.heartsteel.heartory.service.model.request.DiagnosesReq
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.CoroutineScope
@@ -18,7 +20,7 @@ class ResultActivity : BaseActivity() {
     private val binding: ActivityResultBinding by lazy {
         ActivityResultBinding.inflate(layoutInflater)
     }
-
+    private var user: User? = null
     private val viewModel: ResultViewModel by viewModels()
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -40,6 +42,20 @@ class ResultActivity : BaseActivity() {
         }
         // Update the TextView with the pulse value
         binding.tvPulseValue.text = pulseValue
+        user = viewModel.getUserFromSharePref()
+        val age = user?.dateOfBirth?.let { viewModel.getAge(it) }.toString()
+        val gender = user!!.gender
+
+        binding.tvAgeValue.text = age
+        binding.tvGenderUnit.text = gender
+        when(gender!!.toLowerCase()){
+            "male" ->{
+                binding.imgGender.setImageResource(R.drawable.male)
+            }
+            "female" -> {
+                binding.imgGender.setImageResource(R.drawable.female)
+            }
+        }
 
         setupEvents()
         setupObservers()

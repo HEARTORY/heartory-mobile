@@ -28,6 +28,8 @@ import com.heartsteel.heartory.service.model.request.RegisterReq
 import com.heartsteel.heartory.ui.MainActivity
 import com.heartsteel.heartory.ui.auth.login.LoginFragment
 import com.heartsteel.heartory.ui.auth.register.RegisterFragment
+import com.heartsteel.heartory.ui.profile_onboarding.CheckProfileActivity
+import com.heartsteel.heartory.ui.profile_onboarding.ProfileOnBoardingActivity
 import dagger.hilt.android.AndroidEntryPoint
 import es.dmoral.toasty.Toasty
 
@@ -62,7 +64,9 @@ class AuthActivity : BaseActivity() {
     private fun autoLoginIfRefreshTokenValid() {
         viewModel.userRepository.isLoggedIn().let {
             if (it) {
-                goNext()
+                viewModel.userRepository.getUserFromSharePref()?.let {
+                    goNext(it)
+                }
             }
         }
     }
@@ -255,7 +259,7 @@ class AuthActivity : BaseActivity() {
 
                 is Resource.Success -> {
                     hideLoading2()
-                    goNext()
+                    goNext(it.data?.data?.user)
 
                 }
 
@@ -325,10 +329,16 @@ class AuthActivity : BaseActivity() {
         }
     }
 
-    private fun goNext() {
-        finish()
-        val intent = Intent(this, MainActivity::class.java)
-        startActivity(intent)
+    private fun goNext(user: User?) {
+        if(user != null){
+            if (user.height == null || user.weight == null || user.dateOfBirth== null || user.gender== null){
+                val intent = Intent(this, ProfileOnBoardingActivity::class.java, )
+                startActivity(intent)
+            }else{
+                val intent = Intent(this, MainActivity::class.java, )
+                startActivity(intent)
+            }
+        }
     }
 
 }
