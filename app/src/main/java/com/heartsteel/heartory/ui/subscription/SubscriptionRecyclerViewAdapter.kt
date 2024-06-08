@@ -9,12 +9,14 @@ import androidx.recyclerview.widget.RecyclerView
 import com.heartsteel.heartory.R
 import com.heartsteel.heartory.service.model.domain.Subscription
 
-class SubscriptionRecyclerViewAdapter(private val itemClickListener: (Subscription) -> Unit) : RecyclerView.Adapter<SubscriptionRecyclerViewAdapter.ViewHolder>() {
+class SubscriptionRecyclerViewAdapter(private val itemClickListener: (Subscription) -> Unit) :
+    RecyclerView.Adapter<SubscriptionRecyclerViewAdapter.ViewHolder>() {
 
     private var subscriptionList: List<Subscription> = emptyList()
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
-        val view = LayoutInflater.from(parent.context).inflate(R.layout.component_subscription, parent, false)
+        val view = LayoutInflater.from(parent.context)
+            .inflate(R.layout.component_subscription, parent, false)
         return ViewHolder(view)
     }
 

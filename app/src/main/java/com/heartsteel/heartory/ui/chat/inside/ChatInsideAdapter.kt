@@ -60,7 +60,7 @@ class ChatInsideAdapter : BaseAdapter<Message, ChatInsideAdapter.ChatInsideViewH
     }
 
     override fun getItemViewType(position: Int): Int {
-        return if (differ.currentList.isNotEmpty() && differ.currentList[position].isByUser) {
+        return if (differ.currentList.isNotEmpty() && differ.currentList[position].role == "user") {
             RIGHT
         } else {
             LEFT

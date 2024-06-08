@@ -4,10 +4,8 @@ data class Message(
     val id: Int? = null,
     val content: String,
     val userId: String? = null,
-    val isByUser: Boolean = false,
-    val timeStamp: Long? = System.currentTimeMillis(),
-    val sent: Boolean? = false,
-    val seen: Boolean? = false
+    val role: String,
+    val createdAt: Long? = System.currentTimeMillis(),
 ){
 
 }

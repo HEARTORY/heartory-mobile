@@ -3,6 +3,7 @@ package com.heartsteel.heartory.ui.chat.inside
 import android.content.Context
 import android.graphics.Rect
 import android.os.Bundle
+import android.util.Log
 import android.view.MotionEvent
 import android.view.View
 import android.view.ViewGroup
@@ -13,10 +14,9 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.healthcarecomp.base.BaseActivity
 import com.heartsteel.heartory.R
 import com.heartsteel.heartory.common.util.Resource
-import com.heartsteel.heartory.service.model.domain.Message
 import com.heartsteel.heartory.databinding.ActivityChatInsideBinding
-import com.heartsteel.heartory.service.model.domain.User
 import dagger.hilt.android.AndroidEntryPoint
+import es.dmoral.toasty.Toasty
 import kotlin.math.roundToInt
 
 @AndroidEntryPoint
@@ -29,7 +29,13 @@ class ChatInsideActivity : BaseActivity() {
         super.onCreate(savedInstanceState)
 
         _binding = ActivityChatInsideBinding.inflate(layoutInflater)
-        setContentView(_binding.root, ViewGroup.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT))
+        setContentView(
+            _binding.root,
+            ViewGroup.LayoutParams(
+                ViewGroup.LayoutParams.MATCH_PARENT,
+                ViewGroup.LayoutParams.MATCH_PARENT
+            )
+        )
 
         setupView()
         setupEvent()
@@ -43,19 +49,30 @@ class ChatInsideActivity : BaseActivity() {
             adapter = _chatInsideAdapter
             layoutManager = LinearLayoutManager(this@ChatInsideActivity)
         }
-        //mock
-        viewModel.messages.value = Resource.Success(viewModel.mockData)
 
-        _binding.rvChat.scrollToPosition(viewModel.messages.value!!.data!!.size - 1)
+        _chatInsideAdapter.setItemOrderBy { list ->
+            list.sortedBy { it.id }
+            Log.d("ChatInsideActivity", "list: $list")
+        }
+
+
+        //getMessages
+        viewModel.getMessages()
+
+        if (viewModel.messages.value?.data?.isNotEmpty() == true) {
+            _binding.rvChat.scrollToPosition(viewModel.messages.value!!.data!!.size - 1)
+        }
 
 
         // Scroll to bottom when keyboard is shown or hidden
         val activityRootView = findViewById<View>(R.id.rvChat)
-        activityRootView.viewTreeObserver.addOnGlobalLayoutListener(object : ViewTreeObserver.OnGlobalLayoutListener {
+        activityRootView.viewTreeObserver.addOnGlobalLayoutListener(object :
+            ViewTreeObserver.OnGlobalLayoutListener {
             override fun onGlobalLayout() {
                 val heightDiff = activityRootView.rootView.height - activityRootView.height
                 if (heightDiff > dpToPx(100) || heightDiff < -dpToPx(100)) {
-                    _binding.rvChat.smoothScrollToPosition(viewModel.messages.value!!.data!!.size - 1)
+                    if (viewModel.messages.value?.data?.size != null && viewModel.messages.value?.data?.size!! > 0)
+                        _binding.rvChat.smoothScrollToPosition(viewModel.messages.value!!.data!!.size - 1)
                 }
             }
 
@@ -68,22 +85,13 @@ class ChatInsideActivity : BaseActivity() {
 
     private fun setupEvent() {
         _binding.btnVector.setOnClickListener {
-            viewModel.messages.value?.data?.add(
-                Message(
-                    id = 1,
-                    content = _binding.etInput.text.toString(),
-                    userId = "userId",
-                    isByUser = true,
-                    timeStamp = System.currentTimeMillis(),
-                    sent = true,
-                    seen = true
-                )
-            )
-            viewModel.messages.value = Resource.Success(viewModel.messages.value!!.data!!)
-            
+
+            viewModel.sendMessage(_binding.etInput.text.toString())
+
             _binding.etInput.text?.clear()
 
-            val inputMethodManager = getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
+            val inputMethodManager =
+                getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
             inputMethodManager.hideSoftInputFromWindow(_binding.btnVector.windowToken, 0)
         }
 
@@ -110,17 +118,39 @@ class ChatInsideActivity : BaseActivity() {
         viewModel.messages.observe(this) { resource ->
             when (resource) {
                 is Resource.Success -> {
+                    hideLoading2()
                     resource.data?.let {
                         _chatInsideAdapter.submitList(it)
                     }
                 }
 
                 is Resource.Error -> {
-                    // handle error
+                    hideLoading2()
+                    Log.e("ChatInsideActivity", "Error: ${resource.message}")
+                    Toasty.error(this, "Error: ${resource.message}", Toasty.LENGTH_SHORT).show()
                 }
 
                 is Resource.Loading -> {
-                    // handle loading
+                    showLoading2()
+                }
+            }
+        }
+
+        viewModel.sendMessageState.observe(this) { resource ->
+            when (resource) {
+                is Resource.Success -> {
+                    hideLoading2()
+                    viewModel.getMessages()
+                }
+
+                is Resource.Error -> {
+                    hideLoading2()
+                    Log.e("ChatInsideActivity", "Error: ${resource.message}")
+                    Toasty.error(this, "Error: ${resource.message}", Toasty.LENGTH_SHORT).show()
+                }
+
+                is Resource.Loading -> {
+                    showLoading2()
                 }
             }
         }

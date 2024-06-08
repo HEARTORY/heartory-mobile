@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:layout_width="260dp"
-    android:layout_height="460dp"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
     android:layout_margin="12dp"
     android:background="@drawable/bg_subscript"
     android:orientation="vertical"
@@ -125,6 +125,7 @@
                     android:src="@drawable/ic_check_white_24dp" />
 
                 <TextView
+                    android:id="@+id/tvSubscriptionDays"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:fontFamily="@font/poppins_bold"
@@ -133,7 +134,6 @@
                     android:textSize="16sp" />
 
                 <TextView
-                    android:id="@+id/tvSubscriptionDays"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:fontFamily="@font/poppins_bold"

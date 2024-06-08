@@ -326,7 +326,7 @@ class AuthActivity : BaseActivity() {
     }
 
     private fun goNext() {
-
+        finish()
         val intent = Intent(this, MainActivity::class.java)
         startActivity(intent)
     }
