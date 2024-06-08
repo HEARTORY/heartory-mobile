@@ -6,5 +6,36 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".ui.profile.edit.ProfileEditActivity">
+    <io.getstream.avatarview.AvatarView
+        android:id="@+id/avUserAvatar"
+        android:layout_width="100dp"
+        android:layout_height="100dp"
+        android:layout_marginTop="90dp"
+        app:avatarViewBorderColor="@color/white"
+        app:avatarViewBorderWidth="2dp"
+        app:avatarViewErrorPlaceholder="@drawable/heartory_app_logo"
+        app:avatarViewIndicatorBorderColor="@color/white"
+        app:avatarViewIndicatorBorderSizeCriteria="10"
+        app:avatarViewIndicatorColor="@color/green"
+        app:avatarViewIndicatorEnabled="true"
+        app:avatarViewIndicatorPosition="bottomRight"
+        app:avatarViewIndicatorSizeCriteria="8"
+        app:avatarViewInitialsTextStyle="bold"
+        app:avatarViewPlaceholder="@drawable/heartory_app_logo"
+        app:avatarViewShape="circle"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.498"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <ImageView
+        android:layout_width="32dp"
+        android:layout_height="32dp"
+        android:layout_gravity="center_vertical"
+        android:src="@drawable/ic_crown"
+        app:layout_constraintEnd_toEndOf="@+id/avUserAvatar"
+        app:layout_constraintTop_toTopOf="@+id/avUserAvatar" />
+
+
 
 </androidx.constraintlayout.widget.ConstraintLayout>

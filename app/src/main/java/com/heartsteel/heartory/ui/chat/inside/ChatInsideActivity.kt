@@ -15,6 +15,7 @@ import com.example.healthcarecomp.base.BaseActivity
 import com.heartsteel.heartory.R
 import com.heartsteel.heartory.common.util.Resource
 import com.heartsteel.heartory.databinding.ActivityChatInsideBinding
+import com.heartsteel.heartory.service.model.domain.Message
 import dagger.hilt.android.AndroidEntryPoint
 import es.dmoral.toasty.Toasty
 import kotlin.math.roundToInt
@@ -86,6 +87,15 @@ class ChatInsideActivity : BaseActivity() {
     private fun setupEvent() {
         _binding.btnVector.setOnClickListener {
 
+            if (_binding.etInput.text.toString().isEmpty()) return@setOnClickListener
+
+            val messages = viewModel.messages.value?.data
+            messages?.let {
+                messages.add(Message(content = _binding.etInput.text.toString(), role = "user"))
+                messages.add(Message(content = "", role = _chatInsideAdapter.LEFT_LOADING_ROLE))
+                viewModel.messages.postValue(Resource.Success(messages))
+            }
+
             viewModel.sendMessage(_binding.etInput.text.toString())
 
             _binding.etInput.text?.clear()
@@ -118,20 +128,17 @@ class ChatInsideActivity : BaseActivity() {
         viewModel.messages.observe(this) { resource ->
             when (resource) {
                 is Resource.Success -> {
-                    hideLoading2()
                     resource.data?.let {
                         _chatInsideAdapter.submitList(it)
                     }
                 }
 
                 is Resource.Error -> {
-                    hideLoading2()
                     Log.e("ChatInsideActivity", "Error: ${resource.message}")
                     Toasty.error(this, "Error: ${resource.message}", Toasty.LENGTH_SHORT).show()
                 }
 
                 is Resource.Loading -> {
-                    showLoading2()
                 }
             }
         }
@@ -139,18 +146,15 @@ class ChatInsideActivity : BaseActivity() {
         viewModel.sendMessageState.observe(this) { resource ->
             when (resource) {
                 is Resource.Success -> {
-                    hideLoading2()
                     viewModel.getMessages()
                 }
 
                 is Resource.Error -> {
-                    hideLoading2()
                     Log.e("ChatInsideActivity", "Error: ${resource.message}")
                     Toasty.error(this, "Error: ${resource.message}", Toasty.LENGTH_SHORT).show()
                 }
 
                 is Resource.Loading -> {
-                    showLoading2()
                 }
             }
         }

@@ -334,9 +334,11 @@ class AuthActivity : BaseActivity() {
             if (user.height == null || user.weight == null || user.dateOfBirth== null || user.gender== null){
                 val intent = Intent(this, ProfileOnBoardingActivity::class.java, )
                 startActivity(intent)
+                finish()
             }else{
                 val intent = Intent(this, MainActivity::class.java, )
                 startActivity(intent)
+                finish()
             }
         }
     }

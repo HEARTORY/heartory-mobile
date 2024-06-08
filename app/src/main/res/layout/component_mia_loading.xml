@@ -1,0 +1,62 @@
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:paddingBottom="8dp">
+
+    <androidx.cardview.widget.CardView
+        android:id="@+id/cvMiaMessageAva"
+        android:layout_width="32dp"
+        android:layout_height="32dp"
+        app:cardCornerRadius="12dp"
+        android:layout_marginBottom="2dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toStartOf="@id/cvMiaContent"
+        app:layout_constraintStart_toStartOf="parent">
+
+        <ImageView
+            android:id="@+id/ivMiaMessageAva"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:src="@drawable/heartory_app_logo" />
+    </androidx.cardview.widget.CardView>
+
+    <androidx.cardview.widget.CardView
+        android:id="@+id/cvMiaContent"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginVertical="2dp"
+        android:layout_marginStart="10dp"
+        app:cardCornerRadius="12dp"
+        app:contentPadding="10dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toEndOf="@id/cvMiaMessageAva"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <TextView
+                android:id="@+id/tvMiaNameLoading"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/readexpro_regular"
+                android:text="Mia"
+                android:textColor="@color/mia_ava_blue"
+                android:textSize="12sp"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <pl.droidsonroids.gif.GifImageView
+                android:layout_width="50dp"
+                android:layout_height="30dp"
+                android:src="@drawable/gif_mia_loading"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/tvMiaNameLoading" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+    </androidx.cardview.widget.CardView>
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>
