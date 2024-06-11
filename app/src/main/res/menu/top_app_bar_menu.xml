@@ -6,11 +6,5 @@
 <!--        android:id="@+id/back_btn"-->
 <!--        android:icon="@drawable/baseline_arrow_back"-->
 <!--        app:showAsAction="ifRoom" />-->
-    <item
-        android:id="@+id/notification_icon"
-        android:title="notification"
-        android:icon="@drawable/ic_noti"
-        android:iconTint="@color/primary_text_color"
-        app:showAsAction="ifRoom" />
 
 </menu>

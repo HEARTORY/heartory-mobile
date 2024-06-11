@@ -312,7 +312,7 @@
         }
 
 
-        private fun showBottomDialog() {
+        private fun     showBottomDialog() {
             val dialog = Dialog(this)
             dialog.requestWindowFeature(Window.FEATURE_NO_TITLE)
             dialog.setContentView(R.layout.heart_rate_bottom_sheet_layout)
@@ -411,6 +411,7 @@
                 val intent = Intent(this, ResultActivity::class.java)
                 intent.putExtra("SELECTED_EMOTION", emotion.toString()) // Passing the selected emotion
                 intent.putExtra("PULSE_VALUE", pulseValue) // Passing the pulse value
+
                 startActivity(intent)
                 dialog.dismiss()
             }

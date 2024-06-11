@@ -7,19 +7,24 @@ import com.example.healthcarecomp.base.BaseActivity
 import com.heartsteel.heartory.R
 import com.heartsteel.heartory.common.util.Resource
 import com.heartsteel.heartory.databinding.ActivityResultBinding
+import com.heartsteel.heartory.service.model.domain.HBRecord
 import com.heartsteel.heartory.service.model.domain.User
 import com.heartsteel.heartory.service.model.request.DiagnosesReq
+import com.heartsteel.heartory.service.repository.UserRepository
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
+import javax.inject.Inject
+
 
 @AndroidEntryPoint
 class ResultActivity : BaseActivity() {
     private val binding: ActivityResultBinding by lazy {
         ActivityResultBinding.inflate(layoutInflater)
     }
+
     private var user: User? = null
     private val viewModel: ResultViewModel by viewModels()
 
@@ -32,6 +37,7 @@ class ResultActivity : BaseActivity() {
 
         // Retrieve the pulse value from the Intent extras
         val pulseValue = intent.getStringExtra("PULSE_VALUE")
+        val roundedPulseValue = pulseValue?.toDouble()?.let { roundToNearestInt(it) }
         val emotion = intent.getStringExtra("SELECTED_EMOTION")
         when (emotion) {
             EMOTION.JOY.toString() -> binding.moodIcon.setImageResource(R.drawable.joyful)
@@ -41,25 +47,41 @@ class ResultActivity : BaseActivity() {
             EMOTION.NORMAL.toString() -> binding.moodIcon.setImageResource(R.drawable.normal)
         }
         // Update the TextView with the pulse value
-        binding.tvPulseValue.text = pulseValue
+        binding.tvPulseValue.text = roundedPulseValue.toString()
         user = viewModel.getUserFromSharePref()
         val age = user?.dateOfBirth?.let { viewModel.getAge(it) }.toString()
         val gender = user!!.gender
+        val height = user?.height
+        val formattedHeight = String.format("%.2f", height)
+        val weight = user?.weight.toString()
 
-        binding.tvAgeValue.text = age
-        binding.tvGenderUnit.text = gender
-        when(gender!!.toLowerCase()){
-            "male" ->{
-                binding.imgGender.setImageResource(R.drawable.male)
-            }
-            "female" -> {
-                binding.imgGender.setImageResource(R.drawable.female)
-            }
-        }
+        binding.txtAge.text = age
+        binding.txtGender.text = gender
+        binding.tvHeightValue.text = formattedHeight
+        binding.tvWeightValue.text = weight
 
+
+        val hbRecord = HBRecord(
+            user = user,
+            hr = roundedPulseValue,
+            deviceId = "string",
+            numCycles = 5,
+//            emotion = when (emotion) {
+//                EMOTION.JOY.toString() -> 1
+//                EMOTION.HAPPY.toString() -> 2
+//                EMOTION.SAD.toString() -> 3
+//                EMOTION.CRY.toString() -> 4
+//                EMOTION.NORMAL.toString() -> 5
+//                else -> 0
+//            },
+            emotion = 1,
+            activity = 1,
+            hrv = 1
+
+        )
+        viewModel.createHBRecord(hbRecord)
         setupEvents()
         setupObservers()
-
     }
 
     private fun setupEvents() {
@@ -112,6 +134,14 @@ class ResultActivity : BaseActivity() {
 //            }
 //        }
 
+    }
+
+    private fun roundToNearestInt(value: Double): Int {
+        return if (value - value.toInt() >= 0.5) {
+            value.toInt() + 1
+        } else {
+            value.toInt()
+        }
     }
 
     enum class EMOTION {

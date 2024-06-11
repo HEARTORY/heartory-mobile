@@ -127,11 +127,11 @@
                 app:layout_constraintTop_toTopOf="parent">
 
                 <ImageView
-                    android:id="@+id/age_icon"
+                    android:id="@+id/weight_icon"
                     android:layout_width="30dp"
                     android:layout_height="30dp"
                     android:layout_marginTop="30dp"
-                    android:src="@drawable/person_age"
+                    android:src="@drawable/weight_kilograms_svgrepo_com"
                     app:layout_constraintLeft_toLeftOf="parent"
                     app:layout_constraintRight_toRightOf="parent"
                     app:layout_constraintTop_toTopOf="parent"
@@ -144,12 +144,12 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:fontFamily="@font/poppins_medium"
-                    android:text="Age"
+                    android:text="Weight"
                     android:textColor="@color/primary_text_color"
                     android:textSize="20dp"
-                    app:layout_constraintLeft_toLeftOf="@+id/age_icon"
-                    app:layout_constraintRight_toRightOf="@+id/age_icon"
-                    app:layout_constraintTop_toBottomOf="@+id/age_icon"
+                    app:layout_constraintLeft_toLeftOf="@+id/weight_icon"
+                    app:layout_constraintRight_toRightOf="@+id/weight_icon"
+                    app:layout_constraintTop_toBottomOf="@+id/weight_icon"
 
                     />
 
@@ -162,19 +162,37 @@
                     app:layout_constraintTop_toTopOf="@+id/tv_age">
 
                     <ImageView
-                        android:id="@+id/img_age_circle"
+                        android:id="@+id/img_weight_circle"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:src="@drawable/blue_circle" />
 
+
                     <TextView
-                        android:id="@+id/tv_age_value"
+                        android:id="@+id/tv_weight_value"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_centerInParent="true"
+                        android:layout_centerHorizontal="true"
                         android:fontFamily="@font/poppins_bold"
                         android:textColor="@color/white"
-                        android:textSize="30dp"
+                        android:textSize="20dp"
+                        android:layout_centerInParent="true"
+                        android:text="20.0"
+                        android:layout_marginTop="20dp"
+
+                        />
+
+                    <TextView
+                        android:id="@+id/tv_weight_unit"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_below="@+id/tv_weight_value"
+                        android:layout_centerHorizontal="true"
+
+                        android:fontFamily="@font/poppins_medium"
+                        android:text="kg"
+                        android:textColor="@color/white"
+                        android:textSize="15dp"
 
                         />
                 </RelativeLayout>
@@ -190,11 +208,11 @@
                 app:layout_constraintTop_toTopOf="parent">
 
                 <ImageView
-                    android:id="@+id/gender_icon"
+                    android:id="@+id/height_icon"
                     android:layout_width="30dp"
                     android:layout_height="30dp"
                     android:layout_marginTop="30dp"
-                    android:src="@drawable/gender"
+                    android:src="@drawable/height_svgrepo_com"
                     app:layout_constraintLeft_toLeftOf="parent"
                     app:layout_constraintRight_toRightOf="parent"
                     app:layout_constraintTop_toTopOf="parent"
@@ -207,12 +225,12 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:fontFamily="@font/poppins_medium"
-                    android:text="Gender"
+                    android:text="Height"
                     android:textColor="@color/primary_text_color"
                     android:textSize="20dp"
-                    app:layout_constraintLeft_toLeftOf="@+id/gender_icon"
-                    app:layout_constraintRight_toRightOf="@+id/gender_icon"
-                    app:layout_constraintTop_toBottomOf="@+id/gender_icon"
+                    app:layout_constraintLeft_toLeftOf="@+id/height_icon"
+                    app:layout_constraintRight_toRightOf="@+id/height_icon"
+                    app:layout_constraintTop_toBottomOf="@+id/height_icon"
 
                     />
 
@@ -225,29 +243,37 @@
                     app:layout_constraintTop_toTopOf="@+id/tv_gender">
 
                     <ImageView
-                        android:id="@+id/img_gender_circle"
+                        android:id="@+id/img_height_circle"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:src="@drawable/green_circle" />
 
-                    <ImageView
-                        android:id="@+id/img_gender"
-                        android:layout_width="50dp"
-                        android:layout_height="50dp"
-                        android:layout_centerInParent="true"
-                        android:paddingBottom="15dp"
-                         />
 
                     <TextView
-
-                        android:id="@+id/tv_gender_unit"
+                        android:id="@+id/tv_height_value"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_below="@id/img_gender"
                         android:layout_centerHorizontal="true"
-                        android:fontFamily="@font/poppins_medium"
+                        android:fontFamily="@font/poppins_bold"
                         android:textColor="@color/white"
-                        android:textSize="16dp"
+                        android:layout_centerInParent="true"
+                        android:textSize="20dp"
+                        android:layout_marginTop="20dp"
+                        android:text="20.0"
+
+                        />
+
+                    <TextView
+                        android:id="@+id/tv_height_unit"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_below="@+id/tv_height_value"
+                        android:layout_centerHorizontal="true"
+
+                        android:fontFamily="@font/poppins_medium"
+                        android:text="m"
+                        android:textColor="@color/white"
+                        android:textSize="15dp"
 
                         />
                 </RelativeLayout>
@@ -255,69 +281,256 @@
 
         </androidx.constraintlayout.widget.ConstraintLayout>
 
-    <LinearLayout
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:padding="10dp"
-        android:orientation="horizontal"
-        android:gravity="center_vertical"
-        android:background="@drawable/bg_rounded_border"
-        android:layout_marginTop="20dp"
-        android:layout_marginLeft="20dp"
-        >
         <LinearLayout
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_marginHorizontal="20dp"
             android:orientation="horizontal"
-            android:background="@color/bg_primary"
             >
-
-            <TextView
+            <LinearLayout
+                android:id="@+id/ll_mood"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginHorizontal="15dp"
+                android:padding="10dp"
+                android:orientation="horizontal"
+                android:gravity="center_vertical"
+                android:background="@drawable/bg_rounded_border"
+                android:layout_marginTop="20dp"
+                >
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:background="@color/bg_primary"
+                    android:gravity="center_vertical"
+                    >
 
-                android:fontFamily="@font/poppins_bold"
-                android:text="Your mood is"
-                android:textColor="@color/primary_text_color"
-                android:textSize="20dp" />
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginHorizontal="15dp"
 
-            <ImageView
-                android:id="@+id/mood_icon"
-                android:layout_width="wrap_content"
+                        android:fontFamily="@font/poppins_bold"
+                        android:text="Your mood "
+                        android:textColor="@color/primary_text_color"
+                        android:textSize="20dp" />
+
+                    <ImageView
+                        android:id="@+id/mood_icon"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity=""
+                        android:src="@drawable/joyful" />
+
+                    <androidx.appcompat.widget.AppCompatButton
+                        android:id="@+id/btnDiagnose"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:background="@drawable/bg_gradient_blue_lightblue"
+                        android:fontFamily="@font/poppins_medium"
+                        android:text="Get diagnosis >"
+                        android:visibility="gone"
+                        android:textColor="@color/white" />
+                </LinearLayout>
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/ll_gender"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="15dp" />
+                android:padding="10dp"
+                android:orientation="horizontal"
+                android:gravity="center_vertical"
+                android:background="@drawable/bg_rounded_border"
+                android:layout_marginTop="20dp"
+                >
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:background="@color/bg_primary"
+                    >
 
-            <androidx.appcompat.widget.AppCompatButton
-                android:id="@+id/btnDiagnose"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:background="@drawable/bg_gradient_blue_lightblue"
-                android:fontFamily="@font/poppins_medium"
-                android:text="Get diagnosis >"
-                android:visibility="gone"
-                android:textColor="@color/white" />
-        </LinearLayout>
-    </LinearLayout>
+                    <TextView
+                        android:id="@id/txt_gender"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginHorizontal="15dp"
+                        android:fontFamily="@font/poppins_bold"
+                        android:text=""
+                        android:textColor="@color/primary_text_color"
+                        android:textSize="20dp" />
 
-
-        <TextView
-            android:id="@+id/tvDiagnoses"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginHorizontal="10dp"
-            android:fontFamily="@font/poppins_medium"
-            android:text="@string/output_result"
-            android:visibility="gone"
-            android:textColor="@color/secondary_text_color" />
+                </LinearLayout>
+            </LinearLayout>
+            </LinearLayout>
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:background="@color/bg_primary"
+            android:layout_marginHorizontal="20dp"
+            android:orientation="horizontal"
             >
+            <LinearLayout
+                android:id="@+id/ll_activity_status"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:padding="10dp"
+                android:orientation="horizontal"
+                android:gravity="center_vertical"
+                android:background="@drawable/bg_rounded_border"
+                android:layout_marginTop="5dp"
+                >
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:background="@color/bg_primary"
+                    >
+
+                    <TextView
+                        android:id="@+id/txt_activity_status"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginHorizontal="15dp"
+
+                        android:fontFamily="@font/poppins_bold"
+                        android:text="Resting"
+                        android:textColor="@color/primary_text_color"
+                        android:textSize="20dp" />
+
+                </LinearLayout>
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/ll_age"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:padding="10dp"
+                android:orientation="horizontal"
+                android:gravity="center_vertical"
+                android:background="@drawable/bg_rounded_border"
+                android:layout_marginTop="5dp"
+                >
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:background="@color/bg_primary"
+                    >
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginHorizontal="15dp"
+                        android:fontFamily="@font/poppins_bold"
+                        android:text="Age:"
+                        android:textColor="@color/primary_text_color"
+                        android:textSize="20dp" />
+                    <TextView
+                        android:id="@+id/txt_age"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginHorizontal="5dp"
+                        android:fontFamily="@font/poppins_bold"
+                        android:text=""
+                        android:textColor="@color/primary_text_color"
+                        android:textSize="20dp" />
+
+                </LinearLayout>
+            </LinearLayout>
+        </LinearLayout>
+
+        <ScrollView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+            <LinearLayout
+                android:id="@+id/ll_dianose"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginHorizontal="20dp"
+                >
+                <LinearLayout
+                    android:id="@+id/ll_dianose_child"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:padding="10dp"
+                    android:orientation="vertical"
+                    android:gravity="center_vertical"
+                    android:background="@drawable/bg_rounded_border"
+                    android:layout_marginTop="20dp"
+                    >
+
+                    <ProgressBar
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        style="?android:attr/progressBarStyleHorizontal"
+                        android:layout_margin="10dp"
+                        android:max="100"
+                        android:progress="100"
+                        app:thumbColor="@color/white"
+
+                        />
+
+                    <TextView
+                        android:id="@+id/tvDiagnoses"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginHorizontal="10dp"
+                        android:fontFamily="@font/poppins_medium"
+                        android:text="@string/output_result"
+                        android:visibility="gone"
+                        android:textColor="@color/secondary_text_color"
+
+                        />
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content">
+                        <ImageView
+                            android:layout_width="wrap_content"
+                            android:layout_height="200dp"
+                            android:src="@drawable/mia_examine"
+
+                            />
+                        <TextView
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:fontFamily="@font/poppins_medium"
+                            android:text="Buy premium to..."
+                            android:textColor="@color/primary_text_color"
+                            android:layout_marginTop="20dp"
+                            android:layout_gravity="center_horizontal"
+                            />
+
+                        <TextView
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:fontFamily="@font/poppins_bold"
+                            android:text="Unlock diagnostic insight and suggestions"
+                            android:textColor="@color/primary_text_color"
+                            android:layout_marginTop="5dp"
+                            android:layout_gravity="center_horizontal"
+                            android:textSize="18dp"
+                            />
+                        <androidx.appcompat.widget.AppCompatButton
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:background="@drawable/bg_gradient_blue_lightblue"
+                            android:fontFamily="@font/poppins_bold"
+                            android:text="Be Premium"
+                            android:textColor="@color/white"
+                            android:paddingHorizontal="20dp"
+                            android:layout_gravity="center_horizontal"
+                            android:layout_marginVertical="20dp"
+                            />
+                    </LinearLayout>
+                </LinearLayout>
+
+
+            </LinearLayout>
+        </ScrollView>
+
 
         </LinearLayout>
 
-    </LinearLayout>
 </androidx.coordinatorlayout.widget.CoordinatorLayout>
