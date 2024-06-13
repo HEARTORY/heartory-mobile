@@ -7,7 +7,7 @@
     android:layout_height="match_parent"
     tools:context=".ui.profile.edit.ProfileEditActivity">
     <io.getstream.avatarview.AvatarView
-        android:id="@+id/avUserAvatar"
+        android:id="@+id/avUserAvatar1"
         android:layout_width="100dp"
         android:layout_height="100dp"
         android:layout_marginTop="90dp"
@@ -33,8 +33,150 @@
         android:layout_height="32dp"
         android:layout_gravity="center_vertical"
         android:src="@drawable/ic_crown"
-        app:layout_constraintEnd_toEndOf="@+id/avUserAvatar"
-        app:layout_constraintTop_toTopOf="@+id/avUserAvatar" />
+        app:layout_constraintEnd_toEndOf="@+id/avUserAvatar1"
+        app:layout_constraintTop_toTopOf="@+id/avUserAvatar1" />
+
+    <LinearLayout
+        android:layout_marginTop="24dp"
+        android:id="@+id/llName"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/avUserAvatar1">
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/tfFirstName"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginHorizontal="20dp"
+            android:layout_weight="1"
+            android:hint="First Name"
+            android:textColorHint="@color/primary_text_color"
+            app:boxBackgroundColor="@color/white"
+            app:boxCornerRadiusBottomEnd="10dp"
+            app:boxCornerRadiusBottomStart="10dp"
+            app:boxCornerRadiusTopEnd="10dp"
+            app:boxCornerRadiusTopStart="10dp"
+            app:boxStrokeColor="@color/light_grey"
+            app:errorTextAppearance="@font/poppins_medium">
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/etFirstname1"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="20dp"
+                android:fontFamily="@font/poppins_light"
+                android:inputType="textEmailAddress"
+                android:paddingVertical="12dp"
+                android:textColor="@color/primary_text_color"
+                android:textSize="13sp" />
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/tfLastName"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginHorizontal="20dp"
+            android:layout_weight="1"
+            android:hint="Last Name"
+            android:textColorHint="@color/primary_text_color"
+            app:boxBackgroundColor="@color/white"
+            app:boxCornerRadiusBottomEnd="10dp"
+            app:boxCornerRadiusBottomStart="10dp"
+            app:boxCornerRadiusTopEnd="10dp"
+            app:boxCornerRadiusTopStart="10dp"
+            app:boxStrokeColor="@color/light_grey"
+            app:errorTextAppearance="@font/poppins_medium">
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/etLastname1"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="20dp"
+                android:fontFamily="@font/poppins_light"
+                android:inputType="textEmailAddress"
+                android:paddingVertical="12dp"
+                android:textColor="@color/primary_text_color"
+                android:textSize="13sp" />
+        </com.google.android.material.textfield.TextInputLayout>
+    </LinearLayout>
+
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/tfEmail"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginHorizontal="20dp"
+        android:hint="Email"
+        android:textColorHint="@color/primary_text_color"
+        app:boxBackgroundColor="@color/white"
+        app:boxCornerRadiusBottomEnd="10dp"
+        app:boxCornerRadiusBottomStart="10dp"
+        app:boxCornerRadiusTopEnd="10dp"
+        android:layout_marginTop="10dp"
+        app:boxCornerRadiusTopStart="10dp"
+        app:boxStrokeColor="@color/light_grey"
+        app:errorTextAppearance="@font/poppins_medium"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/llName">
+
+        <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/etEmail1"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="20dp"
+            android:fontFamily="@font/poppins_light"
+            android:inputType="textEmailAddress"
+            android:paddingVertical="12dp"
+            android:textColor="@color/primary_text_color"
+            android:textSize="13sp" />
+    </com.google.android.material.textfield.TextInputLayout>
+
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/tfPhone"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginHorizontal="20dp"
+        android:layout_marginTop="10dp"
+        android:hint="Phone"
+        android:textColorHint="@color/primary_text_color"
+        app:boxBackgroundColor="@color/white"
+        app:boxCornerRadiusBottomEnd="10dp"
+        app:boxCornerRadiusBottomStart="10dp"
+        app:boxCornerRadiusTopEnd="10dp"
+        app:boxCornerRadiusTopStart="10dp"
+        app:boxStrokeColor="@color/light_grey"
+        app:errorTextAppearance="@font/poppins_medium"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/tfEmail">
+
+        <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/etPhone1"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="20dp"
+            android:fontFamily="@font/poppins_light"
+            android:inputType="textEmailAddress"
+            android:paddingVertical="12dp"
+            android:textColor="@color/primary_text_color"
+            android:textSize="13sp" />
+    </com.google.android.material.textfield.TextInputLayout>
+
+    <com.google.android.material.button.MaterialButton
+        android:id="@+id/btnSave"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginHorizontal="20dp"
+        android:backgroundTint="@color/green"
+        android:text="Save"
+        android:textColor="@color/white"
+        android:textSize="14sp"
+        app:cornerRadius="10dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
 
 
 
