@@ -11,6 +11,7 @@ import com.heartsteel.heartory.service.model.domain.HBRecord
 import com.heartsteel.heartory.service.model.domain.User
 import com.heartsteel.heartory.service.model.request.DiagnosesReq
 import com.heartsteel.heartory.service.repository.UserRepository
+import com.heartsteel.heartory.ui.subscription.SubscriptionActivity
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
@@ -46,6 +47,15 @@ class ResultActivity : BaseActivity() {
             EMOTION.CRY.toString() -> binding.moodIcon.setImageResource(R.drawable.cry)
             EMOTION.NORMAL.toString() -> binding.moodIcon.setImageResource(R.drawable.normal)
         }
+        if (roundedPulseValue != null) {
+            when {
+                roundedPulseValue < 40 -> binding.tvPulseValue.setText("very low")
+                roundedPulseValue > 40 && roundedPulseValue < 60 -> binding.tvPulseValue.setText("low")
+                roundedPulseValue > 60 && roundedPulseValue < 100 -> binding.tvPulseValue.setText("normal")
+                roundedPulseValue > 100 && roundedPulseValue < 120 -> binding.tvPulseValue.setText("high")
+                else -> binding.tvPulseValue.setText("very high")
+            }
+        }
         // Update the TextView with the pulse value
         binding.tvPulseValue.text = roundedPulseValue.toString()
         user = viewModel.getUserFromSharePref()
@@ -54,6 +64,12 @@ class ResultActivity : BaseActivity() {
         val height = user?.height
         val formattedHeight = String.format("%.2f", height)
         val weight = user?.weight.toString()
+
+        binding.premiumBtn.setOnClickListener {
+            val intent = intent
+            intent.setClass(this, SubscriptionActivity::class.java)
+            startActivity(intent)
+        }
 
         binding.txtAge.text = age
         binding.txtGender.text = gender
