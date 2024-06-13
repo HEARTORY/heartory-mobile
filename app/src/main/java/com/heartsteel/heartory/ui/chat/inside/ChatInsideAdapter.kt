@@ -1,5 +1,7 @@
 package com.heartsteel.heartory.ui.chat.inside
 
+import android.text.method.LinkMovementMethod
+import android.text.util.Linkify
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.DiffUtil
@@ -32,6 +34,8 @@ class ChatInsideAdapter : BaseAdapter<Message, ChatInsideAdapter.ChatInsideViewH
                 binding.tvMiaTime.text = ZonedDateTime.parse(item.createdAt).toLocalTime().format(
                     DateTimeFormatter.ofPattern("HH:mm")
                 )
+                binding.tvMiaText.autoLinkMask = Linkify.WEB_URLS
+                binding.tvMiaText.movementMethod = LinkMovementMethod.getInstance()
             } else if (binding is ComponentUserPromptBinding) {
                 binding.tvUserPrompt.text = item.content
                 binding.tvUserTime.text = ZonedDateTime.parse(item.createdAt).toLocalTime().format(
