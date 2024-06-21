@@ -171,6 +171,8 @@ dependencies {
     implementation ("nl.bryanderidder:themed-toggle-button-group:1.4.1")
 
     implementation ("com.google.android.material:material:1.12.0")
+
+    implementation ("com.google.android.flexbox:flexbox:3.0.0")
     implementation ("com.github.denzcoskun:ImageSlideshow:0.1.0")
 
     //pass data

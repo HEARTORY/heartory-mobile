@@ -7,8 +7,8 @@ data class HBRecord(
     val hrv: Int? = null,
     val deviceId: String? = null,
     val numCycles: Int? = null,
-    val emotion: Emotion? = null,
-    val activity: Activity? = null
+    val emotion: Int? = null,
+    val activity: Int? = null
 ) {
 
 }

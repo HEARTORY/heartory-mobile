@@ -30,7 +30,6 @@ class ProfileEditActivity : AppCompatActivity() {
     }
 
     private fun setUpView() {
-        binding.
     }
 
     private fun setupValidation() {
