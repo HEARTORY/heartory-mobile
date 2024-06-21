@@ -249,7 +249,7 @@
                         android:layout_marginStart="12dp"
                         android:layout_marginTop="5dp"
                         android:fontFamily="@font/poppins_medium"
-                        android:text="Health analysis"
+                        android:text="Health analytics"
                         android:textColor="@color/primary_text_color"
                         app:layout_constraintStart_toStartOf="parent"
                         app:layout_constraintTop_toBottomOf="@+id/cvImgAnalysis" />
@@ -261,7 +261,7 @@
                         android:ellipsize="end"
                         android:fontFamily="@font/poppins_light"
                         android:maxLines="2"
-                        android:text="View your health analysis and summary"
+                        android:text="View your health analytics and summary"
                         android:textColor="@color/secondary_text_color"
                         android:textSize="10sp"
                         app:layout_constraintStart_toStartOf="@+id/tvAnalysis"
@@ -300,7 +300,7 @@
                             android:layout_width="match_parent"
                             android:layout_height="120dp"
                             android:scaleType="centerCrop"
-                            android:src="@drawable/heartory_app_logo" />
+                            android:src="@drawable/img_tailored_exercises" />
                     </androidx.cardview.widget.CardView>
 
                     <TextView
@@ -360,7 +360,7 @@
                             android:layout_width="match_parent"
                             android:layout_height="120dp"
                             android:scaleType="centerCrop"
-                            android:src="@drawable/heartory_app_logo" />
+                            android:src="@drawable/img_article"/>
                     </androidx.cardview.widget.CardView>
 
                     <TextView

@@ -77,6 +77,18 @@
         android:name="com.heartsteel.heartory.ui.exercise.ExerciseFragment"
         android:label="fragment_exercise"
         tools:layout="@layout/fragment_exercise">
+        <argument
+            android:name="category"
+            app:argType="string"
+            app:nullable="true" />
+        <argument
+            android:name="instructorName"
+            app:argType="string"
+            app:nullable="true" />
+        <argument
+            android:name="imageUrl"
+            app:argType="string"
+            app:nullable="true" />
         <action
             android:id="@+id/action_exerciseFragment_to_exerciseActivityListFragment"
             app:destination="@id/exerciseActivityListFragment"
@@ -101,6 +113,15 @@
         android:label="Exercise Activity List"
         tools:layout="@layout/fragment_exercise_activity_list"
         >
+        <argument
+            android:name="category"
+            app:argType="string"
+            app:nullable="true" />
+
+        <argument
+            android:name="videoUrl"
+            app:argType="string"
+            app:nullable="true" />
         <action
             android:id="@+id/action_exerciseActivityListFragment_to_exerciseTodayActivityListFragment"
             app:destination="@id/exerciseTodayActivityListFragment"
@@ -111,17 +132,33 @@
             app:destination="@id/exerciseFragment"
             app:enterAnim="@anim/nav_default_enter_anim"
             app:exitAnim="@anim/nav_default_exit_anim"/>
+        <action
+            android:id="@+id/action_exerciseActivityFragment_to_exerciseActivityVideoFragment"
+            app:destination="@id/exerciseActivityVideoFragment">
+            <argument
+                android:name="videoUrl"
+                app:argType="string"
+                app:nullable="true" />
+            <argument
+                android:name="category"
+                app:argType="string"
+                app:nullable="true" />
+        </action>
     </fragment>
     <fragment
         android:id="@+id/exerciseTodayActivityListFragment"
         android:name="com.heartsteel.heartory.ui.exercise.ExerciseTodayActivityFragment"
         android:label="Exercise Activity List"
-        tools:layout="@layout/fragment_exercise_activity_list" >
+        tools:layout="@layout/fragment_exercise_today_activity_list" >
         <action
             android:id="@+id/action_exerciseTodayActivityListFragment_to_exerciseTodayDetailExerciseListFragment"
             app:destination="@id/exerciseTodayDetailExerciseListFragment"
             app:enterAnim="@anim/nav_default_enter_anim"
-            app:exitAnim="@anim/nav_default_exit_anim" />
+            app:exitAnim="@anim/nav_default_exit_anim" >
+            <argument
+                android:name="videoUrl"
+                app:argType="string" />
+        </action>
         <action
             android:id="@+id/action_exerciseTodayActivityListFragment_to_exerciseFragment"
             app:destination="@id/exerciseFragment"
@@ -133,12 +170,57 @@
         android:id="@+id/exerciseTodayDetailExerciseListFragment"
         android:name="com.heartsteel.heartory.ui.exercise.ExerciseTodayDetailFragment"
         android:label="Exercise Activity List"
-        tools:layout="@layout/fragment_exercise_activity_list" >
+        tools:layout="@layout/fragment_exercise_today_detail_exercise_list">
+        <action
+            android:id="@+id/action_to_sameFragment"
+            app:destination="@id/exerciseTodayDetailExerciseListFragment">
+            <argument
+                android:name="videoUrl"
+                app:argType="string" />
+        </action>
         <action
             android:id="@+id/action_exerciseTodayDetailExerciseListFragment_to_exerciseTodayActivityListFragment"
             app:destination="@id/exerciseTodayActivityListFragment"
             app:enterAnim="@anim/nav_default_enter_anim"
             app:exitAnim="@anim/nav_default_exit_anim"/>
+    </fragment>
+    <fragment
+        android:id="@+id/exerciseActivityVideoFragment"
+        android:name="com.heartsteel.heartory.ui.exercise.ExerciseActivityVideoFragment"
+        android:label="Exercise Video"
+        tools:layout="@layout/fragment_exercise_video_list">
+        <argument
+            android:name="category"
+            app:argType="string"
+            app:nullable="true" />
+        <argument
+            android:name="videoUrl"
+            app:argType="string"
+            app:nullable="true" />
+        <action
+            android:id="@+id/action_exerciseActivityVideoFragment_to_exerciseActivityFragment"
+            app:destination="@id/exerciseActivityListFragment">
+            <argument
+                android:name="category"
+                app:argType="string"
+                app:nullable="true" />
+            <argument
+                android:name="videoUrl"
+                app:argType="string"
+                app:nullable="true" />
+        </action>
+        <action
+            android:id="@+id/action_exerciseActivityVideoFragmentSelf"
+            app:destination="@id/exerciseActivityVideoFragment">
+            <argument
+                android:name="category"
+                app:argType="string"
+                app:nullable="true" />
+            <argument
+                android:name="videoUrl"
+                app:argType="string"
+                app:nullable="true" />
+        </action>
     </fragment>
 
     <fragment

@@ -3,7 +3,6 @@
     <style name="Base.Theme.Heartory" parent="Theme.Material3.Light.NoActionBar">
         <!-- Customize your light theme here. -->
         <item name="android:orientation">vertical</item>
-
     </style>
 
     <style name="Theme.Heartory" parent="Base.Theme.Heartory" />

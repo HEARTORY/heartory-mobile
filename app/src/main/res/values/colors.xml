@@ -18,9 +18,11 @@
     <color name="chat_placeholder_border">#DADADA</color>
     <color name="light_blue_400">#FF29B6F6</color>
     <color name="light_blue_600">#FF039BE5</color>
+    <color name="gray_200" >#F0F0F0</color>
     <color name="gray_400">#FFBDBDBD</color>
     <color name="gray_600">#FF757575</color>
     <color name="light_grey">#9F9F9F</color>
     <color name="bg_primary">#f5e4f5</color>
+    <color name="light_green">#D4ECDF</color>
 
 </resources>
