@@ -232,6 +232,22 @@
         android:id="@+id/articleFragment"
         android:name="com.heartsteel.heartory.ui.article.ArticleFragment"
         android:label="fragment_article"
-        tools:layout="@layout/fragment_article" />
+        tools:layout="@layout/fragment_article">
 
+        <action
+            android:id="@+id/action_articleFragment_to_articleDetailsFragment"
+            app:destination="@id/articleDetailsFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/articleDetailsFragment"
+        android:name="com.heartsteel.heartory.ui.article.ArticleDetailsFragment"
+        android:label="Article Details Fragment"
+        tools:layout="@layout/fragment_article_details">
+        <argument
+            android:name="title"
+            app:argType="string" />
+        <argument
+            android:name="imageUrl"
+            app:argType="string" />
+    </fragment>
 </navigation>

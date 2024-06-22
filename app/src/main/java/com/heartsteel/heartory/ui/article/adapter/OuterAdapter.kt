@@ -6,7 +6,10 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.heartsteel.heartory.R
 
-class OuterAdapter(private val outerItems: List<OuterItem>) : RecyclerView.Adapter<ListArticleViewHolder>() {
+class OuterAdapter(
+    private val outerItems: List<OuterItem>,
+    private val onInnerItemClick: (InnerItem) -> Unit
+) : RecyclerView.Adapter<ListArticleViewHolder>() {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ListArticleViewHolder {
         val view = LayoutInflater.from(parent.context).inflate(R.layout.blogs, parent, false)
@@ -19,7 +22,7 @@ class OuterAdapter(private val outerItems: List<OuterItem>) : RecyclerView.Adapt
 
         // Set up the inner RecyclerView
         holder.innerRecyclerView.layoutManager = LinearLayoutManager(holder.itemView.context, LinearLayoutManager.HORIZONTAL, false)
-        holder.innerRecyclerView.adapter = InnerAdapter(outerItem.innerItems)
+        holder.innerRecyclerView.adapter = InnerAdapter(outerItem.innerItems, onInnerItemClick)
     }
 
     override fun getItemCount(): Int {

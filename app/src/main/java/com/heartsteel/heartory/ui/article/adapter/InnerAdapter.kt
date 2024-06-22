@@ -6,7 +6,10 @@ import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.heartsteel.heartory.R
 
-class InnerAdapter(private val innerItems: List<InnerItem>) : RecyclerView.Adapter<ArticleViewHolder>() {
+class InnerAdapter(
+    private val innerItems: List<InnerItem>,
+    private val onItemClick: (InnerItem) -> Unit
+    ) : RecyclerView.Adapter<ArticleViewHolder>() {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ArticleViewHolder {
         val view = LayoutInflater.from(parent.context).inflate(R.layout.blog_element, parent, false)
@@ -21,6 +24,11 @@ class InnerAdapter(private val innerItems: List<InnerItem>) : RecyclerView.Adapt
         Glide.with(holder.itemView.context)
             .load(innerItem.imageUrl)
             .into(holder.imageView)
+
+        // Set the click listener on the image view
+        holder.imageView.setOnClickListener {
+            onItemClick(innerItem)
+        }
     }
 
     override fun getItemCount(): Int {
