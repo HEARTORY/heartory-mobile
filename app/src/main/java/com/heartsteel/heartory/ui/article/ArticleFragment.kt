@@ -23,6 +23,9 @@ class ArticleFragment : BaseFragment(R.layout.fragment_article) {
         savedInstanceState: Bundle?
     ): View {
         _binding = FragmentArticleBinding.inflate(layoutInflater, container, false)
+        _binding.topAppBar.setOnClickListener(View.OnClickListener {
+            findNavController().navigateUp()
+        })
         setupView()
         setupEvent()
 
