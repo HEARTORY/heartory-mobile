@@ -569,6 +569,16 @@
                             android:textColor="@color/primary_text_color"
                             android:textSize="20dp"
                                     />
+
+                        <TextView
+                            android:id="@+id/tv_Diagnose_result"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:fontFamily="@font/poppins_medium"
+                            android:textColor="@color/secondary_text_color"
+                            android:textSize="18dp"
+
+                            />
                         <androidx.appcompat.widget.AppCompatButton
                             android:id="@+id/btn_Dianoses"
                             android:layout_width="wrap_content"
