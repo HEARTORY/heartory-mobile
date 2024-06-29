@@ -1,14 +1,16 @@
 package com.heartsteel.heartory.ui.article
 
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.heartsteel.heartory.R
+import com.heartsteel.heartory.service.model.domain.Article
 
 class InnerAdapter(
-    private val innerItems: List<InnerItem>,
-    private val onItemClick: (InnerItem) -> Unit
+    private val innerItems: List<Article>,
+    private val onItemClick: (Article) -> Unit
     ) : RecyclerView.Adapter<ArticleViewHolder>() {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ArticleViewHolder {

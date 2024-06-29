@@ -14,10 +14,10 @@ import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 @HiltViewModel
-class ChatInsideViewModel @Inject constructor(
-    override val userRepository: UserRepository,
-    val messageRepository: MessageRepository
-) : BaseViewModel(userRepository) {
+    class ChatInsideViewModel @Inject constructor(
+        override val userRepository: UserRepository,
+        val messageRepository: MessageRepository
+    ) : BaseViewModel(userRepository) {
 
     val messages = MutableLiveData<Resource<MutableList<Message>>>()
     val sendMessageState = MutableLiveData<Resource<Message>>()

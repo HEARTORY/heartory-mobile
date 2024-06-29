@@ -119,7 +119,7 @@ class ResultActivity : BaseActivity() {
                 bpm,
                 30,
                 "7369607740777529345",
-                "Now, my heart rate is ${bpm} bpm, my gender is ${gender}, my ${age} is 30 years old," +
+                "Now, my heart rate is ${bpm} bpm, my gender is ${gender}, my age is ${age} years old," +
                         " my height is ${height} m, my weight is ${weight} kg, " +
                         " I am currently resting, " +
                         " my mood is ${intent.getStringExtra("SELECTED_EMOTION")}, " +
