@@ -28,7 +28,12 @@ class ResultActivity : BaseActivity() {
 
     private var user: User? = null
     private val viewModel: ResultViewModel by viewModels()
-
+    var roundedPulseValue: Int = 0
+    lateinit var age: String
+    lateinit var gender :String
+    var height: Double = 0.0
+    var formattedHeight: String = ""
+    lateinit var weight :String
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(binding.root)
@@ -38,7 +43,7 @@ class ResultActivity : BaseActivity() {
 
         // Retrieve the pulse value from the Intent extras
         val pulseValue = intent.getStringExtra("PULSE_VALUE")
-        val roundedPulseValue = pulseValue?.toDouble()?.let { roundToNearestInt(it) }
+        roundedPulseValue = pulseValue?.toDouble()?.let { roundToNearestInt(it) }!!
         val emotion = intent.getStringExtra("SELECTED_EMOTION")
         when (emotion) {
             EMOTION.JOY.toString() -> binding.moodIcon.setImageResource(R.drawable.joyful)
@@ -49,21 +54,21 @@ class ResultActivity : BaseActivity() {
         }
         if (roundedPulseValue != null) {
             when {
-                roundedPulseValue < 40 -> binding.tvPulseValue.setText("very low")
-                roundedPulseValue > 40 && roundedPulseValue < 60 -> binding.tvPulseValue.setText("low")
-                roundedPulseValue > 60 && roundedPulseValue < 100 -> binding.tvPulseValue.setText("normal")
-                roundedPulseValue > 100 && roundedPulseValue < 120 -> binding.tvPulseValue.setText("high")
-                else -> binding.tvPulseValue.setText("very high")
+                roundedPulseValue!! < 40 -> binding.tvResultStatus.setText("very low")
+                roundedPulseValue!! > 40 && roundedPulseValue!! < 60 -> binding.tvResultStatus.setText("low")
+                roundedPulseValue!! > 60 && roundedPulseValue!! < 100 -> binding.tvResultStatus.setText("normal")
+                roundedPulseValue!! > 100 && roundedPulseValue!! < 120 -> binding.tvResultStatus.setText("high")
+                else -> binding.tvResultStatus.setText("very high")
             }
         }
         // Update the TextView with the pulse value
         binding.tvPulseValue.text = roundedPulseValue.toString()
         user = viewModel.getUserFromSharePref()
-        val age = user?.dateOfBirth?.let { viewModel.getAge(it) }.toString()
-        val gender = user!!.gender
-        val height = user?.height
-        val formattedHeight = String.format("%.2f", height)
-        val weight = user?.weight.toString()
+         age = user?.dateOfBirth?.let { viewModel.getAge(it) }.toString()
+         gender = user!!.gender.toString()
+        height = user?.height!!
+        formattedHeight = String.format("%.2f", height)
+         weight = user?.weight.toString()
 
         binding.premiumBtn.setOnClickListener {
             val intent = intent
@@ -101,17 +106,21 @@ class ResultActivity : BaseActivity() {
     }
 
     private fun setupEvents() {
-        binding.btnDiagnose.setOnClickListener {
-            binding.tvDiagnoses.text = "Diagnostic in progress..."
+        binding.btnDianoses.setOnClickListener {
+            binding.tvDiagnoseResult.text = "Diagnostic in progress..."
             val intRegex = Regex("[0-9]*")
-            val bpm = 80
+            val bpm = roundedPulseValue
+            val gender = gender
+            val age = age
+            val height= formattedHeight
+            val weight = weight
             val diagnosisReq = DiagnosesReq(
                 bpm,
                 bpm,
                 30,
                 "7369607740777529345",
-                "Now, my heart rate is ${bpm} bpm, my gender is male, my age is 30 years old," +
-                        " my height is 170 cm, my weight is 70 kg, " +
+                "Now, my heart rate is ${bpm} bpm, my gender is ${gender}, my age is ${age} years old," +
+                        " my height is ${height} m, my weight is ${weight} kg, " +
                         " I am currently resting, " +
                         " my mood is ${intent.getStringExtra("SELECTED_EMOTION")}, " +
                         ". Can you diagnose me?"
@@ -122,7 +131,7 @@ class ResultActivity : BaseActivity() {
                 viewModel.getDiagnoses(diagnosisReq).collect {
                     withContext(Dispatchers.Main) {
                         str.append(it.message?.content ?: "")
-                        binding.tvDiagnoses.text = str.toString()
+                        binding.tvDiagnoseResult.text = str.toString()
                     }
                 }
             }
