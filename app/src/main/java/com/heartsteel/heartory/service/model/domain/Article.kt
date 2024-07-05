@@ -3,7 +3,7 @@ package com.heartsteel.heartory.service.model.domain
 import java.util.Date
 
 data class Article (
-    val id: Int? = null,
+    val id: String? = null,
     val title: String? = null,
     val content : String? = null,
     val createdAt: Date? = null,

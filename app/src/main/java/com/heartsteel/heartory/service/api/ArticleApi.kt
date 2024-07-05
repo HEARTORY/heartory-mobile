@@ -11,5 +11,5 @@ interface ArticleApi {
     suspend fun getBlogs(): Response<ResponseObject<MutableList<ArticleList>>>
 
     @GET("blog/{id}")
-    suspend fun getBlogById(@Path("id") id: Int): Response<ResponseObject<Article>>
+    suspend fun getBlogById(@Path("id") id: String): Response<ResponseObject<Article>>
 }

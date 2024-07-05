@@ -1,7 +1,6 @@
 package com.heartsteel.heartory.ui.article
 
 import androidx.lifecycle.MutableLiveData
-import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.healthcarecomp.base.BaseViewModel
 import com.google.gson.Gson
@@ -38,7 +37,7 @@ class ArticleViewModel  @Inject constructor(
         }
     }
 
-    fun getArticleById(id: Int){
+    fun getArticleById(id: String){
         articleDetail.value = Resource.Loading()
         viewModelScope.launch {
             val res = ArticleRepository.getArticleById(id)

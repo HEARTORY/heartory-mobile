@@ -23,9 +23,12 @@ class InnerAdapter(
         holder.textView.text = innerItem.title
 
         // Load image using Glide or any other image loading library
-        Glide.with(holder.itemView.context)
+        Glide.with(holder.imageView.context)
             .load(innerItem.imageUrl)
+            .placeholder(R.drawable.mia_happy)
+            .error(R.drawable.mia_cry)
             .into(holder.imageView)
+
 
         // Set the click listener on the image view
         holder.imageView.setOnClickListener {

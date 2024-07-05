@@ -8,5 +8,5 @@ class ArticleRepository @Inject constructor(
 ) {
     suspend fun getArticleList() = privateRetrofit.articleAPI.getBlogs()
 
-    suspend fun  getArticleById(id: Int) = privateRetrofit.articleAPI.getBlogById(id)
+    suspend fun  getArticleById(id: String) = privateRetrofit.articleAPI.getBlogById(id)
 }

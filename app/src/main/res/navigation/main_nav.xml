@@ -244,10 +244,11 @@
         android:label="Article Details Fragment"
         tools:layout="@layout/fragment_article_details">
         <argument
-            android:name="title"
+            android:name="id"
             app:argType="string" />
         <argument
-            android:name="imageUrl"
+            android:name="title"
             app:argType="string" />
+
     </fragment>
 </navigation>

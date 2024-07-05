@@ -41,7 +41,6 @@
              android:id="@+id/img_thumbnail"
              android:layout_width="match_parent"
              android:layout_height="300dp"
-             android:src="@drawable/bpm"
              android:scaleType="fitXY" />
 
          <LinearLayout
@@ -55,7 +54,6 @@
                 android:id="@+id/txt_title"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="@string/lorem"
                 android:fontFamily="@font/poppins_bold"
                 android:textColor="@color/primary_text_color"
                 android:textSize="20sp"
@@ -109,7 +107,6 @@
                    android:layout_marginStart="16dp"
                    android:layout_marginTop="4dp"
                    android:fontFamily="@font/poppins_medium"
-                   android:text="Tuesday, 27 February"
                    android:textColor="@color/secondary_text_color"
                    app:layout_constraintStart_toEndOf="@+id/avUserAvatar"
                    app:layout_constraintTop_toBottomOf="@+id/tvAuthor" />
@@ -120,7 +117,6 @@
                 android:id="@+id/txt_content"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="@string/output_result"
                 android:fontFamily="@font/poppins_regular"
                 android:textColor="@color/primary_text_color"
                 android:textSize="16sp"/>
