@@ -5,17 +5,8 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".ui.exercise.todayactivity.ExerciseTodayDetailFragment">
+    tools:context=".ui.exercise.recommendation.ExerciseRecommendationActivityVideoFragment">
 
-    <!-- Progress Bar -->
-    <ProgressBar
-        android:id="@+id/progressBar"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_gravity="center"
-        android:visibility="visible"/>
-
-    <!-- Regular layout -->
     <LinearLayout
         android:id="@+id/regularLayout"
         android:layout_width="match_parent"
@@ -50,19 +41,18 @@
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintVertical_bias="0.5" />
         </androidx.constraintlayout.widget.ConstraintLayout>
+
         <!-- Video Layout -->
         <WebView
             android:id="@+id/videoView"
             android:layout_width="match_parent"
             android:layout_height="300dp" />
 
-
         <!-- Video Description -->
         <TextView
             android:id="@+id/textViewVideoTitle"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-
             android:textSize="24sp"
             android:textColor="@android:color/black"
             android:fontFamily="@font/poppins_bold" />
@@ -71,11 +61,9 @@
             android:id="@+id/textViewVideoDescription"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-
             android:textSize="16sp"
             android:textColor="@android:color/black"
             android:fontFamily="@font/poppins_medium" />
-
 
         <!-- Scrollable Content -->
         <androidx.core.widget.NestedScrollView
@@ -90,17 +78,24 @@
                 android:orientation="vertical"
                 android:padding="16dp">
 
-
                 <androidx.recyclerview.widget.RecyclerView
                     android:id="@+id/recyclerViewExercises"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:orientation="vertical"
                     app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
-                    tools:listitem="@layout/fragment_exercise_today_activity_detail_item" />
+                    tools:listitem="@layout/fragment_exercise_recommendation_video_iteam" />
 
             </LinearLayout>
         </androidx.core.widget.NestedScrollView>
     </LinearLayout>
-</androidx.coordinatorlayout.widget.CoordinatorLayout>
 
+    <!-- Progress Bar -->
+    <ProgressBar
+        android:id="@+id/progressBar"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:visibility="gone"/>
+
+</androidx.coordinatorlayout.widget.CoordinatorLayout>

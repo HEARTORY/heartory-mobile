@@ -1,11 +1,13 @@
-package com.heartsteel.heartory.ui.exercise
+package com.heartsteel.heartory.ui.exercise.todayactivity
 
 import android.graphics.Color
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
+import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.github.mikephil.charting.charts.LineChart
@@ -15,18 +17,26 @@ import com.github.mikephil.charting.data.Entry
 import com.github.mikephil.charting.data.LineData
 import com.github.mikephil.charting.data.LineDataSet
 import com.heartsteel.heartory.R
-import com.heartsteel.heartory.data.model.Exercise
+import com.heartsteel.heartory.service.model.domain.Exercise
 import com.heartsteel.heartory.databinding.FragmentExerciseTodayActivityListBinding
+import com.heartsteel.heartory.service.api.retrofit.PrivateRetrofit
+import com.heartsteel.heartory.service.api.retrofit.PublicRetrofit
+import com.heartsteel.heartory.service.jwt.JwtTokenInterceptor
+import com.heartsteel.heartory.service.repository.ExerciseRepository
+import com.heartsteel.heartory.service.repository.JwtRepository
+import com.heartsteel.heartory.service.sharePreference.AppSharePreference
+import com.heartsteel.heartory.ui.exercise.ExerciseViewModel
+import com.heartsteel.heartory.ui.exercise.ViewModelFactory
 
 class ExerciseTodayActivityFragment : Fragment() {
 
     private var _binding: FragmentExerciseTodayActivityListBinding? = null
     private val binding get() = _binding!!
+    private lateinit var viewModel: ExerciseViewModel
+    private lateinit var adapter: ExerciseTodayActivityAdapter
 
     override fun onCreateView(
-        inflater: LayoutInflater,
-        container: ViewGroup?,
-        savedInstanceState: Bundle?
+        inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?
     ): View {
         _binding = FragmentExerciseTodayActivityListBinding.inflate(inflater, container, false)
         return binding.root
@@ -35,33 +45,55 @@ class ExerciseTodayActivityFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
+        // Initialize ViewModel
+        val appSharePreference = AppSharePreference(requireContext())
+        val tokenManager = JwtRepository(appSharePreference)
+        val publicRetrofit = PublicRetrofit()
+        val jwtTokenInterceptor = JwtTokenInterceptor(tokenManager, publicRetrofit)
+        val privateRetrofit = PrivateRetrofit(jwtTokenInterceptor)
+        val repository = ExerciseRepository(privateRetrofit)
+        viewModel = ViewModelProvider(requireActivity(), ViewModelFactory(repository)).get(ExerciseViewModel::class.java)
+
+        setupObservers()
         setupRecyclerView()
         todayDetailClickListener()
         setupChartView()
         backClickListener()
+
+
     }
 
     private fun setupRecyclerView() {
-        val exerciseList = listOf(
-            Exercise(name = "Knee push up", time = "Today, 03:00pm", imageUrl = "https://media1.popsugar-assets.com/files/thumbor/vuQmhXf-dfGzBK2liB8_4f6kuF8/fit-in/1024x1024/filters:format_auto-!!-:strip_icc-!!-/2014/04/04/724/n/1922729/b95be44e0421cbd2_Plank-Knee-In/i/Knee-Up-Plank.jpg", videoUrl = "https://www.youtube.com/embed/WcHtt6zT3Go"),
-            Exercise(name = "Push up", time = "Today, 03:00pm", imageUrl = "https://www.realsimple.com/thmb/rEmEAm4vfx67IRbFgoVA0RzhTgI=/750x0/filters:no_upscale():max_bytes(150000):strip_icc():format(webp)/health-benefits-of-pushups-GettyImages-498315681-7008d40842444270868c88b516496884.jpg", videoUrl = "https://www.youtube.com/embed/IODxDxX7oi4"),
-            Exercise(name = "Sit up", time = "Today, 03:00pm", imageUrl = "https://hips.hearstapps.com/hmg-prod/images/2021-runnersworld-weekendworkouts-ep41-situps-jc-v03-index-1633617537.jpg?crop=0.9893230083304001xw:1xh;center,top&resize=1200:*", videoUrl = "https://www.youtube.com/embed/pCX65Mtc_Kk")
-        )
-
-        val adapter = ExerciseTodayActivityAdapter(exerciseList) { exercise ->
-            val action = ExerciseTodayActivityFragmentDirections.actionExerciseTodayActivityListFragmentToExerciseTodayDetailExerciseListFragment(exercise.videoUrl ?: "https://www.youtube.com/embed/-p0PA9Zt8zk")
+        adapter = ExerciseTodayActivityAdapter(emptyList()) { lesson ->
+            val action = ExerciseTodayActivityFragmentDirections
+                .actionExerciseTodayActivityListFragmentToExerciseTodayDetailExerciseListFragment(videoUrl = lesson.videokey ?: "https://www.youtube.com/embed/-p0PA9Zt8zk")
             findNavController().navigate(action)
         }
 
         binding.recyclerViewActivity.apply {
             layoutManager = LinearLayoutManager(context)
-            this.adapter = adapter
+            adapter = this@ExerciseTodayActivityFragment.adapter
+            Log.d("ExerciseTodayActivityFragment", "RecyclerView initialized with LinearLayoutManager and adapter.")
         }
+    }
+
+    private fun setupObservers() {
+        viewModel.myLessons.observe(viewLifecycleOwner, { lessons ->
+            binding.progressBar.visibility = View.GONE
+            binding.vHomeHeader.visibility = View.VISIBLE
+            binding.lineChart.visibility = View.VISIBLE
+            binding.todayActivity.visibility = View.VISIBLE
+            binding.tvClass.visibility = View.VISIBLE
+            binding.recyclerViewActivity.visibility = View.VISIBLE
+
+            adapter.updateLessons(lessons)
+        })
     }
 
     private fun todayDetailClickListener() {
         binding.buttonCheck.setOnClickListener {
-            val defaultVideoUrl = "https://www.youtube.com/embed/-p0PA9Zt8zk"
+            val defaultLesson = viewModel.getLessonForDefaultVideo()
+            val defaultVideoUrl = defaultLesson?.videokey ?: "https://www.youtube.com/embed/-p0PA9Zt8zk"
             val action = ExerciseTodayActivityFragmentDirections.actionExerciseTodayActivityListFragmentToExerciseTodayDetailExerciseListFragment(defaultVideoUrl)
             findNavController().navigate(action)
         }
