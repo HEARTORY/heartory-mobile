@@ -7,6 +7,7 @@ import com.heartsteel.heartory.service.api.HBRecordAPI
 import com.heartsteel.heartory.service.api.MessageAPI
 import com.heartsteel.heartory.service.api.PaymentAPI
 import com.heartsteel.heartory.service.api.UserAPI
+import com.heartsteel.heartory.service.api.ExerciseAPI
 import com.heartsteel.heartory.service.jwt.JwtTokenInterceptor
 import com.heartsteel.heartory.service.model.domain.HBRecord
 import okhttp3.OkHttpClient
@@ -53,6 +54,9 @@ class PrivateRetrofit @Inject constructor(
 
     val messageAPI by lazy {
         privateRetrofit.create(MessageAPI::class.java)
+    }
+    val exerciseAPI by lazy {
+        privateRetrofit.create(ExerciseAPI::class.java)
     }
 
     val articleAPI by lazy {

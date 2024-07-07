@@ -1,6 +1,7 @@
 package com.heartsteel.heartory.ui.auth.login
 
 import android.os.Bundle
+import android.util.Patterns
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -67,7 +68,7 @@ class LoginFragment : BaseFragment(R.layout.fragment_login) {
                     isError.value = map
                 }
 
-            } else if (!android.util.Patterns.EMAIL_ADDRESS.matcher(it.toString()).matches()) {
+            } else if (!Patterns.EMAIL_ADDRESS.matcher(it.toString()).matches()) {
                 binding.tfEmail.error = "Invalid email format"
                 isError.value.let { map ->
                     map?.set("email", true)
