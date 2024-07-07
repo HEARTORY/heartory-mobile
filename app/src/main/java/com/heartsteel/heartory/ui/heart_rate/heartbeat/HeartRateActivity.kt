@@ -414,6 +414,7 @@
 
                 startActivity(intent)
                 dialog.dismiss()
+                finish()
             }
             dialog.show()
             dialog.window!!.setLayout(

@@ -95,9 +95,9 @@ class ResultActivity : BaseActivity() {
 //                EMOTION.NORMAL.toString() -> 5
 //                else -> 0
 //            },
-            emotion = 1,
-            activity = 1,
-            hrv = 1
+            emotion_id = 1,
+            activity_id = 1,
+            hrv = roundedPulseValue
 
         )
         viewModel.createHBRecord(hbRecord)

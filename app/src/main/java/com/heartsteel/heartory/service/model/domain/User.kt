@@ -9,7 +9,7 @@ data class User(
     val email: String?,
     var firstName: String?,
     var lastName: String?,
-    var phone: String?,
+    var phoneNumber: String?,
     var secondName: String?,
     var avatar: String?,
     var dateOfBirth: String?,
@@ -17,6 +17,7 @@ data class User(
     var gender: String?,
     var weight: Double?,
     var height: Double?,
+    var isPremium: Boolean? = false
 ) : Parcelable {
 
     constructor(parcel: Parcel) : this(
@@ -32,12 +33,13 @@ data class User(
         parcel.readValue(Int::class.java.classLoader) as? Int,
         parcel.readString(),
         parcel.readValue(Double::class.java.classLoader) as? Double,
-        parcel.readValue(Double::class.java.classLoader) as? Double
+        parcel.readValue(Double::class.java.classLoader) as? Double,
+        parcel.readValue(Boolean::class.java.classLoader) as? Boolean
     ) {
     }
 
     override fun toString(): String {
-        return "User(id=$id, role=$role, email=$email, firstName=$firstName, lastName=$lastName, phone=$phone, secondName=$secondName, avatar=$avatar, dateOfBirth=$dateOfBirth, stanceId=$stanceId)"
+        return "User(id=$id, role=$role, email=$email, firstName=$firstName, lastName=$lastName, phone=$phoneNumber, secondName=$secondName, avatar=$avatar, dateOfBirth=$dateOfBirth, stanceId=$stanceId, gender=$gender, weight=$weight, height=$height, isPremium=$isPremium)"
     }
 
     override fun describeContents(): Int {
@@ -50,11 +52,15 @@ data class User(
         dest.writeString(email)
         dest.writeString(firstName)
         dest.writeString(lastName)
-        dest.writeString(phone)
+        dest.writeString(phoneNumber)
         dest.writeString(secondName)
         dest.writeString(avatar)
         dest.writeString(dateOfBirth)
         dest.writeInt(stanceId!!)
+        dest.writeString(gender)
+        dest.writeDouble(weight!!)
+        dest.writeDouble(height!!)
+        dest.writeValue(isPremium)
     }
 
     override fun equals(other: Any?): Boolean {

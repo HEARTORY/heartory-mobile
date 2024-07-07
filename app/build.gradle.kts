@@ -181,4 +181,6 @@ dependencies {
 
     implementation ("pl.droidsonroids.gif:android-gif-drawable:1.2.28")
 
+    implementation("com.saadahmedev.popup-dialog:popup-dialog:2.0.0")
+
 }

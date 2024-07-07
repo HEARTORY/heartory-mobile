@@ -55,7 +55,9 @@ class ProfileFragment : BaseFragment(R.layout.fragment_profile) {
             }
         }
         _binding.llEditProfile.setOnClickListener {
-            _viewModel.fetchUser()
+            Intent(requireContext(), ProfileEditActivity::class.java).also {
+                startActivity(it)
+            }
         }
 
         _binding.llPremium.setOnClickListener {
@@ -75,11 +77,10 @@ class ProfileFragment : BaseFragment(R.layout.fragment_profile) {
                 is Resource.Success -> {
                     hideLoading2()
                     it.data?.let {
-                        Toasty.success(requireContext(), "${it}", Toast.LENGTH_SHORT).show()
-                        Intent(requireContext(), ProfileEditActivity::class.java).also {
-
-                            startActivity(it)
-                        }
+                        _binding.tvUsername.text = it.email
+                        _binding.tvName.text = it.firstName
+                        if (it.avatar != null)
+                            _binding.avUserAvatar.loadImage(it.avatar)
                     }
                 }
 
