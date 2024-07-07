@@ -8,6 +8,7 @@ import com.google.gson.Gson
 import com.heartsteel.heartory.common.util.Resource
 import com.heartsteel.heartory.service.model.domain.HBRecord
 import com.heartsteel.heartory.service.model.request.DiagnosesReq
+import com.heartsteel.heartory.service.model.response.ResponseObject
 import com.heartsteel.heartory.service.model.response.StreamingRes
 import com.heartsteel.heartory.service.repository.HBRecordRepository
 import com.heartsteel.heartory.service.repository.UserRepository
@@ -37,15 +38,21 @@ class ResultViewModel @Inject constructor(
 ) : BaseViewModel(
     userRepository
 ) {
-    val createState = MutableLiveData<Resource<HBRecord>>()
+    val createState = MutableLiveData<Resource<ResponseObject<HBRecord>>>()
     val diagnosisResult = MutableLiveData<Resource<StreamingRes>>()
 
      fun getAge(dateOfBirth: String): Int {
-        val formatter = DateTimeFormatter.ofPattern("MM/dd/yyyy")
-        val birthDate = LocalDate.parse(dateOfBirth, formatter)
-        val currentDate = LocalDate.now()
-         Log.d("ResultViewModel", "getAge: $birthDate, $currentDate")
-        return Period.between(birthDate, currentDate).years
+         try {
+             val formatter = DateTimeFormatter.ofPattern("MM/dd/yyyy")
+             val birthDate = LocalDate.parse(dateOfBirth, formatter)
+             val currentDate = LocalDate.now()
+             Log.d("ResultViewModel", "getAge: $birthDate, $currentDate")
+             return Period.between(birthDate, currentDate).years
+         } catch (e: Exception) {
+             e.printStackTrace()
+             return 0
+         }
+
     }
     fun getUserFromSharePref() = userRepository.getUserFromSharePref()
     fun createHBRecord(hbRecord: HBRecord) {
@@ -54,7 +61,7 @@ class ResultViewModel @Inject constructor(
                 createState.postValue(Resource.Loading())
                 try {
                     val response = hBRecordRepository.createRecord(hbRecord)
-                    createState.postValue(Resource.Success(response))
+                    createState.postValue(Resource.Success(response.body()!!))
                 } catch (e: Exception) {
                     createState.postValue(Resource.Error(e.message ?: "An error occurred"))
                 }

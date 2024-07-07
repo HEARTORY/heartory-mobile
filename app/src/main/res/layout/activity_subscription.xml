@@ -1,140 +1,145 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/main"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".ui.subscription.SubscriptionActivity">
 
-    <LinearLayout
-        android:id="@+id/linearLayout"
+    <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="24dp"
-        android:orientation="horizontal"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent">
+        android:layout_height="match_parent">
 
-        <ImageView
-            android:id="@+id/ivBack"
+
+        <LinearLayout
+            android:id="@+id/linearLayout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="24dp"
+            android:orientation="horizontal"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent">
+
+            <ImageView
+                android:id="@+id/ivBack"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="start|center"
+                android:paddingLeft="16dp"
+                android:src="@drawable/ic_back" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:gravity="center_horizontal"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:layout_marginRight="12dp"
+                    android:fontFamily="@font/poppins_bold"
+                    android:text="Heartory"
+                    android:textColor="@color/primary_text_color"
+                    android:textSize="24sp" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="@font/poppins_bolditalic"
+                    android:text="Premium"
+                    android:textColor="@color/primary_color"
+                    android:textSize="28sp" />
+            </LinearLayout>
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/llToggle"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_gravity="start|center"
-            android:paddingLeft="16dp"
-            android:src="@drawable/ic_back" />
+            android:layout_marginTop="28dp"
+            android:background="@drawable/border_radius"
+            android:backgroundTint="@color/gray_200"
+            android:gravity="center"
+            android:orientation="horizontal"
+            android:padding="8dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/linearLayout">
+
+            <!--        <com.google.android.material.button.MaterialButtonToggleGroup-->
+            <!--            android:id="@+id/tgSubscription"-->
+            <!--            android:layout_width="wrap_content"-->
+            <!--            android:layout_height="38dp"-->
+            <!--            android:orientation="horizontal">-->
+
+            <!--            <Button-->
+            <!--                android:id="@+id/btnMonthly"-->
+            <!--                android:layout_width="wrap_content"-->
+            <!--                android:layout_height="wrap_content"-->
+            <!--                android:backgroundTint="@color/gray_200"-->
+            <!--                android:fontFamily="@font/poppins_regular"-->
+            <!--                android:text="Monthly"-->
+            <!--                android:textColor="@color/primary_text_color" />-->
+
+            <!--            <Button-->
+            <!--                android:id="@+id/btnYearly"-->
+            <!--                android:layout_width="wrap_content"-->
+            <!--                android:layout_height="wrap_content"-->
+            <!--                android:backgroundTint="@color/gray_200"-->
+            <!--                android:fontFamily="@font/poppins_regular"-->
+            <!--                android:text="Yearly"-->
+            <!--                android:textColor="@color/primary_text_color" />-->
+            <!--        </com.google.android.material.button.MaterialButtonToggleGroup>-->
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/poppins_medium"
+                android:text="Choose your plan"
+                android:textColor="@color/primary_text_color"
+                android:textSize="18sp" />
+
+        </LinearLayout>
+
+
+        <androidx.viewpager2.widget.ViewPager2
+            android:id="@+id/rvSubscriptionList"
+            android:layout_width="match_parent"
+            android:layout_height="520dp"
+            android:layout_marginTop="16dp"
+            android:orientation="horizontal"
+            android:paddingHorizontal="40dp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/llToggle" />
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:gravity="center_horizontal"
-            android:orientation="horizontal">
+            android:layout_marginTop="12dp"
+            android:gravity="center"
+            android:orientation="horizontal"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/rvSubscriptionList">
 
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center"
-                android:layout_marginRight="12dp"
-                android:fontFamily="@font/poppins_bold"
-                android:text="Heartory"
-                android:textColor="@color/primary_text_color"
-                android:textSize="24sp" />
+            <LinearLayout
+                android:id="@+id/llIndicator1"
+                android:layout_width="8dp"
+                android:layout_height="8dp"
+                android:layout_marginEnd="6dp"
+                android:background="@drawable/border_radius"
+                android:backgroundTint="@color/gray_600"
+                android:orientation="horizontal" />
 
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:fontFamily="@font/poppins_bolditalic"
-                android:text="Premium"
-                android:textColor="@color/primary_color"
-                android:textSize="28sp" />
+            <LinearLayout
+                android:id="@+id/llIndicator2"
+                android:layout_width="8dp"
+                android:layout_height="8dp"
+                android:background="@drawable/border_radius"
+                android:backgroundTint="@color/gray_600"
+                android:orientation="horizontal" />
         </LinearLayout>
-    </LinearLayout>
 
-    <LinearLayout
-        android:id="@+id/llToggle"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="28dp"
-        android:background="@drawable/border_radius"
-        android:backgroundTint="@color/gray_200"
-        android:gravity="center"
-        android:orientation="horizontal"
-        android:padding="8dp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/linearLayout">
-
-        <!--        <com.google.android.material.button.MaterialButtonToggleGroup-->
-        <!--            android:id="@+id/tgSubscription"-->
-        <!--            android:layout_width="wrap_content"-->
-        <!--            android:layout_height="38dp"-->
-        <!--            android:orientation="horizontal">-->
-
-        <!--            <Button-->
-        <!--                android:id="@+id/btnMonthly"-->
-        <!--                android:layout_width="wrap_content"-->
-        <!--                android:layout_height="wrap_content"-->
-        <!--                android:backgroundTint="@color/gray_200"-->
-        <!--                android:fontFamily="@font/poppins_regular"-->
-        <!--                android:text="Monthly"-->
-        <!--                android:textColor="@color/primary_text_color" />-->
-
-        <!--            <Button-->
-        <!--                android:id="@+id/btnYearly"-->
-        <!--                android:layout_width="wrap_content"-->
-        <!--                android:layout_height="wrap_content"-->
-        <!--                android:backgroundTint="@color/gray_200"-->
-        <!--                android:fontFamily="@font/poppins_regular"-->
-        <!--                android:text="Yearly"-->
-        <!--                android:textColor="@color/primary_text_color" />-->
-        <!--        </com.google.android.material.button.MaterialButtonToggleGroup>-->
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:fontFamily="@font/poppins_medium"
-            android:text="Choose your plan"
-            android:textColor="@color/primary_text_color"
-            android:textSize="18sp" />
-
-    </LinearLayout>
-
-
-    <androidx.viewpager2.widget.ViewPager2
-        android:id="@+id/rvSubscriptionList"
-        android:layout_width="match_parent"
-        android:layout_height="520dp"
-        android:layout_marginTop="16dp"
-        android:orientation="horizontal"
-        android:paddingHorizontal="40dp"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/llToggle" />
-
-    <LinearLayout
-        android:layout_marginTop="12dp"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:gravity="center"
-        android:orientation="horizontal"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/rvSubscriptionList">
-
-        <LinearLayout
-            android:id="@+id/llIndicator1"
-            android:layout_width="8dp"
-            android:layout_height="8dp"
-            android:layout_marginEnd="6dp"
-            android:background="@drawable/border_radius"
-            android:backgroundTint="@color/gray_600"
-            android:orientation="horizontal" />
-
-        <LinearLayout
-            android:id="@+id/llIndicator2"
-            android:layout_width="8dp"
-            android:layout_height="8dp"
-            android:background="@drawable/border_radius"
-            android:backgroundTint="@color/gray_600"
-            android:orientation="horizontal" />
-    </LinearLayout>
-
-</androidx.constraintlayout.widget.ConstraintLayout>
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</ScrollView>

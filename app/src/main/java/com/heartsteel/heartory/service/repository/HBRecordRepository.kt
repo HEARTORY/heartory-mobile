@@ -3,7 +3,6 @@ package com.heartsteel.heartory.service.repository
 import com.heartsteel.heartory.service.api.retrofit.PrivateRetrofit
 import com.heartsteel.heartory.service.model.domain.HBRecord
 import com.heartsteel.heartory.service.model.request.DiagnosesReq
-import com.heartsteel.heartory.service.sharePreference.AppSharePreference
 import javax.inject.Inject
 
 class HBRecordRepository @Inject constructor(

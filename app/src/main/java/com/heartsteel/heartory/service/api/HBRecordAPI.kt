@@ -2,8 +2,11 @@ package com.heartsteel.heartory.service.api
 
 import com.heartsteel.heartory.service.model.domain.HBRecord
 import com.heartsteel.heartory.service.model.request.DiagnosesReq
+import com.heartsteel.heartory.service.model.response.HBRecordPageRes
+import com.heartsteel.heartory.service.model.response.ResponseObject
 import okhttp3.ResponseBody
 import retrofit2.Call
+import retrofit2.Response
 import retrofit2.http.Body
 import retrofit2.http.DELETE
 import retrofit2.http.GET
@@ -15,21 +18,21 @@ import retrofit2.http.Streaming
 interface HBRecordAPI {
 
     @GET("record")
-    suspend fun getRecords(): List<HBRecord>
+    suspend fun getRecords(): Response<ResponseObject<HBRecordPageRes>>
 
     @Streaming
     @POST("record/diagnoses/streaming")
     fun getDiagnoses(@Body diagnosesReq: DiagnosesReq): Call<ResponseBody>
 
     @GET("record/{id}")
-    suspend fun getRecordById(@Path("id") id: Int): HBRecord
+    suspend fun getRecordById(@Path("id") id: Int): Response<ResponseObject<HBRecord>>
 
     @POST("record")
-    suspend fun createRecord(@Body record: HBRecord): HBRecord
+    suspend fun createRecord(@Body record: HBRecord): Response<ResponseObject<HBRecord>>
 
     @PATCH("record/{id}")
-    suspend fun updateRecord(@Path("id") id: Int, @Body record: HBRecord): HBRecord
+    suspend fun updateRecord(@Path("id") id: Int, @Body record: HBRecord): Response<ResponseObject<HBRecord>>
 
     @DELETE("record/{id}")
-    suspend fun deleteRecord(@Path("id") id: Int): HBRecord
+    suspend fun deleteRecord(@Path("id") id: Int): Response<ResponseObject<HBRecord>>
 }

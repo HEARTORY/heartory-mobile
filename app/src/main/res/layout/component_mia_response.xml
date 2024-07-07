@@ -70,16 +70,16 @@
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/tvMiaText">
 
-                <TextView
-                    android:id="@+id/tvMiaTime"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:fontFamily="@font/readexpro_regular"
-                    android:paddingEnd="2dp"
-                    android:text="03:03"
-                    android:textSize="11sp"
-                    app:layout_constraintBottom_toBottomOf="parent"
-                    app:layout_constraintEnd_toStartOf="@id/ivMiaTime" />
+<!--                <TextView-->
+<!--                    android:id="@+id/tvMiaTime"-->
+<!--                    android:layout_width="wrap_content"-->
+<!--                    android:layout_height="wrap_content"-->
+<!--                    android:fontFamily="@font/readexpro_regular"-->
+<!--                    android:paddingEnd="2dp"-->
+<!--                    android:text="03:03"-->
+<!--                    android:textSize="11sp"-->
+<!--                    app:layout_constraintBottom_toBottomOf="parent"-->
+<!--                    app:layout_constraintEnd_toStartOf="@id/ivMiaTime" />-->
 
                 <ImageView
                     android:id="@+id/ivMiaTime"
@@ -87,7 +87,7 @@
                     android:layout_height="10dp"
                     android:src="@drawable/check2_all"
                     app:layout_constraintBottom_toBottomOf="parent"
-                    app:layout_constraintStart_toEndOf="@id/tvMiaTime"
+                    app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintTop_toTopOf="parent" />
             </androidx.constraintlayout.widget.ConstraintLayout>
         </androidx.constraintlayout.widget.ConstraintLayout>
