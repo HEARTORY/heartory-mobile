@@ -34,9 +34,13 @@ class AnalysisViewModel @Inject constructor(
                     val hBRecords: List<HBRecordRes> = response.body()?.data?.content ?: emptyList()
                     hBRecordsLiveData.postValue(Resource.Success(hBRecords))
                 } else {
-                    val errorResponseObject =
-                        Gson().fromJson(response.errorBody()?.string(), ResponseObject::class.java)
-                    Log.e("HBRecordsLiveData:37 Error", errorResponseObject.message)
+                    try {
+                        val errorResponseObject =
+                            Gson().fromJson(response.errorBody()?.string(), ResponseObject::class.java)
+                        Log.e("HBRecordsLiveData:37 Error", errorResponseObject.message)
+                    } catch (e: Exception) {
+                        Log.e("HBRecordsLiveData:40 Error", e.message.toString())
+                    }
                 }
             }
         } catch (e: Exception) {
