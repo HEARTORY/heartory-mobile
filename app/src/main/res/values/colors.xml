@@ -10,6 +10,8 @@
     <color name="light_blue">#A9C0FF</color>
     <color name="green">#66D0A4</color>
     <color name="red">#F44336</color>
+    <color name="yellow">#FFFF00</color>
+    <color name="check_box">#385FDC</color>
     <color name="pink_custom">#EF5DA8</color>
     <color name="light_button">#3879C5</color>
     <color name="mia_ava_blue">#858AEB</color>
@@ -17,7 +19,11 @@
     <color name="chat_placeholder_border">#DADADA</color>
     <color name="light_blue_400">#FF29B6F6</color>
     <color name="light_blue_600">#FF039BE5</color>
+    <color name="gray_200" >#F0F0F0</color>
     <color name="gray_400">#FFBDBDBD</color>
     <color name="gray_600">#FF757575</color>
     <color name="light_grey">#9F9F9F</color>
+    <color name="bg_primary">#f5e4f5</color>
+    <color name="light_green">#D4ECDF</color>
+
 </resources>

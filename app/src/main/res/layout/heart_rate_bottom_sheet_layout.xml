@@ -1,0 +1,118 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/dialogbg">
+
+    <ImageView
+        android:layout_width="70dp"
+        android:layout_height="wrap_content"
+        android:src="@drawable/ic_round_remove"
+        android:layout_gravity="center|top"
+        android:scaleType="centerCrop"/>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+
+        <TextView
+            android:id="@+id/createText"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textAlignment="viewStart"
+            android:text="What is your mood today?"
+            android:padding="8dp"
+            android:fontFamily="@font/poppins_bold"
+            android:textColor="@color/primary_text_color"
+            android:layout_marginStart="12dp"
+            android:layout_marginTop="5dp"
+            android:textSize="20dp" />
+
+    </LinearLayout>
+
+
+    <GridLayout
+        android:id="@+id/layoutVideo"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        android:layout_marginHorizontal="10dp"
+        android:padding="10dp"
+        android:columnCount="5"
+        android:rowCount="1">
+
+        <ImageView
+            android:id="@+id/joy_img"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_gravity="fill"
+            android:layout_columnWeight="1"
+            android:src="@drawable/joyful"/>
+
+        <ImageView
+            android:id="@+id/happy_img"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_gravity="fill"
+            android:layout_columnWeight="1"
+            android:src="@drawable/happy"/>
+
+        <ImageView
+            android:id="@+id/normal_img"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_gravity="fill"
+            android:layout_columnWeight="1"
+            android:src="@drawable/normal"/>
+
+        <ImageView
+            android:id="@+id/sad_img"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_gravity="fill"
+            android:layout_columnWeight="1"
+            android:src="@drawable/sad"/>
+
+        <ImageView
+            android:id="@+id/cry_img"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_gravity="fill"
+            android:layout_columnWeight="1"
+            android:src="@drawable/cry"/>
+    </GridLayout>
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        android:layout_marginHorizontal="10dp"
+        android:padding="10dp"
+        >
+        <androidx.appcompat.widget.AppCompatButton
+            android:id="@+id/cancel_btn"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:paddingHorizontal="20dp"
+            android:background="@drawable/background_button_gradient"
+            android:textColor="@color/white"
+            android:text="Measure again"
+            android:layout_alignParentLeft="true"
+            android:layout_marginTop="8dp"/>
+
+        <androidx.appcompat.widget.AppCompatButton
+            android:id="@+id/analysis_btn"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+
+            android:layout_marginBottom="40dp"
+            android:paddingHorizontal="20dp"
+            android:layout_columnWeight="1"
+            android:background="@drawable/background_button_gradient"
+            android:textColor="@color/white"
+            android:layout_alignParentRight="true"
+            android:text="Go to analysis"
+            android:layout_marginTop="8dp"/>
+    </RelativeLayout>
+</LinearLayout>

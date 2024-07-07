@@ -40,6 +40,18 @@ open class BaseFragment(view: Int) : Fragment(view) {
             activity.hideLoading()
         }
     }
+    protected fun showLoading2(){
+        val activity = requireActivity()
+        if (activity is BaseActivity) {
+            activity.showLoading2()
+        }
+    }
+    protected fun hideLoading2(){
+        val activity = requireActivity()
+        if (activity is BaseActivity) {
+            activity.hideLoading2()
+        }
+    }
 
     protected fun showErrorMessage(messageId: Int) {
         val message = requireContext().getString(messageId)

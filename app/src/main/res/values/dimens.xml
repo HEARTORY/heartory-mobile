@@ -1,5 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <dimen name="camera_view_width">32dp</dimen>
-    <dimen name="camera_view_height">32dp</dimen>
+<!--    <dimen name="camera_view_width">32dp</dimen>-->
+<!--    <dimen name="camera_view_height">32dp</dimen>-->
+    <dimen name="default_video_height">300dp</dimen>
+    <dimen name="camera_view_width">70dp</dimen>
+    <dimen name="camera_view_height">70dp</dimen>
 </resources>
