@@ -112,9 +112,12 @@ class AnalysisFragment : BaseFragment(R.layout.fragment_analysis) {
         // Refreshing the chart
         chart.invalidate()
 
-        _binding.tvMax.text = hBRecords.maxByOrNull { it.hr }?.hr.toString()
-        _binding.tvMin.text = hBRecords.minByOrNull { it.hr }?.hr.toString()
-        _binding.tvAverage.text = hBRecords.map { it.hr }.average().toInt().toString()
+        if (hBRecords.isNotEmpty()) {
+            _binding.tvMax.text = hBRecords.maxByOrNull { it.hr }?.hr.toString()
+            _binding.tvMin.text = hBRecords.minByOrNull { it.hr }?.hr.toString()
+            _binding.tvAverage.text = hBRecords.map { it.hr }.average().toInt().toString()
+        }
+
     }
 
 

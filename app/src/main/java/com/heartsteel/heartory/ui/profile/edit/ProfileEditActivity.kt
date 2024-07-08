@@ -5,6 +5,7 @@ import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.widget.addTextChangedListener
 import androidx.lifecycle.MutableLiveData
+import com.example.healthcarecomp.base.BaseActivity
 import com.heartsteel.heartory.R
 import com.heartsteel.heartory.common.util.Resource
 import com.heartsteel.heartory.databinding.ActivityProfileEditBinding
@@ -14,7 +15,7 @@ import es.dmoral.toasty.Toasty
 import io.getstream.avatarview.coil.loadImage
 
 @AndroidEntryPoint
-class ProfileEditActivity : AppCompatActivity() {
+class ProfileEditActivity : BaseActivity() {
 
     private val binding: ActivityProfileEditBinding by lazy {
         ActivityProfileEditBinding.inflate(layoutInflater)
@@ -26,7 +27,6 @@ class ProfileEditActivity : AppCompatActivity() {
         mutableMapOf(
             "firstName" to false,
             "lastName" to false,
-            "email" to false,
             "phone" to false,
             "dob" to false,
             "weight" to false,
@@ -46,12 +46,18 @@ class ProfileEditActivity : AppCompatActivity() {
         viewModel.userLiveData.observe(this) {
             when (it) {
                 is Resource.Loading -> {
+                    showLoading2()
+                    binding.btnSave.isEnabled = false
+                    binding.btnCancel.isEnabled = false
+                    binding.ivBack.isClickable = false
                 }
                 is Resource.Success -> {
+                    hideLoading2()
                     Toasty.success(this, "Update successfully", Toasty.LENGTH_SHORT).show()
                     finish()
                 }
                 is Resource.Error -> {
+                    hideLoading2()
                     Toasty.error(this, it.message.toString(), Toasty.LENGTH_SHORT).show()
                 }
             }
@@ -136,29 +142,6 @@ class ProfileEditActivity : AppCompatActivity() {
                 binding.tfLastName.error = null
                 isError.value.let { map ->
                     map?.set("lastName", false)
-                    isError.value = map
-                }
-            }
-        }
-
-        binding.etEmail1.addTextChangedListener {
-            val emailRegex = Regex("^[\\w-.]+@([\\w-]+\\.)+[\\w-]{2,4}\$")
-            if (it.toString().trim().isEmpty()) {
-                binding.tfEmail.error = "Email is required"
-                isError.value.let { map ->
-                    map?.set("email", true)
-                    isError.value = map
-                }
-            } else if (!emailRegex.matches(it.toString())) {
-                binding.tfEmail.error = "Invalid email format"
-                isError.value.let { map ->
-                    map?.set("email", true)
-                    isError.value = map
-                }
-            } else {
-                binding.tfEmail.error = null
-                isError.value.let { map ->
-                    map?.set("email", false)
                     isError.value = map
                 }
             }

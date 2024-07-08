@@ -133,6 +133,7 @@ class ChatInsideActivity : BaseActivity() {
                 is Resource.Success -> {
                     resource.data?.let {
                         _chatInsideAdapter.submitList(it)
+                        _binding.tvEmpty.visibility = if (it.isEmpty()) View.VISIBLE else View.GONE
                     }
                 }
 

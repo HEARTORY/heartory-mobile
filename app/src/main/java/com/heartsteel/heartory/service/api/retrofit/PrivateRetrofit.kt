@@ -25,7 +25,7 @@ class PrivateRetrofit @Inject constructor(
         logging.setLevel(HttpLoggingInterceptor.Level.BODY)
 
         val client = OkHttpClient.Builder()
-            .addNetworkInterceptor(logging)
+//            .addNetworkInterceptor(logging)
             .addInterceptor(jwtTokenInterceptor)
             .build()
 

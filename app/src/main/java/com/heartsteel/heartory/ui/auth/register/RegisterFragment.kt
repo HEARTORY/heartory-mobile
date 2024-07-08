@@ -37,6 +37,11 @@ class RegisterFragment : BaseFragment(R.layout.fragment_register) {
     private lateinit var binding: FragmentRegisterBinding
     private lateinit var authViewModel: AuthViewModel
 
+    override fun onResume() {
+        super.onResume()
+        setupValidation()
+    }
+
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -46,7 +51,6 @@ class RegisterFragment : BaseFragment(R.layout.fragment_register) {
         setupView()
         setupEvent()
         setupObserver()
-        setupValidation()
         return binding.root
     }
 
@@ -133,13 +137,13 @@ class RegisterFragment : BaseFragment(R.layout.fragment_register) {
                     map?.set("password", true)
                     isError.value = map
                 }
-            } else if (!passwordRegex.matches(it.toString())) {
-                binding.tfPassword.error =
-                    "Password must contain at least one letter, one number, and one special character"
-                isError.value.let { map ->
-                    map?.set("password", true)
-                    isError.value = map
-                }
+//            } else if (!passwordRegex.matches(it.toString())) {
+//                binding.tfPassword.error =
+//                    "Password must contain at least one letter, one number, and one special character"
+//                isError.value.let { map ->
+//                    map?.set("password", true)
+//                    isError.value = map
+//                }
             } else {
                 binding.tfPassword.error = null
                 isError.value.let { map ->
