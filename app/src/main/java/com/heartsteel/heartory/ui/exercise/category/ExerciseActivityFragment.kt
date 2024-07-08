@@ -11,6 +11,7 @@ import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.google.firebase.auth.FirebaseAuth
 import com.heartsteel.heartory.R
+import com.heartsteel.heartory.common.util.ToastUtil
 import com.heartsteel.heartory.databinding.FragmentExerciseActivityListBinding
 import com.heartsteel.heartory.service.api.retrofit.PrivateRetrofit
 import com.heartsteel.heartory.service.api.retrofit.PublicRetrofit
@@ -61,8 +62,9 @@ class ExerciseActivityFragment : Fragment() {
         showLoading()
         setupObservers()
 
-        todayActivityClickListener()
+//        todayActivityClickListener()
         backClickListener()
+        enrollButtonClickListener()
     }
 
     private fun setupObservers() {
@@ -79,24 +81,14 @@ class ExerciseActivityFragment : Fragment() {
     private fun setupRecyclerView(exerciseId: Int, exercises: List<Exercise>?) {
         val exerciseList = exercises ?: emptyList()
         val lessons = exerciseList.find { it.id == exerciseId }?.lessons ?: emptyList()
-        val userId = getUserId()
         val adapter = ExerciseActivityAdapter(lessons) { lesson ->
-            val enrollRequest = EnrollRequest(userId = userId, exerciseId = exerciseId)
-            viewModel.enrollInExercise(exerciseId, enrollRequest)
-            viewModel.enrollmentResponse.observe(viewLifecycleOwner, { response ->
-                val message = if (response.success) {
-                    "You have successfully enrolled in the exercise."
-                } else {
-                    "You are already enrolled in the exercise."
-                }
-                val action = ExerciseActivityFragmentDirections.actionExerciseActivityFragmentToExerciseActivityVideoFragment(
-                    lessonId = lesson.id,
-                    videoUrl = lesson.videokey ?: "https://www.youtube.com/embed/-p0PA9Zt8zk",
-                    exerciseId = exerciseId,
-                    enrollmentMessage = message
-                )
-                findNavController().navigate(action)
-            })
+            val action = ExerciseActivityFragmentDirections.actionExerciseActivityFragmentToExerciseActivityVideoFragment(
+                lessonId = lesson.id,
+                videoUrl = lesson.videokey ?: "https://www.youtube.com/embed/-p0PA9Zt8zk",
+                exerciseId = exerciseId,
+                enrollmentMessage = ""
+            )
+            findNavController().navigate(action)
         }
 
         binding.recyclerViewActivity.apply {
@@ -109,11 +101,34 @@ class ExerciseActivityFragment : Fragment() {
         return userRepository.getUserFromSharePref()?.id ?: 0
     }
 
-    private fun todayActivityClickListener() {
-        binding.todayActivity.setOnClickListener {
-            findNavController().navigate(R.id.action_exerciseActivityListFragment_to_exerciseTodayActivityListFragment)
+    private fun enrollButtonClickListener() {
+        binding.btnEnroll.setOnClickListener {
+            exerciseId?.let { id ->
+                val userId = getUserId()
+                val enrollRequest = EnrollRequest(userId = userId, exerciseId = id)
+                viewModel.enrollInExercise(id, enrollRequest)
+                viewModel.enrollmentResponse.observe(viewLifecycleOwner, { response ->
+                    val message = if (response.success) {
+                        "You have successfully enrolled in the exercise."
+                    } else {
+                        "You are already enrolled in the exercise."
+                    }
+                    val colorResId = if (response.success) {
+                        R.color.green
+                    } else {
+                        R.color.red
+                    }
+                    ToastUtil.showToast(requireContext(), message, colorResId)
+                })
+            }
         }
     }
+
+//    private fun todayActivityClickListener() {
+//        binding.todayActivity.setOnClickListener {
+//            findNavController().navigate(R.id.action_exerciseActivityListFragment_to_exerciseTodayActivityListFragment)
+//        }
+//    }
 
     private fun backClickListener() {
         binding.imageViewBackArrow.setOnClickListener {
@@ -124,18 +139,18 @@ class ExerciseActivityFragment : Fragment() {
     private fun showLoading() {
         binding.progressBar.visibility = View.VISIBLE
         binding.vHomeHeader.visibility = View.GONE
-        binding.todayActivity.visibility = View.GONE
+//        binding.todayActivity.visibility = View.GONE
         binding.tvClass.visibility = View.GONE
-        binding.tvSeeAllCategories.visibility = View.GONE
+        binding.btnEnroll.visibility = View.GONE
         binding.recyclerViewActivity.visibility = View.GONE
     }
 
     private fun hideLoading() {
         binding.progressBar.visibility = View.GONE
         binding.vHomeHeader.visibility = View.VISIBLE
-        binding.todayActivity.visibility = View.VISIBLE
+//        binding.todayActivity.visibility = View.VISIBLE
         binding.tvClass.visibility = View.VISIBLE
-        binding.tvSeeAllCategories.visibility = View.VISIBLE
+        binding.btnEnroll.visibility = View.VISIBLE
         binding.recyclerViewActivity.visibility = View.VISIBLE
     }
 

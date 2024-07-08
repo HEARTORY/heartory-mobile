@@ -30,29 +30,13 @@ class ExerciseRepository @Inject constructor(
     suspend fun getRecommendations(): Response<ResponseObject<List<ExerciseResponseDTO>>> {
         return privateRetrofit.exerciseAPI.getRecommendations()
     }
+
     suspend fun getMyExercises(): Response<ResponseObject<List<ExerciseMyResponseDTO>>> {
         return privateRetrofit.exerciseAPI.getMyExercises()
     }
 
-
-
-    suspend fun getAllExercises(): List<ExerciseResponseDTO>? {
-        cachedExercises?.let {
-            return it
-        }
-
-        val response = exerciseAPI.getAllExercises()
-        return if (response.isSuccessful) {
-            val responseObject = response.body()
-            val exercises = responseObject?.data
-            exercises?.forEach { exercise ->
-                exercise.lessons?.forEach { lesson ->
-                }
-            }
-            cachedExercises = exercises
-            exercises
-        } else {
-            null
-        }
+    suspend fun getAllExercises(): Response<ResponseObject<List<ExerciseResponseDTO>>> {
+        return privateRetrofit.exerciseAPI.getAllExercises()
     }
+
 }

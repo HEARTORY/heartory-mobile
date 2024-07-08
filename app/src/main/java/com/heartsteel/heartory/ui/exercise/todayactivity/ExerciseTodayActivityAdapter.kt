@@ -20,7 +20,6 @@ class ExerciseTodayActivityAdapter(
     class ViewHolder(val binding: FragmentExerciseTodayActivityItemBinding) : RecyclerView.ViewHolder(binding.root) {
         fun bind(lesson: Lesson, onItemClick: (Lesson) -> Unit) {
             binding.tvClassName.text = lesson.lessonName
-
             Glide.with(binding.root.context)
                 .load(lesson.thumbUrl)
                 .placeholder(R.drawable.placeholder_image)

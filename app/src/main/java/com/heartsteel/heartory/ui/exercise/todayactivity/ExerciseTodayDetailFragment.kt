@@ -32,6 +32,7 @@ class ExerciseTodayDetailFragment : Fragment() {
     private val binding get() = _binding!!
     private lateinit var viewModel: ExerciseViewModel
     private var currentVideoUrl: String? = null
+    private var currentExerciseId: Int? = null
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?
@@ -52,21 +53,45 @@ class ExerciseTodayDetailFragment : Fragment() {
         val repository = ExerciseRepository(privateRetrofit)
 
         viewModel = ViewModelProvider(requireActivity(), ViewModelFactory(repository)).get(ExerciseViewModel::class.java)
-        // Get the initial video URL passed from the previous fragment
+
+        // Get the initial video URL and exercise ID passed from the previous fragment
         currentVideoUrl = arguments?.getString("videoUrl") ?: "https://www.youtube.com/embed/-p0PA9Zt8zk"
-        Log.d("currentVideoUrl", "Video URL: $currentVideoUrl")
+        currentExerciseId = arguments?.getInt("exerciseId")
+
+        Log.d("ExerciseTodayDetailFragment", "Initial currentExerciseId: $currentExerciseId")
+        Log.d("ExerciseTodayDetailFragment", "Initial currentVideoUrl: $currentVideoUrl")
+
         setupWebView(currentVideoUrl!!)
         setupRecyclerView()
         backClickListener()
         setupObservers()
-
 
         binding.progressBar.visibility = View.VISIBLE
         binding.regularLayout.visibility = View.GONE
     }
 
     private fun setupObservers() {
+        viewModel.incompleteExercises.observe(viewLifecycleOwner) { exercisesMyResponseDTO ->
+            Log.d("ExerciseTodayDetailFragment", "Observed incompleteExercises: ${exercisesMyResponseDTO.size} exercises")
+
+            // Find the current exercise
+            val currentExercise = exercisesMyResponseDTO.find { it.exercise.id == currentExerciseId }?.exercise
+            if (currentExercise == null) {
+                Log.d("ExerciseTodayDetailFragment", "No exercise found with id: $currentExerciseId")
+                return@observe
+            }
+
+            Log.d("ExerciseTodayDetailFragment", "Found exercise with id: $currentExerciseId containing ${currentExercise.lessons?.size} lessons")
+
+            // Filter the lessons of the current exercise
+            val lessons = currentExercise.lessons ?: emptyList()
+
+            viewModel.myLessons.postValue(lessons)
+        }
+
         viewModel.myLessons.observe(viewLifecycleOwner) { lessons ->
+            Log.d("ExerciseTodayDetailFragment", "Observed myLessons: ${lessons.size} lessons")
+
             // Update the RecyclerView
             updateRecyclerView(lessons)
 
@@ -81,8 +106,10 @@ class ExerciseTodayDetailFragment : Fragment() {
         val adapter = ExerciseTodayDetailAdapter(emptyList()) { lesson ->
             lesson.videokey?.let {
                 currentVideoUrl = it
+                val currentExercise = viewModel.incompleteExercises.value?.find { it.exercise.lessons?.contains(lesson) == true }?.exercise
+                currentExerciseId = currentExercise?.id
                 updateVideoDetails(lesson)
-                updateRecyclerView(viewModel.myLessons.value ?: emptyList())
+                updateRecyclerView(currentExercise?.lessons ?: emptyList())
             }
         }
 
@@ -94,6 +121,7 @@ class ExerciseTodayDetailFragment : Fragment() {
 
     private fun updateRecyclerView(lessons: List<Lesson>) {
         val filteredLessons = lessons.filter { it.videokey != currentVideoUrl }
+        Log.d("ExerciseTodayDetailFragment", "Updating RecyclerView with ${filteredLessons.size} lessons")
         (binding.recyclerViewExercises.adapter as ExerciseTodayDetailAdapter).updateLessons(filteredLessons)
     }
 
@@ -101,7 +129,7 @@ class ExerciseTodayDetailFragment : Fragment() {
         val videoUrl = lesson?.videokey ?: "https://www.youtube.com/embed/-p0PA9Zt8zk"
         val videoTitle = lesson?.lessonName ?: "Default Title"
         val videoDescription = lesson?.updatedAt ?: "Default Description"
-        Log.d("ExerciseTodayDetailFragment", "Video URL: $videoUrl")
+        Log.d("ExerciseTodayDetailFragment", "Updating video details. Video URL: $videoUrl")
 
         setupWebView(videoUrl)
         binding.textViewVideoTitle.text = videoTitle
@@ -110,7 +138,10 @@ class ExerciseTodayDetailFragment : Fragment() {
 
     private fun backClickListener() {
         binding.imageViewBackArrow.setOnClickListener {
-            findNavController().navigate(R.id.action_exerciseTodayDetailExerciseListFragment_to_exerciseTodayActivityListFragment)
+            Log.d("ExerciseTodayDetailFragment", "Navigating back with currentExerciseId: $currentExerciseId")
+            val action = ExerciseTodayDetailFragmentDirections
+                .actionExerciseTodayDetailExerciseListFragmentToExerciseTodayActivityListFragment(exerciseId = currentExerciseId ?: 0)
+            findNavController().navigate(action)
         }
     }
 
@@ -132,4 +163,3 @@ class ExerciseTodayDetailFragment : Fragment() {
         _binding = null
     }
 }
-
