@@ -137,6 +137,7 @@ class ExerciseFragment : Fragment() {
     private fun showLoading() {
         binding.progressBar.visibility = View.VISIBLE
         binding.vHomeHeader.visibility = View.GONE
+        binding.TodayActivity.visibility = View.GONE
         binding.recyclerViewCategories.visibility = View.GONE
         binding.recyclerViewEnrolledExercises.visibility = View.GONE
         binding.recyclerViewRecommendationClass.visibility = View.GONE
@@ -151,6 +152,7 @@ class ExerciseFragment : Fragment() {
     private fun hideLoading() {
         binding.progressBar.visibility = View.GONE
         binding.vHomeHeader.visibility = View.VISIBLE
+        binding.TodayActivity.visibility = View.VISIBLE
     }
 
     private fun checkAllDataLoaded() {
@@ -163,6 +165,7 @@ class ExerciseFragment : Fragment() {
     private fun updateUIVisibility() {
         if (categoryAdapter.itemCount == 0) {
             binding.tvCategoriesError.visibility = View.VISIBLE
+            binding.tvCategories.visibility = View.VISIBLE
             binding.recyclerViewCategories.visibility = View.GONE
         } else {
             binding.tvCategoriesError.visibility = View.GONE
@@ -172,6 +175,7 @@ class ExerciseFragment : Fragment() {
 
         if (enrollAdapter.itemCount == 0) {
             binding.tvEnrolledExercisesError.visibility = View.VISIBLE
+            binding.tvEnrolledExercises.visibility = View.VISIBLE
             binding.recyclerViewEnrolledExercises.visibility = View.GONE
         } else {
             binding.tvEnrolledExercisesError.visibility = View.GONE
@@ -181,6 +185,7 @@ class ExerciseFragment : Fragment() {
 
         if (recommendationAdapter.itemCount == 0) {
             binding.tvRecommendationClassError.visibility = View.VISIBLE
+            binding.tvRecommendationClass.visibility = View.VISIBLE
             binding.recyclerViewRecommendationClass.visibility = View.GONE
         } else {
             binding.tvRecommendationClassError.visibility = View.GONE
