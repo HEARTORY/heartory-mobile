@@ -32,6 +32,9 @@ class ExerciseViewModel(private val exerciseRepository: ExerciseRepository) : Vi
 
     private val _selectedExerciseId = MutableLiveData<Int>()
     val selectedExerciseId: LiveData<Int> get() = _selectedExerciseId
+    fun selectExerciseId(id: Int) {
+        _selectedExerciseId.value = id
+    }
 
     fun fetchRecommendations() {
         viewModelScope.launch {
@@ -39,7 +42,11 @@ class ExerciseViewModel(private val exerciseRepository: ExerciseRepository) : Vi
             if (response.isSuccessful) {
                 response.body()?.data?.let { recommendationsList ->
                     recommendations.postValue(recommendationsList.map { mapToExercise(it) })
+                } ?: run {
+                    Log.e("ExerciseViewModel", "Recommendations response body is null")
                 }
+            } else {
+                Log.e("ExerciseViewModel", "Failed to fetch recommendations: ${response.errorBody()?.string()}")
             }
         }
     }
@@ -63,7 +70,7 @@ class ExerciseViewModel(private val exerciseRepository: ExerciseRepository) : Vi
                 myLessons.postValue(lessons)
 
             } else {
-                Log.e("ViewModel", "Failed to fetch exercises")
+                Log.e("ViewModel", "Failed to fetch exercises: ${response.errorBody()?.string()}")
             }
         }
     }
@@ -82,12 +89,16 @@ class ExerciseViewModel(private val exerciseRepository: ExerciseRepository) : Vi
 
     fun fetchAllExercises() {
         viewModelScope.launch {
-            val exercises = exerciseRepository.getAllExercises()?.map { mapToExercise(it) } ?: emptyList()
-            exercises.forEach { exercise ->
-                exercise.lessons?.forEach { lesson ->
+            val response = exerciseRepository.getAllExercises()
+            if (response.isSuccessful) {
+                response.body()?.data?.let { exercisesList ->
+                    _allExercises.postValue(exercisesList.map { mapToExercise(it) })
+                } ?: run {
+                    Log.e("ExerciseViewModel", "All exercises response body is null")
                 }
+            } else {
+                Log.e("ExerciseViewModel", "Failed to fetch all exercises: ${response.errorBody()?.string()}")
             }
-            allExercises.postValue(exercises)
         }
     }
 
@@ -124,9 +135,6 @@ class ExerciseViewModel(private val exerciseRepository: ExerciseRepository) : Vi
         }
     }
 
-    fun selectExerciseId(id: Int) {
-        _selectedExerciseId.value = id
-    }
 
     private fun mapToExercise(responseDTO: ExerciseResponseDTO): Exercise {
         return Exercise(

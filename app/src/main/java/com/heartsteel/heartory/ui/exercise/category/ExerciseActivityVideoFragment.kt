@@ -66,13 +66,7 @@ class ExerciseActivityVideoFragment : Fragment() {
         setupObservers(exerciseId, lessonId)
 
         // Display the enrollment message if present
-        enrollmentMessage?.let {
-            when (it) {
-                "You have successfully enrolled in the exercise." -> ToastUtil.showToast(requireContext(), it, R.color.green)
-                "You are already enrolled in the exercise." -> ToastUtil.showToast(requireContext(), it, R.color.yellow)
-                else -> ToastUtil.showToast(requireContext(), it, R.color.red)
-            }
-        }
+
 
         setupBackClickListener(exerciseId)
     }

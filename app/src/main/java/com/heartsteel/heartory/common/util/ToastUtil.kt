@@ -31,7 +31,7 @@ object ToastUtil {
 
         Toast(context).apply {
             setGravity(Gravity.CENTER_VERTICAL, 0, 0)
-            duration = Toast.LENGTH_LONG
+            duration = Toast.LENGTH_SHORT
             view = layout
             show()
         }

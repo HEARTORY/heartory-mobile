@@ -34,6 +34,7 @@ class ExerciseTodayActivityFragment : Fragment() {
     private val binding get() = _binding!!
     private lateinit var viewModel: ExerciseViewModel
     private lateinit var adapter: ExerciseTodayActivityAdapter
+    private var exerciseId: Int? = null
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?
@@ -54,20 +55,29 @@ class ExerciseTodayActivityFragment : Fragment() {
         val repository = ExerciseRepository(privateRetrofit)
         viewModel = ViewModelProvider(requireActivity(), ViewModelFactory(repository)).get(ExerciseViewModel::class.java)
 
+        // Get exerciseId from arguments
+        exerciseId = arguments?.getInt("exerciseId")
+        Log.d("ExerciseTodayActivityFragment", "Received exerciseId: $exerciseId")
+
         setupObservers()
         setupRecyclerView()
-        todayDetailClickListener()
         setupChartView()
         backClickListener()
 
-
+        viewModel.fetchMyExercises()
     }
 
     private fun setupRecyclerView() {
         adapter = ExerciseTodayActivityAdapter(emptyList()) { lesson ->
-            val action = ExerciseTodayActivityFragmentDirections
-                .actionExerciseTodayActivityListFragmentToExerciseTodayDetailExerciseListFragment(videoUrl = lesson.videokey ?: "https://www.youtube.com/embed/-p0PA9Zt8zk")
-            findNavController().navigate(action)
+            exerciseId?.let { id ->
+                Log.d("ExerciseTodayActivityFragment", "Navigating to detail fragment with exerciseId: $id and videoUrl: ${lesson.videokey}")
+                val action = ExerciseTodayActivityFragmentDirections
+                    .actionExerciseTodayActivityListFragmentToExerciseTodayDetailExerciseListFragment(
+                        videoUrl = lesson.videokey ?: "https://www.youtube.com/embed/-p0PA9Zt8zk",
+                        exerciseId = id
+                    )
+                findNavController().navigate(action)
+            }
         }
 
         binding.recyclerViewActivity.apply {
@@ -78,29 +88,40 @@ class ExerciseTodayActivityFragment : Fragment() {
     }
 
     private fun setupObservers() {
-        viewModel.myLessons.observe(viewLifecycleOwner, { lessons ->
+        viewModel.incompleteExercises.observe(viewLifecycleOwner) { exercisesMyResponseDTO ->
+            Log.d("ExerciseTodayActivityFragment", "Observed incompleteExercises: ${exercisesMyResponseDTO.size} exercises")
+            exercisesMyResponseDTO.forEach { exerciseMyResponseDTO ->
+                Log.d("ExerciseTodayActivityFragment", "Exercise ID: ${exerciseMyResponseDTO.exercise.id}, Title: ${exerciseMyResponseDTO.exercise.title}")
+            }
+
+            // Filter and extract lessons for the current exerciseId
+            val lessons = exercisesMyResponseDTO
+                .filter { it.exercise.id == exerciseId }
+                .flatMap { it.exercise.lessons ?: emptyList() }
+
+            if (lessons.isEmpty()) {
+                Log.d("ExerciseTodayActivityFragment", "No lessons found for exerciseId: $exerciseId")
+            } else {
+                Log.d("ExerciseTodayActivityFragment", "Found ${lessons.size} lessons for exerciseId: $exerciseId")
+            }
+
+            viewModel.myLessons.postValue(lessons)
+        }
+
+        viewModel.myLessons.observe(viewLifecycleOwner) { lessons ->
             binding.progressBar.visibility = View.GONE
             binding.vHomeHeader.visibility = View.VISIBLE
             binding.lineChart.visibility = View.VISIBLE
-            binding.todayActivity.visibility = View.VISIBLE
             binding.tvClass.visibility = View.VISIBLE
             binding.recyclerViewActivity.visibility = View.VISIBLE
 
             adapter.updateLessons(lessons)
-        })
-    }
-
-    private fun todayDetailClickListener() {
-        binding.buttonCheck.setOnClickListener {
-            val defaultLesson = viewModel.getLessonForDefaultVideo()
-            val defaultVideoUrl = defaultLesson?.videokey ?: "https://www.youtube.com/embed/-p0PA9Zt8zk"
-            val action = ExerciseTodayActivityFragmentDirections.actionExerciseTodayActivityListFragmentToExerciseTodayDetailExerciseListFragment(defaultVideoUrl)
-            findNavController().navigate(action)
         }
     }
 
     private fun backClickListener() {
         binding.imageViewBackArrow.setOnClickListener {
+            Log.d("ExerciseTodayActivityFragment", "Navigating back to ExerciseFragment")
             findNavController().navigate(R.id.action_exerciseTodayActivityListFragment_to_exerciseFragment)
         }
     }

@@ -37,7 +37,7 @@
             android:fontFamily="@font/poppins_bold"
             android:text="Tailored"
             android:textColor="@color/primary_color"
-            android:textSize="20dp"
+            android:textSize="20sp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintStart_toEndOf="@+id/imageViewSetting"
             app:layout_constraintTop_toTopOf="parent"
@@ -51,7 +51,7 @@
             android:fontFamily="@font/poppins_bold"
             android:text="Exercises"
             android:textColor="@color/primary_text_color"
-            android:textSize="20dp"
+            android:textSize="20sp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintStart_toEndOf="@id/tvHeaderTailored"
             app:layout_constraintTop_toTopOf="parent"
@@ -90,7 +90,7 @@
                     android:gravity="center"
                     android:text="10"
                     android:textColor="@color/red"
-                    android:textSize="16sp"
+                    android:textSize="14sp"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintHorizontal_bias="1.0"
@@ -111,49 +111,48 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
 
-            <!-- Content layout below the header -->
-            <androidx.cardview.widget.CardView
-                android:id="@+id/todayActivity"
-                android:layout_width="369dp"
-                android:layout_height="112dp"
-                android:layout_marginTop="16dp"
-                app:cardCornerRadius="50dp"
-                app:cardElevation="4dp"
-                app:layout_constraintEnd_toEndOf="parent"
+            <!-- Enrolled Exercises Section -->
+            <TextView
+                android:id="@+id/tvEnrolledExercises"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:text="Enrolled exercises"
+                android:textAppearance="@style/TextAppearance.AppCompat.Headline"
+                android:textColor="@color/primary_text_color"
+                android:textSize="16sp"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent">
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                android:layout_marginTop="16dp"
+                android:layout_marginStart="16dp"
+                android:layout_marginEnd="16dp"/>
 
-                <androidx.constraintlayout.widget.ConstraintLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:background="@color/light_green">
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/recyclerViewEnrolledExercises"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+                android:orientation="horizontal"
+                tools:listitem="@layout/fragment_exercise_item_enroll_card"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/tvEnrolledExercises" />
 
-                    <TextView
-                        android:id="@+id/tvTodayActivity"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginTop="16dp"
-                        android:layout_marginStart="16dp"
-                        android:text="Today activity"
-                        app:layout_constraintStart_toStartOf="parent"
-                        android:textAppearance="@style/TextAppearance.AppCompat.Headline"
-                        android:textColor="@color/primary_text_color"
-                        app:layout_constraintTop_toTopOf="parent" />
+            <TextView
+                android:id="@+id/tvEnrolledExercisesError"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:text="You do not have any enrolled exercises."
+                android:textAppearance="@style/TextAppearance.AppCompat.Large"
+                android:textColor="@color/red"
+                android:visibility="gone"
+                android:gravity="center"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/tvEnrolledExercises" />
 
-                    <ImageView
-                        android:id="@+id/ivTodayActivityImage"
-                        android:layout_width="100dp"
-                        android:layout_height="wrap_content"
-                        android:layout_marginEnd="16dp"
-                        android:layout_marginBottom="16dp"
-                        android:src="@drawable/shoes"
-                        app:layout_constraintBottom_toBottomOf="parent"
-                        app:layout_constraintEnd_toEndOf="parent"
-                        app:layout_constraintTop_toTopOf="parent"
-                        app:layout_constraintVertical_bias="0.5" />
-                </androidx.constraintlayout.widget.ConstraintLayout>
-            </androidx.cardview.widget.CardView>
-
+            <!-- Recommendation Class Section -->
             <TextView
                 android:id="@+id/tvRecommendationClass"
                 android:layout_width="0dp"
@@ -161,80 +160,39 @@
                 android:text="Recommendation Class"
                 android:textAppearance="@style/TextAppearance.AppCompat.Headline"
                 android:textColor="@color/primary_text_color"
+                android:textSize="16sp"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintEnd_toStartOf="@+id/tvSeeAll"
-                app:layout_constraintTop_toBottomOf="@+id/todayActivity"
+                app:layout_constraintTop_toBottomOf="@+id/recyclerViewEnrolledExercises"
                 android:layout_marginTop="16dp"
                 android:layout_marginStart="16dp"
                 android:layout_marginEnd="8dp"/>
 
-            <TextView
-                android:id="@+id/tvSeeAll"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="8dp"
-                android:layout_marginTop="12dp"
-                android:layout_marginEnd="10dp"
-                android:text="See all"
-                android:textAppearance="@style/TextAppearance.AppCompat.Body1"
-                android:textColor="@color/primary_text_color"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toEndOf="@+id/tvRecommendationClass"
-                app:layout_constraintTop_toTopOf="@+id/tvRecommendationClass" />
-
-            <androidx.cardview.widget.CardView
-                android:id="@+id/recommendationClass"
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/recyclerViewRecommendationClass"
                 android:layout_width="0dp"
-                android:layout_height="112dp"
+                android:layout_height="wrap_content"
                 android:layout_marginTop="8dp"
-                android:layout_marginStart="16dp"
-                android:layout_marginEnd="16dp"
-                app:cardCornerRadius="16dp"
-                app:cardElevation="4dp"
-                app:layout_constraintEnd_toEndOf="parent"
+                app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+                android:orientation="horizontal"
+                tools:listitem="@layout/fragment_exercise_item_recommendation_card"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/tvRecommendationClass">
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/tvRecommendationClass" />
 
-                <androidx.constraintlayout.widget.ConstraintLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent">
+            <TextView
+                android:id="@+id/tvRecommendationClassError"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:text="You do not have any recommendation classes."
+                android:textAppearance="@style/TextAppearance.AppCompat.Large.Inverse"
+                android:textColor="@color/red"
+                android:visibility="gone"
+                android:gravity="center"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/tvRecommendationClass" />
 
-                    <ImageView
-                        android:id="@+id/ivClassLogo"
-                        android:layout_width="96dp"
-                        android:layout_height="96dp"
-                        android:scaleType="centerCrop"
-                        app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toTopOf="parent"
-                        app:layout_constraintBottom_toBottomOf="parent"
-                        android:layout_marginStart="8dp"/>
-
-                    <TextView
-                        android:id="@+id/tvClassName"
-                        android:layout_width="0dp"
-                        android:layout_height="wrap_content"
-                        android:textAppearance="@style/TextAppearance.AppCompat.Headline"
-                        android:textColor="@color/primary_text_color"
-                        app:layout_constraintStart_toEndOf="@id/ivClassLogo"
-                        app:layout_constraintEnd_toEndOf="parent"
-                        app:layout_constraintTop_toTopOf="@id/ivClassLogo"
-                        app:layout_constraintBottom_toTopOf="@id/tvInstructorName"
-                        android:layout_marginStart="16dp"/>
-
-                    <TextView
-                        android:id="@+id/tvInstructorName"
-                        android:layout_width="0dp"
-                        android:layout_height="wrap_content"
-                        android:textAppearance="@style/TextAppearance.AppCompat.Body1"
-                        android:textColor="@color/secondary_text_color"
-                        app:layout_constraintStart_toEndOf="@id/ivClassLogo"
-                        app:layout_constraintEnd_toEndOf="parent"
-                        app:layout_constraintTop_toBottomOf="@id/tvClassName"
-                        app:layout_constraintBottom_toBottomOf="parent"
-                        android:layout_marginStart="16dp"/>
-                </androidx.constraintlayout.widget.ConstraintLayout>
-            </androidx.cardview.widget.CardView>
-
+            <!-- Categories Section -->
             <TextView
                 android:id="@+id/tvCategories"
                 android:layout_width="0dp"
@@ -242,26 +200,12 @@
                 android:text="Categories"
                 android:textAppearance="@style/TextAppearance.AppCompat.Headline"
                 android:textColor="@color/primary_text_color"
+                android:textSize="16sp"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintEnd_toStartOf="@+id/tvSeeAllCategories"
-                app:layout_constraintTop_toBottomOf="@+id/recommendationClass"
+                app:layout_constraintTop_toBottomOf="@+id/recyclerViewRecommendationClass"
                 android:layout_marginTop="16dp"
                 android:layout_marginStart="16dp"
                 android:layout_marginEnd="8dp"/>
-
-            <TextView
-                android:id="@+id/tvSeeAllCategories"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="8dp"
-                android:layout_marginTop="12dp"
-                android:layout_marginEnd="10dp"
-                android:text="See all"
-                android:textAppearance="@style/TextAppearance.AppCompat.Body1"
-                android:textColor="@color/primary_text_color"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toEndOf="@+id/tvCategories"
-                app:layout_constraintTop_toTopOf="@+id/tvCategories" />
 
             <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/recyclerViewCategories"
@@ -271,6 +215,19 @@
                 app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
                 android:orientation="horizontal"
                 tools:listitem="@layout/fragment_exercise_item_category_card"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/tvCategories" />
+
+            <TextView
+                android:id="@+id/tvCategoriesError"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:text="You do not have any categories."
+                android:textAppearance="@style/TextAppearance.AppCompat.Large.Inverse"
+                android:textColor="@color/red"
+                android:visibility="gone"
+                android:gravity="center"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/tvCategories" />

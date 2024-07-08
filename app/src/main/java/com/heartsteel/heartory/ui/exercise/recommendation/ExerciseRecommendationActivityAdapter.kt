@@ -4,25 +4,31 @@ import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
+import com.heartsteel.heartory.R
 import com.heartsteel.heartory.databinding.FragmentExerciseRecommendationActivityItemBinding
 import com.heartsteel.heartory.service.model.domain.Exercise
 import com.heartsteel.heartory.service.model.domain.Lesson
 
 class ExerciseRecommendationActivityAdapter(
-    private val items: List<Exercise>,
-    private val listener: (Exercise) -> Unit
+    private val items: List<Lesson>,
+    private val listener: (Lesson) -> Unit
 ) : RecyclerView.Adapter<ExerciseRecommendationActivityAdapter.ViewHolder>() {
 
-    class ViewHolder(val binding: FragmentExerciseRecommendationActivityItemBinding, val listener: (Exercise) -> Unit) : RecyclerView.ViewHolder(binding.root) {
-        fun bind(exercise: Exercise) {
-            binding.tvClassName.text = exercise.title
-            binding.tvInstructorName.text = exercise.type
+    class ViewHolder(val binding: FragmentExerciseRecommendationActivityItemBinding, val listener: (Lesson) -> Unit) : RecyclerView.ViewHolder(binding.root) {
+        fun bind(lesson: Lesson) {
+            binding.tvClassName.text = lesson.lessonName
+            val minutes = lesson.lengthSeconds / 60
+            val seconds = lesson.lengthSeconds % 60
+            val formattedDuration = String.format("%02d:%02d", minutes, seconds)
+            binding.tvInstructorName.text = formattedDuration
             Glide.with(binding.root.context)
-                .load(exercise.thumbUrl)
+                .load(lesson.thumbUrl)
+                .placeholder(R.drawable.placeholder_image)
+                .error(R.drawable.error_image)
                 .into(binding.ivClassLogo)
 
             binding.root.setOnClickListener {
-                listener(exercise)
+                listener(lesson)
             }
         }
     }
