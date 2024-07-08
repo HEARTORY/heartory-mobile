@@ -93,7 +93,7 @@
                             android:layout_width="20dp"
                             android:layout_height="20dp"
                             android:layout_marginStart="9dp"
-                            android:src="@drawable/ic_noti_red_dot"
+                            android:src="@drawable/ic_noti"
                             app:layout_constraintBottom_toBottomOf="parent"
                             app:layout_constraintStart_toStartOf="parent"
                             app:layout_constraintTop_toTopOf="parent" />
@@ -104,8 +104,8 @@
                             android:layout_marginEnd="9dp"
                             android:fontFamily="@font/poppins_bold"
                             android:gravity="center"
-                            android:text="10"
-                            android:textColor="@color/red"
+                            android:text="0"
+                            android:textColor="@color/primary_text_color"
                             android:textSize="16sp"
                             app:layout_constraintBottom_toBottomOf="parent"
                             app:layout_constraintEnd_toEndOf="parent"
@@ -164,10 +164,10 @@
                     android:layout_height="match_parent">
 
                     <androidx.cardview.widget.CardView
-                        android:layout_margin="5dp"
                         android:id="@+id/cvImgChat"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
+                        android:layout_margin="5dp"
                         app:cardCornerRadius="20dp"
                         app:cardElevation="0dp"
                         app:layout_constraintStart_toStartOf="parent"
@@ -225,10 +225,10 @@
                     android:layout_height="match_parent">
 
                     <androidx.cardview.widget.CardView
-                        android:layout_margin="5dp"
                         android:id="@+id/cvImgAnalysis"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
+                        android:layout_margin="5dp"
                         app:cardCornerRadius="20dp"
                         app:cardElevation="0dp"
                         app:layout_constraintStart_toStartOf="parent"
@@ -286,10 +286,10 @@
                     android:layout_height="match_parent">
 
                     <androidx.cardview.widget.CardView
-                        android:layout_margin="5dp"
                         android:id="@+id/cvImgExercise"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
+                        android:layout_margin="5dp"
                         app:cardCornerRadius="20dp"
                         app:cardElevation="0dp"
                         app:layout_constraintStart_toStartOf="parent"
@@ -346,10 +346,10 @@
                     android:layout_height="match_parent">
 
                     <androidx.cardview.widget.CardView
-                        android:layout_margin="5dp"
                         android:id="@+id/cvImgArticle"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
+                        android:layout_margin="5dp"
                         app:cardCornerRadius="20dp"
                         app:cardElevation="0dp"
                         app:layout_constraintStart_toStartOf="parent"
@@ -360,7 +360,7 @@
                             android:layout_width="match_parent"
                             android:layout_height="120dp"
                             android:scaleType="centerCrop"
-                            android:src="@drawable/img_article"/>
+                            android:src="@drawable/img_article" />
                     </androidx.cardview.widget.CardView>
 
                     <TextView
@@ -389,30 +389,228 @@
                 </androidx.constraintlayout.widget.ConstraintLayout>
             </androidx.cardview.widget.CardView>
 
-            <TextView
-                android:layout_width="wrap_content"
+            <LinearLayout
+                android:paddingBottom="50dp"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="28dp"
-                android:fontFamily="@font/poppins_bold"
-                android:text="Your heart status"
-                android:textColor="@color/primary_text_color"
-                android:textSize="20sp"
-                app:layout_constraintStart_toStartOf="@+id/tvFeatures"
-                app:layout_constraintTop_toBottomOf="@+id/cvExercise" />
-
-            <androidx.constraintlayout.widget.Guideline
-                android:id="@+id/guideline"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:orientation="horizontal"
-                app:layout_constraintGuide_begin="20dp" />
-
-            <androidx.constraintlayout.widget.Guideline
-                android:id="@+id/guideline2"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                android:layout_marginHorizontal="16dp"
                 android:orientation="vertical"
-                app:layout_constraintGuide_begin="16dp" />
+                app:layout_constraintStart_toStartOf="@+id/tvFeatures"
+                app:layout_constraintTop_toBottomOf="@+id/cvExercise">
+
+                <LinearLayout
+                    android:id="@+id/llSlogan"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginHorizontal="16dp"
+                    android:gravity="center"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:fontFamily="@font/poppins_mediumitalic"
+                        android:text="Always keep yourself safe and healthy!"
+                        android:textColor="@color/primary_text_color"
+                        android:textSize="20sp" />
+
+                    <ImageView
+                        android:layout_width="90dp"
+                        android:layout_height="120dp"
+                        android:src="@drawable/mia_happy" />
+
+
+                </LinearLayout>
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="@font/poppins_bold"
+                    android:text="Your heart status"
+                    android:textColor="@color/primary_text_color"
+                    android:textSize="20sp" />
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="center_horizontal"
+                    android:orientation="horizontal">
+
+                    <LinearLayout
+                        android:layout_width="100dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginRight="20dp"
+                        android:orientation="vertical">
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:fontFamily="@font/poppins_medium"
+                            android:text="Avarage" />
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:orientation="horizontal">
+
+                            <TextView
+                                android:id="@+id/tvAverage"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:fontFamily="@font/poppins_bold"
+                                android:paddingRight="2dp"
+                                android:text="0"
+                                android:textSize="24sp" />
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:fontFamily="@font/poppins_light"
+                                android:text="BPM" />
+                        </LinearLayout>
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:layout_width="100dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginRight="20dp"
+                        android:orientation="vertical">
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:fontFamily="@font/poppins_medium"
+                            android:text="Max" />
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:orientation="horizontal">
+
+                            <TextView
+                                android:id="@+id/tvMax"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:fontFamily="@font/poppins_bold"
+                                android:paddingRight="2dp"
+                                android:text="0"
+                                android:textSize="24sp" />
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:fontFamily="@font/poppins_light"
+                                android:text="BPM" />
+                        </LinearLayout>
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:layout_width="100dp"
+                        android:layout_height="wrap_content"
+                        android:orientation="vertical">
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:fontFamily="@font/poppins_medium"
+                            android:text="Min" />
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:orientation="horizontal">
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:fontFamily="@font/poppins_light"
+                                android:text="BPM" />
+
+                            <TextView
+                                android:id="@+id/tvMin"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:fontFamily="@font/poppins_bold"
+                                android:paddingRight="2dp"
+                                android:text="0"
+                                android:textSize="24sp" />
+                        </LinearLayout>
+
+                    </LinearLayout>
+                </LinearLayout>
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="16dp"
+                    android:fontFamily="@font/poppins_medium"
+                    android:paddingTop="16dp"
+                    android:text="Heart Rate Chart >"
+                    android:textColor="@color/primary_text_color" />
+
+                <com.github.mikephil.charting.charts.LineChart
+                    android:id="@+id/chart1"
+                    android:layout_width="match_parent"
+                    android:layout_height="300dp" />
+                <TextView
+                    android:layout_marginTop="16dp"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="@font/poppins_bold"
+                    android:text="Daily health tips"
+                    android:textColor="@color/primary_text_color"
+                    android:textSize="20sp" />
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginHorizontal="16dp"
+                    android:gravity="center"
+                    android:orientation="horizontal">
+
+                    <ImageView
+                        android:layout_width="90dp"
+                        android:layout_height="120dp"
+                        android:src="@drawable/mia_holding_stethoscope" />
+                    <LinearLayout
+                        android:layout_width="0dp"
+                        android:layout_weight="1"
+                        android:gravity="center"
+                        android:layout_height="match_parent"
+                        android:orientation="vertical">
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:fontFamily="@font/poppins_mediumitalic"
+                        android:text="Do you have any health concerns? Chat with Mia now!"
+                        android:textColor="@color/primary_text_color"
+                        android:textSize="12sp" />
+                    <androidx.appcompat.widget.AppCompatButton
+                        android:id="@+id/btnChatNow"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Chat now"
+                        android:textColor="@color/white"
+                        android:background="@drawable/bg_gradient_blue_lightblue"
+                        android:textAllCaps="false"
+                        android:fontFamily="@font/poppins_medium"
+                        android:textSize="12sp" />
+                    </LinearLayout>
+
+
+                </LinearLayout>
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="-Thank you for using Heartory-"
+                    android:fontFamily="@font/poppins_medium"
+                    android:textColor="@color/primary_text_color"
+                    android:textSize="16sp"
+                    android:gravity="center"
+                    android:layout_marginTop="16dp"/>
+            </LinearLayout>
+
 
         </androidx.constraintlayout.widget.ConstraintLayout>
     </ScrollView>

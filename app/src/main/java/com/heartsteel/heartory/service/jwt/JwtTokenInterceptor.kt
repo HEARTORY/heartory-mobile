@@ -49,7 +49,7 @@ class JwtTokenInterceptor @Inject constructor(
                 chain.proceed(request)
             }
         } catch (e: Exception) {
-            Log.e("JwtInterceptor", "refreshToken error: ${e.message.toString()}")
+            Log.e("JwtInterceptor", "refreshToken error: ${e.stackTraceToString()}")
             throw JwtException(e.message.toString())
         }
     }
@@ -74,7 +74,7 @@ class JwtTokenInterceptor @Inject constructor(
             }
             return chain.proceed(request)
         } catch (e: Exception) {
-            Log.e("JwtInterceptor", "access token error: ${e.message.toString()}")
+            Log.e("JwtInterceptor", "access token error: ${e.stackTraceToString()}")
             if (e is JwtException) {
                 throw JwtException(e.message)
             } else if (e is EOFException) {

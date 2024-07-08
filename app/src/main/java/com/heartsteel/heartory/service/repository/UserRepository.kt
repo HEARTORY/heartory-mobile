@@ -67,6 +67,7 @@ class UserRepository @Inject constructor(
         publicRetrofit.authApi.isEmailIsExist(isEmailExistReq)
 
     fun saveUserToSharePref(user: User) {
+        Log.d("UserSharePref", user.toString())
         appSharePreference.putObject(USER_SHARE_PREF_KEY, user)
     }
 
@@ -115,5 +116,5 @@ class UserRepository @Inject constructor(
     suspend fun forgotPassword(forgotPasswordReq: ForgotPasswordReq) =
         publicRetrofit.authApi.forgotPassword(forgotPasswordReq)
 
-
+    suspend fun update(user: User) = privateRetrofit.userApi.updateUserForOnboarding(user.id!!, user)
 }

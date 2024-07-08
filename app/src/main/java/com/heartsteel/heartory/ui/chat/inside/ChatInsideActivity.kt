@@ -105,6 +105,9 @@ class ChatInsideActivity : BaseActivity() {
             inputMethodManager.hideSoftInputFromWindow(_binding.btnVector.windowToken, 0)
         }
 
+        _binding.ivBack.setOnClickListener {
+            finish()
+        }
     }
 
     // Hide keyboard when touch outside of EditText

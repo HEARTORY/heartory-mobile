@@ -2,6 +2,7 @@ package com.heartsteel.heartory.ui.profile
 
 import android.content.Intent
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -36,6 +37,7 @@ class ProfileFragment : BaseFragment(R.layout.fragment_profile) {
     }
 
     private fun setupView() {
+        Log.d("ProfileFragment", _viewModel.user.toString())
         if (_viewModel.user?.avatar != null)
             _binding.avUserAvatar.loadImage(_viewModel.user!!.avatar)
         else
@@ -43,7 +45,7 @@ class ProfileFragment : BaseFragment(R.layout.fragment_profile) {
 
         _binding.tvUsername.text = _viewModel.user?.email ?: "Email"
         _binding.tvName.text = _viewModel.user?.firstName ?: "Username"
-
+        _binding.icPremium.visibility = if (_viewModel.user?.isPremium == true) View.VISIBLE else View.GONE
     }
 
     private fun setupEvent() {
@@ -55,7 +57,9 @@ class ProfileFragment : BaseFragment(R.layout.fragment_profile) {
             }
         }
         _binding.llEditProfile.setOnClickListener {
-            _viewModel.fetchUser()
+            Intent(requireContext(), ProfileEditActivity::class.java).also {
+                startActivity(it)
+            }
         }
 
         _binding.llPremium.setOnClickListener {
@@ -75,11 +79,10 @@ class ProfileFragment : BaseFragment(R.layout.fragment_profile) {
                 is Resource.Success -> {
                     hideLoading2()
                     it.data?.let {
-                        Toasty.success(requireContext(), "${it}", Toast.LENGTH_SHORT).show()
-                        Intent(requireContext(), ProfileEditActivity::class.java).also {
-
-                            startActivity(it)
-                        }
+                        _binding.tvUsername.text = it.email
+                        _binding.tvName.text = it.firstName
+                        if (it.avatar != null)
+                            _binding.avUserAvatar.loadImage(it.avatar)
                     }
                 }
 
