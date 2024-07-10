@@ -84,6 +84,7 @@ class ProfileFragment : BaseFragment(R.layout.fragment_profile) {
                         if (it.avatar != null)
                             _binding.avUserAvatar.loadImage(it.avatar)
                     }
+                    _binding.icPremium.visibility = if (it.data?.isPremium == true) View.VISIBLE else View.GONE
                 }
 
                 is Resource.Error -> {
@@ -93,5 +94,10 @@ class ProfileFragment : BaseFragment(R.layout.fragment_profile) {
             }
         }
 
+    }
+
+    override fun onResume() {
+        super.onResume()
+        _viewModel.fetchUser()
     }
 }

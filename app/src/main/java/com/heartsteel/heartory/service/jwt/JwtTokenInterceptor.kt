@@ -79,8 +79,8 @@ class JwtTokenInterceptor @Inject constructor(
                 throw JwtException(e.message)
             } else if (e is EOFException) {
 
-            } else
-                throw e
+            } else{
+            }
         }
         return chain.proceed(chain.request())
     }
