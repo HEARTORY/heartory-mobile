@@ -94,6 +94,9 @@ class SetDataFragment : BaseFragment(R.layout.fragment_set_data) {
 
     private fun finishFun(){
         if(selectedDate != null && selectedGender != null && selectedHeight != null && selectedWeight != null){
+            binding.btnFinish.isEnabled = false
+            binding.btnFinish.isClickable = false
+            binding.btnFinish.alpha = 0.5f
             lifecycleScope.launchWhenStarted {
                 profileViewModel.setProfile(
                     selectedGender!!,

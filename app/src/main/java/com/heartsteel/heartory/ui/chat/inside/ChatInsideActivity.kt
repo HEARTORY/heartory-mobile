@@ -105,6 +105,9 @@ class ChatInsideActivity : BaseActivity() {
             inputMethodManager.hideSoftInputFromWindow(_binding.btnVector.windowToken, 0)
         }
 
+        _binding.ivBack.setOnClickListener {
+            finish()
+        }
     }
 
     // Hide keyboard when touch outside of EditText
@@ -130,12 +133,13 @@ class ChatInsideActivity : BaseActivity() {
                 is Resource.Success -> {
                     resource.data?.let {
                         _chatInsideAdapter.submitList(it)
+                        _binding.tvEmpty.visibility = if (it.isEmpty()) View.VISIBLE else View.GONE
                     }
                 }
 
                 is Resource.Error -> {
                     Log.e("ChatInsideActivity", "Error: ${resource.message}")
-                    Toasty.error(this, "Error: ${resource.message}", Toasty.LENGTH_SHORT).show()
+                    Toasty.warning(this, "${resource.message}", Toasty.LENGTH_SHORT).show()
                 }
 
                 is Resource.Loading -> {
@@ -152,6 +156,7 @@ class ChatInsideActivity : BaseActivity() {
                 is Resource.Error -> {
                     Log.e("ChatInsideActivity", "Error: ${resource.message}")
                     Toasty.error(this, "Error: ${resource.message}", Toasty.LENGTH_SHORT).show()
+                    // Remove loading item
                 }
 
                 is Resource.Loading -> {

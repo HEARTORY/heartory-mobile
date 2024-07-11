@@ -31,16 +31,10 @@ class ChatInsideAdapter : BaseAdapter<Message, ChatInsideAdapter.ChatInsideViewH
         override fun bind(item: Message) {
             if (binding is ComponentMiaResponseBinding) {
                 binding.tvMiaText.text = item.content
-                binding.tvMiaTime.text = ZonedDateTime.parse(item.createdAt).toLocalTime().format(
-                    DateTimeFormatter.ofPattern("HH:mm")
-                )
                 binding.tvMiaText.autoLinkMask = Linkify.WEB_URLS
                 binding.tvMiaText.movementMethod = LinkMovementMethod.getInstance()
             } else if (binding is ComponentUserPromptBinding) {
                 binding.tvUserPrompt.text = item.content
-                binding.tvUserTime.text = ZonedDateTime.parse(item.createdAt).toLocalTime().format(
-                    DateTimeFormatter.ofPattern("HH:mm")
-                )
             }
         }
     }

@@ -48,7 +48,7 @@
                 android:layout_width="20dp"
                 android:layout_height="20dp"
                 android:layout_marginStart="9dp"
-                android:src="@drawable/ic_noti_red_dot"
+                android:src="@drawable/ic_noti"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
@@ -59,8 +59,8 @@
                 android:layout_marginEnd="9dp"
                 android:fontFamily="@font/poppins_bold"
                 android:gravity="center"
-                android:text="10"
-                android:textColor="@color/red"
+                android:text="0"
+                android:textColor="@color/primary_text_color"
                 android:textSize="16sp"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
@@ -94,12 +94,26 @@
         app:layout_constraintTop_toTopOf="parent" />
 
     <ImageView
+        android:id="@+id/ic_premium"
         android:layout_width="32dp"
         android:layout_height="32dp"
         android:layout_gravity="center_vertical"
         android:src="@drawable/ic_crown"
         app:layout_constraintEnd_toEndOf="@+id/avUserAvatar"
         app:layout_constraintTop_toTopOf="@+id/avUserAvatar" />
+
+    <TextView
+        android:id="@+id/tvPremium"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="-20dp"
+        android:fontFamily="@font/poppins_mediumitalic"
+        android:rotation="-30"
+        android:text="Premium"
+        android:textColor="@color/primary_color"
+        android:textSize="14sp"
+        app:layout_constraintBottom_toBottomOf="@+id/avUserAvatar"
+        app:layout_constraintEnd_toEndOf="@+id/avUserAvatar" />
 
     <TextView
         android:id="@+id/tvName"
@@ -155,6 +169,7 @@
                 android:src="@drawable/ic_crown" />
 
             <TextView
+                android:id="@+id/tvUpgradePremium"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center_vertical"
@@ -204,6 +219,99 @@
         </LinearLayout>
 
         <LinearLayout
+            android:id="@+id/llFacebook"
+            android:layout_width="match_parent"
+            android:layout_height="60dp"
+            android:orientation="horizontal"
+            android:paddingHorizontal="20dp">
+
+            <ImageView
+                android:layout_width="24dp"
+                android:layout_height="24dp"
+                android:layout_gravity="center_vertical"
+                android:src="@drawable/ic_facebook" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_vertical"
+                android:layout_marginLeft="10dp"
+                android:layout_weight="1"
+                android:ellipsize="end"
+                android:fontFamily="@font/poppins_medium"
+                android:maxLines="1"
+                android:text="Facebook fanpage" />
+
+            <ImageView
+                android:layout_width="12dp"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_vertical"
+                android:src="@drawable/ic_forward" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/llInstagram"
+            android:layout_width="match_parent"
+            android:layout_height="60dp"
+            android:orientation="horizontal"
+            android:paddingHorizontal="20dp">
+
+            <ImageView
+                android:layout_width="24dp"
+                android:layout_height="24dp"
+                android:layout_gravity="center_vertical"
+                android:src="@drawable/ic_insta" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_vertical"
+                android:layout_marginLeft="10dp"
+                android:layout_weight="1"
+                android:ellipsize="end"
+                android:fontFamily="@font/poppins_medium"
+                android:maxLines="1"
+                android:text="Instagram fanpage" />
+
+            <ImageView
+                android:layout_width="12dp"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_vertical"
+                android:src="@drawable/ic_forward" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/llShareApp"
+            android:layout_width="match_parent"
+            android:layout_height="60dp"
+            android:orientation="horizontal"
+            android:paddingHorizontal="20dp">
+
+            <ImageView
+                android:layout_width="24dp"
+                android:layout_height="24dp"
+                android:layout_gravity="center_vertical"
+                android:src="@drawable/heartory_app_logo" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_vertical"
+                android:layout_marginLeft="10dp"
+                android:layout_weight="1"
+                android:ellipsize="end"
+                android:fontFamily="@font/poppins_medium"
+                android:maxLines="1"
+                android:text="Share Heartory to your friends" />
+
+            <ImageView
+                android:layout_width="12dp"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_vertical"
+                android:src="@drawable/ic_forward" />
+        </LinearLayout>
+
+        <LinearLayout
             android:id="@+id/llLogout"
             android:layout_width="match_parent"
             android:layout_height="60dp"
@@ -235,5 +343,18 @@
         </LinearLayout>
 
     </LinearLayout>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="20dp"
+        android:fontFamily="@font/poppins_lightitalic"
+        android:text="Heartory version 1.0.0"
+        android:textSize="12sp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
+
+
 
 </androidx.constraintlayout.widget.ConstraintLayout>

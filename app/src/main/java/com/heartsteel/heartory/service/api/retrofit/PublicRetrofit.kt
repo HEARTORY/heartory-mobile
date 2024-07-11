@@ -15,7 +15,7 @@ class PublicRetrofit @Inject constructor() {
         val logging = HttpLoggingInterceptor()
         logging.setLevel(HttpLoggingInterceptor.Level.BODY)
         val client = OkHttpClient.Builder()
-            .addInterceptor(logging)
+//            .addInterceptor(logging)
             .build()
         Retrofit.Builder()
             .baseUrl(ApiConstant.BASE_URL)

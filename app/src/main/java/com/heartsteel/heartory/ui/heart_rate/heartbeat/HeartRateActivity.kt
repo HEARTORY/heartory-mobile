@@ -121,8 +121,9 @@
         }
 
         fun extractPulseValue(input: String): String? {
-            val regex = Regex("""Pulse:\s(\d+\.\d+)""")
+            val regex = Regex("""Pulse:\s*(\d{1,3}(?:\.\d{1,2})?)""")
             val matchResult = regex.find(input)
+            Log.d("matchResult", matchResult?.groups?.get(1)?.value.toString())
             return matchResult?.groups?.get(1)?.value
         }
 
@@ -130,6 +131,7 @@
         private val mainHandler: Handler = object : Handler(Looper.getMainLooper()) {
             @SuppressLint("SetTextI18n", "Recycle")
             override fun handleMessage(msg: Message) {
+                Log.d("msg", msg.obj.toString())
                 if (msg.what == MESSAGE_UPDATE_REALTIME) {
                     (findViewById<View>(R.id.textView) as TextView).text = msg.obj.toString()
                     pulseValue = extractPulseValue(msg.obj.toString()).toString()
@@ -312,7 +314,7 @@
         }
 
 
-        private fun showBottomDialog() {
+        private fun     showBottomDialog() {
             val dialog = Dialog(this)
             dialog.requestWindowFeature(Window.FEATURE_NO_TITLE)
             dialog.setContentView(R.layout.heart_rate_bottom_sheet_layout)
@@ -410,9 +412,13 @@
             analysisButton.setOnClickListener{
                 val intent = Intent(this, ResultActivity::class.java)
                 intent.putExtra("SELECTED_EMOTION", emotion.toString()) // Passing the selected emotion
+
+                Log.d("PULSE VALUE", pulseValue)
                 intent.putExtra("PULSE_VALUE", pulseValue) // Passing the pulse value
+
                 startActivity(intent)
                 dialog.dismiss()
+                finish()
             }
             dialog.show()
             dialog.window!!.setLayout(

@@ -2,6 +2,7 @@ package com.heartsteel.heartory.ui.profile
 
 import android.content.Intent
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -36,6 +37,7 @@ class ProfileFragment : BaseFragment(R.layout.fragment_profile) {
     }
 
     private fun setupView() {
+        Log.d("ProfileFragment", _viewModel.user.toString())
         if (_viewModel.user?.avatar != null)
             _binding.avUserAvatar.loadImage(_viewModel.user!!.avatar)
         else
@@ -43,7 +45,7 @@ class ProfileFragment : BaseFragment(R.layout.fragment_profile) {
 
         _binding.tvUsername.text = _viewModel.user?.email ?: "Email"
         _binding.tvName.text = _viewModel.user?.firstName ?: "Username"
-
+        _binding.icPremium.visibility = if (_viewModel.user?.isPremium == true) View.VISIBLE else View.GONE
     }
 
     private fun setupEvent() {
@@ -55,7 +57,9 @@ class ProfileFragment : BaseFragment(R.layout.fragment_profile) {
             }
         }
         _binding.llEditProfile.setOnClickListener {
-            _viewModel.fetchUser()
+            Intent(requireContext(), ProfileEditActivity::class.java).also {
+                startActivity(it)
+            }
         }
 
         _binding.llPremium.setOnClickListener {
@@ -63,32 +67,72 @@ class ProfileFragment : BaseFragment(R.layout.fragment_profile) {
                 startActivity(it)
             }
         }
+
+        val facebookLink = "https://www.facebook.com/heartory"
+        _binding.llFacebook.setOnClickListener {
+            Intent(Intent.ACTION_VIEW).also {
+                it.data = android.net.Uri.parse(facebookLink)
+                startActivity(it)
+            }
+        }
+
+        val instagramLink = "https://www.instagram.com/heartory.app/"
+        _binding.llInstagram.setOnClickListener {
+            Intent(Intent.ACTION_VIEW).also {
+                it.data = android.net.Uri.parse(instagramLink)
+                startActivity(it)
+            }
+        }
+
+        val shareAppForm = """
+            Hi, I'm using Heartory app to track my health. It's really helpful for me. You should try it too!
+            
+            Download it here: https://heartory.vercel.app/dowload
+        """.trimIndent()
+        _binding.llShareApp.setOnClickListener {
+            //Share app to facebook, instagram, etc
+            val sendIntent: Intent = Intent().apply {
+                action = Intent.ACTION_SEND
+                putExtra(Intent.EXTRA_TEXT, shareAppForm)
+                type = "text/plain"
+            }
+            val shareIntent = Intent.createChooser(sendIntent, null)
+            startActivity(shareIntent)
+
+        }
     }
 
     private fun setupObserver() {
         _viewModel.userState.observe(viewLifecycleOwner) {
             when (it) {
                 is Resource.Loading -> {
-                    showLoading2()
+//                    showLoading2()
                 }
 
                 is Resource.Success -> {
-                    hideLoading2()
+//                    hideLoading2()
                     it.data?.let {
-                        Toasty.success(requireContext(), "${it}", Toast.LENGTH_SHORT).show()
-                        Intent(requireContext(), ProfileEditActivity::class.java).also {
-
-                            startActivity(it)
-                        }
+                        _binding.tvUsername.text = it.email
+                        _binding.tvName.text = it.firstName
+                        if (it.avatar != null)
+                            _binding.avUserAvatar.loadImage(it.avatar)
                     }
+                    _binding.icPremium.visibility = if (it.data?.isPremium == true) View.VISIBLE else View.GONE
+                    _binding.tvPremium.text = if (it.data?.isPremium == true) "Premium" else "Free"
+                    _binding.tvUpgradePremium.text = if (it.data?.isPremium == true) "Extend Premium" else "Upgrade Premium"
                 }
 
                 is Resource.Error -> {
-                    hideLoading2()
+//                    hideLoading2()
                     Toasty.success(requireContext(), it.message.toString(), Toast.LENGTH_SHORT).show()
                 }
             }
         }
 
+    }
+
+    override fun onResume() {
+        super.onResume()
+        _viewModel.fetchUser()
     }
 }

@@ -97,15 +97,27 @@
             android:id="@+id/action_exerciseFragment_to_exerciseActivityListFragment"
             app:destination="@id/exerciseActivityListFragment"
             app:enterAnim="@anim/nav_default_enter_anim"
-            app:exitAnim="@anim/nav_default_exit_anim" />
+            app:exitAnim="@anim/nav_default_exit_anim" >
+        <argument
+            android:name="exerciseId"
+            app:argType="integer"
+            app:nullable="false" />
+        </action>
         <action
             android:id="@+id/action_exerciseFragment_to_exerciseTodayActivityListFragment"
-            app:destination="@id/exerciseTodayActivityListFragment"
-            app:enterAnim="@anim/nav_default_enter_anim"
-            app:exitAnim="@anim/nav_default_exit_anim" />
+            app:destination="@id/exerciseTodayActivityListFragment">
+            <argument
+                android:name="exerciseId"
+                app:argType="integer"
+                app:nullable="false" />
+        </action>
         <action
             android:id="@+id/action_exerciseFragment_to_exerciseRecommendationActivityListFragment"
-            app:destination="@id/exerciseRecommendationActivityListFragment" />
+            app:destination="@id/exerciseRecommendationActivityListFragment">
+        <argument
+            android:name="exerciseId"
+            app:argType="integer" />
+       </action>
         <action
             android:id="@+id/action_exerciseFragment_to_exerciseActivityRecommendationVideoFragment"
             app:destination="@id/exerciseActivityRecommendationVideoFragment">
@@ -182,6 +194,10 @@
             <argument
                 android:name="videoUrl"
                 app:argType="string" />
+            <argument
+                android:name="exerciseId"
+                app:argType="integer"
+                app:nullable="false" />
         </action>
         <action
             android:id="@+id/action_exerciseTodayActivityListFragment_to_exerciseFragment"
@@ -201,12 +217,21 @@
             <argument
                 android:name="videoUrl"
                 app:argType="string" />
+            <argument
+                android:name="exerciseId"
+                app:argType="integer"
+                app:nullable="false" />
         </action>
         <action
             android:id="@+id/action_exerciseTodayDetailExerciseListFragment_to_exerciseTodayActivityListFragment"
             app:destination="@id/exerciseTodayActivityListFragment"
             app:enterAnim="@anim/nav_default_enter_anim"
-            app:exitAnim="@anim/nav_default_exit_anim" />
+            app:exitAnim="@anim/nav_default_exit_anim">
+            <argument
+                android:name="exerciseId"
+                app:argType="integer"
+                app:nullable="false" />
+        </action>
     </fragment>
 
     <fragment
@@ -322,6 +347,23 @@
         android:id="@+id/articleFragment"
         android:name="com.heartsteel.heartory.ui.article.ArticleFragment"
         android:label="fragment_article"
-        tools:layout="@layout/fragment_article" />
+        tools:layout="@layout/fragment_article">
 
+        <action
+            android:id="@+id/action_articleFragment_to_articleDetailsFragment"
+            app:destination="@id/articleDetailsFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/articleDetailsFragment"
+        android:name="com.heartsteel.heartory.ui.article.ArticleDetailsFragment"
+        android:label="Article Details Fragment"
+        tools:layout="@layout/fragment_article_details">
+        <argument
+            android:name="id"
+            app:argType="string" />
+        <argument
+            android:name="title"
+            app:argType="string" />
+
+    </fragment>
 </navigation>

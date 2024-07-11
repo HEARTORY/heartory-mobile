@@ -33,6 +33,10 @@ class ChatFragment : BaseFragment(R.layout.fragment_chat) {
     private fun setupEvent() {
         _binding.btnChatNow.setOnClickListener {
             startActivity(Intent(this.context, ChatInsideActivity::class.java))
+            requireActivity().onBackPressed()
+        }
+        _binding.ivBack.setOnClickListener {
+            requireActivity().onBackPressed()
         }
     }
 

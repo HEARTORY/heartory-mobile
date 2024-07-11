@@ -43,8 +43,13 @@ class LoginFragment : BaseFragment(R.layout.fragment_login) {
         setupView()
         setupEvent()
         setupObserver()
-        setupValidation()
+
         return binding.root
+    }
+
+    override fun onResume() {
+        super.onResume()
+        setupValidation()
     }
 
     private fun setupObserver() {

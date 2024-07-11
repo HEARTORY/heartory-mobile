@@ -2,6 +2,7 @@ package com.heartsteel.heartory.service.api.retrofit
 
 import com.google.gson.GsonBuilder
 import com.heartsteel.heartory.common.constant.ApiConstant
+import com.heartsteel.heartory.service.api.ArticleApi
 import com.heartsteel.heartory.service.api.HBRecordAPI
 import com.heartsteel.heartory.service.api.MessageAPI
 import com.heartsteel.heartory.service.api.PaymentAPI
@@ -24,7 +25,7 @@ class PrivateRetrofit @Inject constructor(
         logging.setLevel(HttpLoggingInterceptor.Level.BODY)
 
         val client = OkHttpClient.Builder()
-            .addNetworkInterceptor(logging)
+//            .addNetworkInterceptor(logging)
             .addInterceptor(jwtTokenInterceptor)
             .build()
 
@@ -56,6 +57,10 @@ class PrivateRetrofit @Inject constructor(
     }
     val exerciseAPI by lazy {
         privateRetrofit.create(ExerciseAPI::class.java)
+    }
+
+    val articleAPI by lazy {
+        privateRetrofit.create(ArticleApi::class.java)
     }
 
 }

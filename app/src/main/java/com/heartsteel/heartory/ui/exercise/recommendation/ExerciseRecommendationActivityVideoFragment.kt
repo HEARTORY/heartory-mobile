@@ -78,13 +78,7 @@ class ExerciseRecommendationActivityVideoFragment : Fragment() {
             binding.progressBar.visibility = View.GONE
             binding.regularLayout.visibility = View.VISIBLE
 
-            enrollmentMessage?.let {
-                when (it) {
-                    "You have successfully enrolled in the exercise." -> ToastUtil.showToast(requireContext(), it, R.color.green)
-                    "You are already enrolled in the exercise." -> ToastUtil.showToast(requireContext(), it, R.color.yellow)
-                    else -> ToastUtil.showToast(requireContext(), it, R.color.red)
-                }
-            }
+
         })
 
         setupObservers(exerciseId, lessonId)

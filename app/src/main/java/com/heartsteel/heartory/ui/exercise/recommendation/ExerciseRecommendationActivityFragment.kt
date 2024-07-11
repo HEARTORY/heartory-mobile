@@ -11,6 +11,7 @@ import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.google.firebase.auth.FirebaseAuth
 import com.heartsteel.heartory.R
+import com.heartsteel.heartory.common.util.ToastUtil
 import com.heartsteel.heartory.databinding.FragmentExerciseRecommendationActivityListBinding
 import com.heartsteel.heartory.service.api.retrofit.PrivateRetrofit
 import com.heartsteel.heartory.service.api.retrofit.PublicRetrofit
@@ -30,6 +31,7 @@ class ExerciseRecommendationActivityFragment : Fragment() {
     private val binding get() = _binding!!
     private lateinit var viewModel: ExerciseViewModel
     private lateinit var userRepository: UserRepository
+    private var exerciseId: Int? = null
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -54,47 +56,61 @@ class ExerciseRecommendationActivityFragment : Fragment() {
 
         viewModel = ViewModelProvider(requireActivity(), ViewModelFactory(repository)).get(ExerciseViewModel::class.java)
 
-        // Fetch recommendations and observe the data
+        // Retrieve exercise ID from arguments
+        exerciseId = arguments?.getInt("exerciseId")
+
         showLoading()
         setupObservers()
         backClickListener()
+        enrollClickListener()
     }
 
     private fun setupObservers() {
         viewModel.recommendations.observe(viewLifecycleOwner, { exercises ->
             exercises?.forEach { Log.d("ExerciseRecommendationActivityFragment", it.toString()) }
-            setupRecyclerView(exercises)
+
+            exerciseId?.let { id ->
+                setupRecyclerView(id, exercises)
+            }
             hideLoading()
         })
     }
 
-    private fun setupRecyclerView(exercises: List<Exercise>?) {
+    private fun setupRecyclerView(exerciseId: Int, exercises: List<Exercise>?) {
         val exerciseList = exercises ?: emptyList()
-        val adapter = ExerciseRecommendationActivityAdapter(exerciseList) { exercise ->
-            val userId = userRepository.getUserFromSharePref()?.id ?: return@ExerciseRecommendationActivityAdapter
-            viewModel.enrollInExercise(exercise.id, EnrollRequest(userId, exercise.id))
-
-            viewModel.enrollmentResponse.observe(viewLifecycleOwner, { response ->
-                val enrollmentMessage = if (response.success) {
-                    "You have successfully enrolled in the exercise."
-                } else {
-                    "You are already enrolled in the exercise."
-                }
-
-                val action = ExerciseRecommendationActivityFragmentDirections
-                    .actionExerciseRecommendationActivityListFragmentToExerciseActivityRecommendationVideoFragment(
-                        lessonId = exercise.id,
-                        videoUrl = "https://www.youtube.com/embed/-p0PA9Zt8zk",
-                        exerciseId = exercise.id,
-                        enrollmentMessage = enrollmentMessage
-                    )
-                findNavController().navigate(action)
-            })
+        val lessons = exerciseList.find { it.id == exerciseId }?.lessons ?: emptyList()
+        val adapter = ExerciseRecommendationActivityAdapter(lessons) { lesson ->
+            val action = ExerciseRecommendationActivityFragmentDirections
+                .actionExerciseRecommendationActivityListFragmentToExerciseActivityRecommendationVideoFragment(
+                    lessonId = lesson.id,
+                    videoUrl = lesson.videokey ?: "https://www.youtube.com/embed/-p0PA9Zt8zk",
+                    exerciseId = exerciseId,
+                    enrollmentMessage = ""
+                )
+            findNavController().navigate(action)
         }
 
         binding.recyclerViewActivity.apply {
             layoutManager = LinearLayoutManager(context)
             this.adapter = adapter
+        }
+    }
+
+    private fun enrollClickListener() {
+        binding.btnEnroll.setOnClickListener {
+            exerciseId?.let { id ->
+                val userId = userRepository.getUserFromSharePref()?.id ?: return@setOnClickListener
+                viewModel.enrollInExercise(id, EnrollRequest(userId, id))
+
+                viewModel.enrollmentResponse.observe(viewLifecycleOwner, { response ->
+                    val message = if (response.success) {
+                        "You have successfully enrolled in the exercise."
+                    } else {
+                        "You are already enrolled in the exercise."
+                    }
+                    ToastUtil.showToast(requireContext(), message, if (response.success) R.color.green else R.color.red)
+                })
+            }
         }
     }
 
@@ -123,3 +139,5 @@ class ExerciseRecommendationActivityFragment : Fragment() {
         _binding = null
     }
 }
+
+

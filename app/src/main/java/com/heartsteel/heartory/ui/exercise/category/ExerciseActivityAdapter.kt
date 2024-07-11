@@ -15,7 +15,10 @@ class ExerciseActivityAdapter(
     class ViewHolder(val binding: FragmentExerciseActivityItemBinding, val listener: (Lesson) -> Unit) : RecyclerView.ViewHolder(binding.root) {
         fun bind(lesson: Lesson) {
             binding.tvClassName.text = lesson.lessonName
-            binding.tvInstructorName.text = lesson.lengthSeconds.toString()
+            val minutes = lesson.lengthSeconds / 60
+            val seconds = lesson.lengthSeconds % 60
+            val formattedDuration = String.format("%02d:%02d", minutes, seconds)
+            binding.tvInstructorName.text = formattedDuration
             Glide.with(binding.root.context)
                 .load(lesson.thumbUrl)
                 .into(binding.ivClassLogo)

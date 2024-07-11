@@ -32,10 +32,13 @@ class ExerciseFragment : Fragment() {
     private var _binding: FragmentExerciseBinding? = null
     private val binding get() = _binding!!
     private lateinit var viewModel: ExerciseViewModel
-    private lateinit var adapter: ExerciseCategoryAdapter
+    private lateinit var categoryAdapter: ExerciseCategoryAdapter
+    private lateinit var enrollAdapter: ExerciseEnrollAdapter
+    private lateinit var recommendationAdapter: ExerciseRecommendationAdapter
+
     private var allExercisesLoaded = false
     private var recommendationsLoaded = false
-    private var currentRecommendation: Exercise? = null
+    private var myExercisesLoaded = false
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View {
         _binding = FragmentExerciseBinding.inflate(inflater, container, false)
@@ -58,130 +61,133 @@ class ExerciseFragment : Fragment() {
 
         setupRecyclerView()
         setupObservers()
-        seeAllClickListener()
-        todayActivityClickListener()
-        recommendationClassClickListener()
-        recommendationVideoClickListener()
-        // Fetch exercises when the fragment is created
+    }
+
+    override fun onResume() {
+        super.onResume()
+        fetchData()
+    }
+
+    private fun fetchData() {
+        // Show loading before fetching data
         showLoading()
+
+        // Fetch exercises every time the fragment is resumed
         viewModel.fetchAllExercises()
         viewModel.fetchRecommendations()
         viewModel.fetchMyExercises()
     }
 
     private fun setupRecyclerView() {
-        adapter = ExerciseCategoryAdapter(emptyList()) { exercise ->
+        categoryAdapter = ExerciseCategoryAdapter(emptyList()) { exercise ->
             exercise.id?.let { exerciseId ->
                 val action = ExerciseFragmentDirections.actionExerciseFragmentToExerciseActivityListFragment(exerciseId, "")
+                findNavController().navigate(action)
+            }
+        }
+        enrollAdapter = ExerciseEnrollAdapter(emptyList()) { exerciseMyResponseDTO ->
+            val exerciseId = exerciseMyResponseDTO.exercise.id
+            val action = ExerciseFragmentDirections.actionExerciseFragmentToExerciseTodayActivityListFragment(exerciseId)
+            findNavController().navigate(action)
+        }
+        recommendationAdapter = ExerciseRecommendationAdapter(emptyList()) { exercise ->
+            exercise.id?.let { exerciseId ->
+                val action = ExerciseFragmentDirections.actionExerciseFragmentToExerciseRecommendationActivityListFragment(exerciseId, "")
                 findNavController().navigate(action)
             }
         }
 
         binding.recyclerViewCategories.apply {
             layoutManager = LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false)
-            adapter = this@ExerciseFragment.adapter
+            adapter = categoryAdapter
+        }
+        binding.recyclerViewEnrolledExercises.apply {
+            layoutManager = LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false)
+            adapter = enrollAdapter
+        }
+        binding.recyclerViewRecommendationClass.apply {
+            layoutManager = LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false)
+            adapter = recommendationAdapter
         }
     }
 
     private fun setupObservers() {
-        viewModel.allExercises.observe(viewLifecycleOwner, { exercises ->
+        viewModel.allExercises.observe(viewLifecycleOwner) { exercises ->
             exercises?.forEach { Log.d("ExerciseFragment", it.toString()) }
-            adapter.updateExercises(exercises ?: emptyList())
+            categoryAdapter.updateExercises(exercises ?: emptyList())
             allExercisesLoaded = true
-            checkDataLoaded()
-        })
+            checkAllDataLoaded()
+        }
 
-        viewModel.recommendations.observe(viewLifecycleOwner, { exercises ->
-            exercises?.firstOrNull()?.let {
-                currentRecommendation = it
-                updateRecommendationCard(it)
-            }
+        viewModel.recommendations.observe(viewLifecycleOwner) { exercises ->
+            exercises?.forEach { Log.d("ExerciseFragment", it.toString()) }
+            recommendationAdapter.updateExercises(exercises ?: emptyList())
             recommendationsLoaded = true
-            checkDataLoaded()
-        })
-    }
+            checkAllDataLoaded()
+        }
 
-    private fun updateRecommendationCard(exercise: Exercise) {
-        binding.recommendationClass.apply {
-            findViewById<TextView>(R.id.tvClassName).text = exercise.title
-            findViewById<TextView>(R.id.tvInstructorName).text = exercise.type
-            findViewById<ImageView>(R.id.ivClassLogo).apply {
-                Glide.with(this)
-                    .load(exercise.thumbUrl)
-                    .placeholder(R.drawable.placeholder_image)
-                    .error(R.drawable.error_image)
-                    .into(this)
-            }
+        viewModel.incompleteExercises.observe(viewLifecycleOwner) { exercisesMyResponseDTO ->
+            exercisesMyResponseDTO?.forEach { Log.d("ExerciseFragment", it.toString()) }
+            enrollAdapter.updateExercises(exercisesMyResponseDTO)
+            myExercisesLoaded = true
+            checkAllDataLoaded()
         }
     }
-
-    private fun seeAllClickListener() {
-        binding.tvSeeAllCategories.setOnClickListener {
-            findNavController().navigate(R.id.action_exerciseFragment_to_exerciseActivityListFragment)
-        }
-    }
-
-    private fun todayActivityClickListener() {
-        binding.todayActivity.setOnClickListener {
-            findNavController().navigate(R.id.action_exerciseFragment_to_exerciseTodayActivityListFragment)
-        }
-    }
-
-    private fun recommendationClassClickListener() {
-        binding.tvSeeAll.setOnClickListener {
-            findNavController().navigate(R.id.action_exerciseFragment_to_exerciseRecommendationActivityListFragment)
-        }
-    }
-
-    private fun recommendationVideoClickListener() {
-        binding.recommendationClass.setOnClickListener {
-            currentRecommendation?.let { recommendation ->
-                // Get the first lesson from the lessons list
-                val firstLesson = recommendation.lessons?.firstOrNull()
-                if (firstLesson != null) {
-                    val action = ExerciseFragmentDirections.actionExerciseFragmentToExerciseActivityRecommendationVideoFragment(
-                        exerciseId = recommendation.id,
-                        lessonId = firstLesson.id,
-                        videoUrl = firstLesson.videokey ?: "",
-                        enrollmentMessage = ""
-                    )
-                    findNavController().navigate(action)
-                } else {
-                    // Handle case where there are no lessons
-                    Toast.makeText(context, "No lessons available", Toast.LENGTH_SHORT).show()
-                }
-            }
-        }
-    }
-
 
     private fun showLoading() {
         binding.progressBar.visibility = View.VISIBLE
-        binding.vHomeHeader.visibility = View.GONE
+//        binding.vHomeHeader.visibility = View.GONE
         binding.recyclerViewCategories.visibility = View.GONE
-        binding.recommendationClass.visibility = View.GONE
+        binding.recyclerViewEnrolledExercises.visibility = View.GONE
+        binding.recyclerViewRecommendationClass.visibility = View.GONE
         binding.tvCategories.visibility = View.GONE
         binding.tvRecommendationClass.visibility = View.GONE
-        binding.tvSeeAllCategories.visibility = View.GONE
-        binding.tvSeeAll.visibility = View.GONE
-        binding.todayActivity.visibility = View.GONE
+        binding.tvEnrolledExercises.visibility = View.GONE
+        binding.tvEnrolledExercisesError.visibility = View.GONE
+        binding.tvRecommendationClassError.visibility = View.GONE
+        binding.tvCategoriesError.visibility = View.GONE
     }
 
     private fun hideLoading() {
         binding.progressBar.visibility = View.GONE
         binding.vHomeHeader.visibility = View.VISIBLE
-        binding.recyclerViewCategories.visibility = View.VISIBLE
-        binding.recommendationClass.visibility = View.VISIBLE
-        binding.tvCategories.visibility = View.VISIBLE
-        binding.tvRecommendationClass.visibility = View.VISIBLE
-        binding.tvSeeAllCategories.visibility = View.VISIBLE
-        binding.tvSeeAll.visibility = View.VISIBLE
-        binding.todayActivity.visibility = View.VISIBLE
     }
 
-    private fun checkDataLoaded() {
-        if (allExercisesLoaded && recommendationsLoaded) {
+    private fun checkAllDataLoaded() {
+        if (allExercisesLoaded && recommendationsLoaded && myExercisesLoaded) {
             hideLoading()
+            updateUIVisibility()
+        }
+    }
+
+    private fun updateUIVisibility() {
+        if (categoryAdapter.itemCount == 0) {
+            binding.tvCategoriesError.visibility = View.VISIBLE
+            binding.recyclerViewCategories.visibility = View.GONE
+        } else {
+            binding.tvCategoriesError.visibility = View.GONE
+            binding.tvCategories.visibility = View.VISIBLE
+            binding.recyclerViewCategories.visibility = View.VISIBLE
+        }
+
+        if (enrollAdapter.itemCount == 0) {
+            binding.tvEnrolledExercises.visibility = View.VISIBLE
+            binding.tvEnrolledExercisesError.visibility = View.VISIBLE
+            binding.recyclerViewEnrolledExercises.visibility = View.GONE
+        } else {
+            binding.tvEnrolledExercisesError.visibility = View.GONE
+            binding.tvEnrolledExercises.visibility = View.VISIBLE
+            binding.recyclerViewEnrolledExercises.visibility = View.VISIBLE
+        }
+
+        if (recommendationAdapter.itemCount == 0) {
+            binding.tvRecommendationClass.visibility = View.VISIBLE
+            binding.tvRecommendationClassError.visibility = View.VISIBLE
+            binding.recyclerViewRecommendationClass.visibility = View.GONE
+        } else {
+            binding.tvRecommendationClassError.visibility = View.GONE
+            binding.tvRecommendationClass.visibility = View.VISIBLE
+            binding.recyclerViewRecommendationClass.visibility = View.VISIBLE
         }
     }
 
