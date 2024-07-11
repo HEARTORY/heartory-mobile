@@ -7,10 +7,11 @@ class ApiConstant {
         private const val BASE_URL_EMULATOR = "http://10.0.2.2:8080/api/"
         private const val BASE_URL_DEVICE = "http://localhost:8080/api/"
 
-        private const val BASE_URL_DEPLOY = "https://heartory-be.onrender.com/api/"
+//        private const val BASE_URL_DEPLOY = "https://heartory-be.onrender.com/api/"
+        private const val BASE_URL_DEPLOY = "http://184.72.164.31:8080/api/"
         val BASE_URL: String
-            get() = if (isEmulator()) BASE_URL_EMULATOR else BASE_URL_DEVICE
-//                get() = BASE_URL_DEPLOY
+//            get() = if (isEmulator()) BASE_URL_EMULATOR else BASE_URL_DEVICE
+                get() = BASE_URL_DEPLOY
 
         private fun isEmulator(): Boolean {
             return (Build.FINGERPRINT.startsWith("generic")

@@ -67,17 +67,50 @@ class ProfileFragment : BaseFragment(R.layout.fragment_profile) {
                 startActivity(it)
             }
         }
+
+        val facebookLink = "https://www.facebook.com/heartory"
+        _binding.llFacebook.setOnClickListener {
+            Intent(Intent.ACTION_VIEW).also {
+                it.data = android.net.Uri.parse(facebookLink)
+                startActivity(it)
+            }
+        }
+
+        val instagramLink = "https://www.instagram.com/heartory.app/"
+        _binding.llInstagram.setOnClickListener {
+            Intent(Intent.ACTION_VIEW).also {
+                it.data = android.net.Uri.parse(instagramLink)
+                startActivity(it)
+            }
+        }
+
+        val shareAppForm = """
+            Hi, I'm using Heartory app to track my health. It's really helpful for me. You should try it too!
+            
+            Download it here: https://heartory.vercel.app/dowload
+        """.trimIndent()
+        _binding.llShareApp.setOnClickListener {
+            //Share app to facebook, instagram, etc
+            val sendIntent: Intent = Intent().apply {
+                action = Intent.ACTION_SEND
+                putExtra(Intent.EXTRA_TEXT, shareAppForm)
+                type = "text/plain"
+            }
+            val shareIntent = Intent.createChooser(sendIntent, null)
+            startActivity(shareIntent)
+
+        }
     }
 
     private fun setupObserver() {
         _viewModel.userState.observe(viewLifecycleOwner) {
             when (it) {
                 is Resource.Loading -> {
-                    showLoading2()
+//                    showLoading2()
                 }
 
                 is Resource.Success -> {
-                    hideLoading2()
+//                    hideLoading2()
                     it.data?.let {
                         _binding.tvUsername.text = it.email
                         _binding.tvName.text = it.firstName
@@ -85,10 +118,12 @@ class ProfileFragment : BaseFragment(R.layout.fragment_profile) {
                             _binding.avUserAvatar.loadImage(it.avatar)
                     }
                     _binding.icPremium.visibility = if (it.data?.isPremium == true) View.VISIBLE else View.GONE
+                    _binding.tvPremium.text = if (it.data?.isPremium == true) "Premium" else "Free"
+                    _binding.tvUpgradePremium.text = if (it.data?.isPremium == true) "Extend Premium" else "Upgrade Premium"
                 }
 
                 is Resource.Error -> {
-                    hideLoading2()
+//                    hideLoading2()
                     Toasty.success(requireContext(), it.message.toString(), Toast.LENGTH_SHORT).show()
                 }
             }

@@ -99,7 +99,7 @@ class SubscriptionActivity : BaseActivity() {
                 is Resource.Success -> {
                     hideLoading2()
                     it.data?.data?.checkoutUrl.let {
-                        Toasty.success(this, "Success", Toasty.LENGTH_SHORT).show()
+                        Toasty.success(this, "Please complete payment", Toasty.LENGTH_SHORT).show()
                         //open browser
                         Intent(Intent.ACTION_VIEW).apply {
                             data = Uri.parse(it)

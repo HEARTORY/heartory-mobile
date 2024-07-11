@@ -139,7 +139,7 @@ class ChatInsideActivity : BaseActivity() {
 
                 is Resource.Error -> {
                     Log.e("ChatInsideActivity", "Error: ${resource.message}")
-                    Toasty.error(this, "Error: ${resource.message}", Toasty.LENGTH_SHORT).show()
+                    Toasty.warning(this, "${resource.message}", Toasty.LENGTH_SHORT).show()
                 }
 
                 is Resource.Loading -> {
@@ -156,6 +156,7 @@ class ChatInsideActivity : BaseActivity() {
                 is Resource.Error -> {
                     Log.e("ChatInsideActivity", "Error: ${resource.message}")
                     Toasty.error(this, "Error: ${resource.message}", Toasty.LENGTH_SHORT).show()
+                    // Remove loading item
                 }
 
                 is Resource.Loading -> {
